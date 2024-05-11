@@ -17,7 +17,7 @@ import Text.Pandoc.Writers.Native (writeNative)
 import Text.Pandoc.Scripting (noEngine)
 import System.Environment (getArgs, getProgName)
 import qualified Data.Text.IO as TIO
-import Lib
+import Panda.Pandoc2JSX
 
 runPandoc :: FilePath -> [String] -> IO ()
 runPandoc input args = do
