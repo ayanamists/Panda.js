@@ -9,8 +9,8 @@ import 'react-tooltip/dist/react-tooltip.css';
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Next.js Blog, powered by next.js and Pandoc",
-  description: "",
+  title: "Aya's Blog",
+  description: "A site powered by next.js and pandoc"
 };
 
 export default function RootLayout({

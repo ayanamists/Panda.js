@@ -242,7 +242,7 @@ def p(prog, x):
 
 我们已经知道了，至少对于 Peano 算术 $\mathsf{PA}$ 来说，$\mathsf{PA} \vdash \psi$ 的问题是半可判定的。根据这个结果和一点小小的编程技巧，我们立刻可以得到 Gödel 不完备性定理。
 
-首先假设 $\mathsf{PA}$ 是完备的，也就是说对任意的 $\psi$，$\mathsf{PA} \vdash \psi$ 或 $\mathsf{PA} \vdash \neg \psi$. 记 $\mathsf{PA}$ 的半可判器为 $\texttt{p}$，可以构造一个 $\mathsf{PA}$ 的判定器 $\texttt{p\\_total}$. 构造如下：
+首先假设 $\mathsf{PA}$ 是完备的，也就是说对任意的 $\psi$，$\mathsf{PA} \vdash \psi$ 或 $\mathsf{PA} \vdash \neg \psi$. 记 $\mathsf{PA}$ 的半可判器为 $\texttt{p}$，可以构造一个 $\mathsf{PA}$ 的判定器 $\texttt{p\_total}$. 构造如下：
 
 ```python
 from multiprocessing.pool import ThreadPool
@@ -346,8 +346,10 @@ $\mathsf{P(x, y)}$ 是一个**确定的**、含有两个自由变量的 $\mathsf
 Gödel 在 1931 年的论文中，证明了原始递归函数都是可表示的。关于函数的可表示性，教材 [1] 和材料 [9] 的说法不太一样，材料 [9] 把函数的可表示性和关系的可表示性等同了。我们暂时后者的说法[^7]，一个函数 $f$ 是可表示的，当且仅当存在一个 $\mathsf{P}$，使得
 
 $$
-f(\vec{m}) = n \rightarrow T \vdash \mathsf{P(\vec{m}, n)} \\
-f(\vec{m}) \neq n \rightarrow T \vdash \mathsf{\neg P(\vec{m}, n)}
+\begin{aligned}
+f(\vec{m}) = n \rightarrow T &\vdash \mathsf{P(\vec{m}, n)} \\
+f(\vec{m}) \neq n \rightarrow T &\vdash \mathsf{\neg P(\vec{m}, n)}
+\end{aligned}
 $$
 
 Kleene 证明了范式定理：
