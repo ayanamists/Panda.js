@@ -2,10 +2,15 @@
 import path from 'path';
 import { fileURLToPath } from 'url';
 
+import createNextIntlPlugin from 'next-intl/plugin';
+ 
+const withNextIntl = createNextIntlPlugin();
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const nextConfig = {
+  output: 'export',
   pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdx'],
   webpack: (config, options) => {
     config.module.rules.push({
@@ -19,6 +24,9 @@ const nextConfig = {
     })
     return config
   },
+  // there's a bug in swc minifier
+  // see: https://github.com/swc-project/swc/issues/8931
+  swcMinify: false
 };
 
-export default nextConfig;
+export default withNextIntl(nextConfig);

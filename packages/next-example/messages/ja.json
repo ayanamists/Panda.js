@@ -1,0 +1,14 @@
+{
+  "Index": {
+    "title": "このサイトへようこそ",
+    "contract_title": "お問い合わせ",
+    "contract": "me at ayayaya dot org"
+  },
+  "Navbar": {
+    "main": "ホーム",
+    "blog": "ブログ"
+  },
+  "LangSwitcher": {
+    "name": "日本語"
+  }
+}

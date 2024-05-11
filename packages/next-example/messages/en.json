@@ -1,0 +1,14 @@
+{
+  "Index": {
+    "title": "Welcome to this site",
+    "contract_title": "Contact Me",
+    "contract": "me at ayayaya dot org"
+  },
+  "Navbar": {
+    "main": "Home",
+    "blog": "Blog"
+  },
+  "LangSwitcher": {
+    "name": "English"
+  }
+}
