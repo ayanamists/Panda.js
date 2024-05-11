@@ -1,3 +1,3 @@
-[*.{js,ts,json}]
+[*.{js,ts,json,tsx,jsx,html,css,hs}]
 charset = utf-8
 indent_size = 2
