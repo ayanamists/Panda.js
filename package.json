@@ -5,5 +5,8 @@
   "license": "LGPL-3.0-or-later",
   "workspaces": [
     "packages/*"
-  ]
+  ],
+  "scripts": {
+    "build": "cd packages/next-example && yarn build"
+  }
 }

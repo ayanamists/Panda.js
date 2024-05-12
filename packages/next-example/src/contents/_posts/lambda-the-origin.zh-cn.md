@@ -4,6 +4,8 @@ date: 2024-03-15T22:29:00+08:00
 draft: false
 categories:
   - 计算机历史
+bibliography: "src/contents/_bibs/lambda-the-origin.bib"
+citation-style: "src/contents/_bibs/default.csl"
 ---
 
 作为函数式编程爱好者，你一定知道 Church 和他的 $\lambda$ 演算。如果你学过递归论，也许还会知道 $\lambda$ 可定义性、$\lambda$ 演算的各种性质（Church-Rosser 定理、不动点定理……），以及他们结合起来是如何给出 $\beta$ 等价的不可判定证明的。
@@ -22,7 +24,7 @@ categories:
 ## 形式系统
 
 
-Church 于 1932 年发表的系统[^1]，现在被称作一个 “形式系统”（formal system）。简单来说，形式系统有三个要素：
+Church 于 1932 年发表的系统 [@Church32] [^1]，现在被称作一个 “形式系统”（formal system）。简单来说，形式系统有三个要素：
 
 - 语法（syntax）- 一组符号和规则，用来描述合法的表达式（formula）。这里的 “语法” 和编程语言的 “语法” 没有区别，它们都是规定了这个系统中的表达式长什么样。
 - 一组公理（axioms）- 一组被认为是真的表达式。这些公理是系统的基础，其他的定理都是从这些公理推导出来的。
@@ -64,7 +66,7 @@ Church 于 1932 年发表的系统[^1]，现在被称作一个 “形式系统�
 
 ![Church](/imgs/alonzo-church.png)
 
-Church 在 1920 年代，尝试用一种非集合论的方法来给出一个形式系统。Church 在 1932 年的论文中说，他觉得无论是 Russell 的 _Principia Mathematica_ 还是 ZF 集合论，都采取了 “不自然” 的方法来处理著名的 “罗素悖论”（Russell's Paradox）。
+Church 在 1920 年代，尝试用一种非集合论的方法来给出一个形式系统。Church 在 [@Church32] 中提出，他觉得无论是 Russell 的 _Principia Mathematica_ 还是 ZF 集合论，都采取了 “不自然” 的方法来处理著名的 “罗素悖论”（Russell's Paradox）。
 
 他给出的方法是，“限制排中律的使用”。在技术上来说，我个人反而觉得他的这个方法更加 “不自然”，以至于我很难在本文的篇幅内给出一个清晰的解释。总之，他设计了一套形式系统，这个系统有 37 条（是的，你没看错，就是 37 条）公理和 5 条推导规则。这 5 条推导规则导向了现代的 $\lambda$ 演算。这个系统在 1932 年发表的 _A Set of Postulates for the Foundation of Logic_ 中给出。
 
@@ -156,16 +158,18 @@ $\Pi(\varphi, \varphi)$ 应该是不需要前提就成立的（按照 $\forall x
 
 Kleene 在 1931 年，22 岁本科毕业的时候，来到 Princeton 大学读 Church 的博士生。惊人的是，他在 1934 年就得到了博士学位，时年 25 岁。不得不感叹一句，他真是名副其实的 “天才、超天才”[^6] 啊！
 
-在 1931 年的秋季学期，Church 给 Kleene 和其他学生讲了他的新发明--也就是我们上面说的系统。从 Kleene 的回忆中，Church 当时就有了 $\beta$ 规约的想法。什么是 $\beta$ 规约呢？简单来说，就是把 $(\lambda x. M) N$ 视为一个函数调用，把它替换成 $\text{S}_{N}^{x} M$。换句话说，就是对他的系统里的一个公式，运用公理 **II.** 进行推导。
+Kleene 在 [@Kleene81] 中回忆道：在 1931 年的秋季学期，Church 给 Kleene 和其他学生讲了他的新发明--也就是我们上面说的系统。Church 当时就有了 $\beta$ 规约的想法。什么是 $\beta$ 规约呢？简单来说，就是把 $(\lambda x. M) N$ 视为一个函数调用，把它替换成 $\text{S}_{N}^{x} M$。换句话说，就是对他的系统里的一个公式，运用公理 **II.** 进行推导。
 
 重要的是，这种推导可以看成一种 “计算”。如果给定一个 $\lambda$ 项 $a$，进行任意多次 $\beta$ 规约，得到 $b$，这可以看成 $\lambda$ 演算的 “计算”。实际上，这种 “计算” 也定义了一个关系，$a \rightarrow_{\beta} b$，意思是 $a$ 可以通过 $\beta$ 规约得到 $b$。
 
 Church 在当时的讲座里还提到，他已经发现了在他的系统里定义正整数的方法，也就是今天的说的 Church 数。$1, 2, 3$ 定义为：
 
 $$
-\mathsf{1} \equiv (\lambda f. \lambda x. f x) \\
-\mathsf{2} \equiv (\lambda f. \lambda x. f (f x)) \\
-\mathsf{3} \equiv(\lambda f. \lambda x. f (f (f x)))
+\begin{aligned}
+\mathsf{1} &\equiv (\lambda f. \lambda x. f x) \\
+\mathsf{2} &\equiv (\lambda f. \lambda x. f (f x)) \\
+\mathsf{3} &\equiv(\lambda f. \lambda x. f (f (f x)))
+\end{aligned}
 $$
 
 结合上面 $a \to_{\beta} b$ 的想法，Church 发现，一些函数可以用 $\lambda$ 项来表示，比如后继函数 $S(n) = n + 1$，可以用 $\lambda$ 项表示为：
@@ -174,7 +178,7 @@ $$
 \mathsf{S} \equiv \lambda n. \lambda f. \lambda x. f (n f x)
 $$
 
-它具有性质 $\mathsf{S}\ \mathsf{1} \to_{\beta} \mathsf{2}$，更一般地，Church 提出了 $\lambda$ 可定义性（$\lambda$ definability）的概念。他的想法是，如果一个函数 $f$ 可以用 $\lambda$ 项表示，那么 $f$ 就是 $\lambda$ 可定义的。
+它具有性质 $\mathsf{S}\ \mathsf{1} \to_{\beta} \mathsf{2}$，更一般地，Church 提出了 $\lambda$ 可定义性（$\lambda$ definability）的概念 [@Church33]。他的想法是，如果一个函数 $f$ 可以用 $\lambda$ 项表示，那么 $f$ 就是 $\lambda$ 可定义的。
 
 形式化地说，对于一个（偏）函数 $f$，如果存在一个 $\lambda$ 项 $\mathsf{F}$，对于在 $f$ 定义域里的自然数 $n$，有
 
@@ -194,7 +198,7 @@ $$
 
 1932 年初，Church 让 Kleene 想办法把自然数的公理（Peano Axioms）在他的系统里证明出来。Kleene 发现这里必须得有一个前驱函数，他对 Church 的 “作弊” 不是特别满意，于是他开始研究前驱函数是不是 $\lambda$ 可定义的。
 
-在 Kleene 的回忆中（见 [Kleene 1981]），他一开始想要改变一下自然数的定义，但是 Church 还是想用他的 Church 数。于是，他绞尽脑汁去思考如何给出一个前驱函数。终于，在 1932 年 1 月末或 2 月初，Kleene 在看牙科诊所的时候，突然想到了一个办法来解决 $\lambda$ 定义前驱函数的问题。进而，Kleene 给出了一个 $\lambda$ 项，$\lambda$ 定义了前驱函数。具体的定义我就不展示了，有兴趣的同学可以先自己思考一下。
+在 Kleene 的回忆中 [@Kleene81]，他一开始想要改变一下自然数的定义，但是 Church 还是想用他的 Church 数。于是，他绞尽脑汁去思考如何给出一个前驱函数。终于，在 1932 年 1 月末或 2 月初，Kleene 在看牙科诊所的时候，突然想到了一个办法来解决 $\lambda$ 定义前驱函数的问题。进而，Kleene 给出了一个 $\lambda$ 项，$\lambda$ 定义了前驱函数。具体的定义我就不展示了，有兴趣的同学可以先自己思考一下。
 
 当 Kleene 把他的发明告诉 Church 的时候，Church 说，他几乎要放弃了：
 
@@ -208,10 +212,10 @@ $$
 
 当时，Kleene 的主业还是在 Church 的系统里证明一些数学命题。副业就是研究 $\lambda$ 可定义性。他发现几乎所有直觉上可以计算的自然数函数，都是 $\lambda$ 可定义的。在 1933 年，Gödel 来到了 Princeton. 1934 年，他报告了一种定义递归函数的方法，这就是现在所谓 Herbrand-Gödel 可计算函数。Kleene 看到了这个报告，他意识到，这个方法和他的 $\lambda$ 可定义性有关。
 
-最终，Kleene 和 Church 在 1935-36 年发表的论文中，证明了一系列问题：
+最终，Kleene 和 Church 在 1935-36 年发表的论文 [@Kleene36; @Church36] 中，证明了一系列问题：
 
 - $\approx_{\beta}$ ，也就是 $\beta$ 等价，是 $\lambda$ 不可定义的
-- $\lambda$ 可定义的函数和 Gödel 可计算函数是等价的
+- $\lambda$ 可定义的函数和 Gödel 可计算函数是等价的，和 Kleene 在 1936 年提出的 $\mu$-递归函数也是等价的
   
 后面的故事我们都无比熟悉了。Turing 在 1936 年发表了他的论文，提出了 Turing Machine，证明了 Turing Machine 和 Church 的 $\lambda$ 演算是等价的。理论计算机科学就这样诞生了。
 
@@ -242,11 +246,11 @@ Kleene 啊，有你这么拿老师的系统开玩笑的吗。这多少有点 “
 
 这个推导用到的推理规则是 “或” 的引入和消去，几乎任何形式系统都有这个规则。所以，如果一个系统是不一致的，那么它他就能证明任意命题。一般来说，我们认为这样的系统是没有意义的。
 
-Kleene 和 Church 的另一位学生，Rosser，在 1935 年证明了 Church 的系统是不一致的。他们的证明被叫做 “Kleene-Rosser 悖论”。这个悖论在技术上比较复杂，不过直觉上看，Church 的系统已经能编码任意的可计算函数了，这确实强烈地暗示了不一致性。
+Church 的另一位学生，Rosser 和 Kleene 一起在 1935 年证明了 Church 的系统是不一致的 [@Kleene35]。他们的证明被叫做 “Kleene-Rosser 悖论”。这个悖论在技术上比较复杂，不过直觉上看，Church 的系统已经能编码任意的可计算函数了，这确实强烈地暗示了不一致性。
 
-在 1984 年，Rosser 写的一篇文章里，还介绍了怎么用 Curry 发明的技术来证明 Church 的系统的不一致性，这个证明很简单。
+在 1982 年，Rosser 写的一篇文章 [@Rosser82] 里，还介绍了怎么用 Curry 发明的技术来证明 Church 的系统的不一致性，这个证明很简单。
 
-实际上，Church 在 1933 年发表的同名（和 1932 年同名）论文中，就发现了他的系统是不一致的。为了解决这种不一致性，他删除了公理 19，然后又加入了两条公理，这样公理就来到了 38 条。他觉得这个新系统是一致的，然而我们现在知道，这个系统也是不一致的。
+实际上，Church 在 1933 年发表的同名（和 1932 年同名）论文 [@Church33] 中，就发现了他的系统是不一致的。为了解决这种不一致性，他删除了公理 19，然后又加入了两条公理，这样公理就来到了 38 条。他觉得这个新系统是一致的，然而我们现在知道，这个系统也是不一致的。
 
 所以，简单来说，由于 Church 的系统是不一致的，而且极其复杂，所以它被人遗忘了。
 
@@ -268,17 +272,8 @@ Church 一开始的目的是，用他的系统来形式化数学，但这个系�
    \text{snd} &\equiv \lambda p. p (\lambda a \lambda b. b)
    \end{aligned}
    $$
-   元组的定义是 Kleene 定义前驱函数的一个重要步骤，但是，Kleene 可以这么定义元组吗？为什么？如果不能，你能给出 Kleene 能用的元组定义吗？（提示： 答案参见 [Kleene 1981]）
+   元组的定义是 Kleene 定义前驱函数的一个重要步骤，但是，Kleene 可以这么定义元组吗？为什么？如果不能，你能给出 Kleene 能用的元组定义吗？（提示： 答案参见 [@Kleene81]）
 3. 如果说，Church 的原始系统是不一致的，那为什么 $\lambda$ 演算本身不受这个问题影响呢？不会有人觉得 $\lambda$ 演算也会 “不一致” 吗？
-
-## 延伸阅读
-
-1. Kleene, S. C. (1981). Origins of recursive function theory. Annals of the History of Computing, 3(1), 52-67.
-2. Church, A. (1933). A set of postulates for the foundation of logic. Annals of Mathematics, 34(4), 839-864.
-3. Church A. (1936). An unsolvable problem of elementary number theory. American Journal of Mathematics, 58(2), 345-363.
-4. Church A. (1941). The Calculi of Lambda-Conversion. Princeton University Press.
-5. Church A. (1932). A set of postulates for the foundation of logic. Annals of Mathematics, 33(2), 346-366.
-6. Rosser J. B. (1984). Highlights of the history of the lambda calculus. Annals of the History of Computing, 6(4), 337-349.
 
 ## 附录：Church 的 37 条公理
 
@@ -323,9 +318,10 @@ $\left.\left[[\sim \varphi(x) . \  \psi(x)] \supset_x \varrho(x)\right] . \ [\si
 36. $E(A(\varphi)) \supset_{\varphi} . \  \varphi(x, y) \supset_{x y} . \  \varphi(y, z) \supset_z \varphi(x, z)$.
 37. $E(A(\varphi)) \supset_{\varphi} \varphi(x, y) \supset_{x y} \varphi(y, x)$.
 
+## 参考文献
 
 [^1]: 我建议不要把它叫做 $\lambda$ 系统，因为 $\lambda$ 系统现在很多时候指的是构造 $\lambda$ 等价性的形式系统，而不是 Church 的原始系统。
 [^2]: 这是我的个人观点。不过，无论是从语法还是语义来看，$\lambda$ 演算都比图灵机要简单得多。
 [^3]: 南京大学《计算机程序的构造与解释》课程。
 [^5]: 事实上，Church 的论文重点强调了 $\Pi(P, Q)$ 和 $\forall x. P(x) \to Q(x)$ 的区别，这和他 “对于排中律的限制” 有关。不过，这个细节超出了本文的范围。 
-[^6]: http://dangshi.people.com.cn/n/2014/0415/c85037-24898922-2.html
+[^6]: 关于 “超天才”，有一些历史趣事，见[此处](http://dangshi.people.com.cn/n/2014/0415/c85037-24898922-2.html)

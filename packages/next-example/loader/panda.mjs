@@ -1,9 +1,15 @@
 import { spawn } from 'child_process';
 import config from "../panda.config.mjs";
+import { fileURLToPath } from 'url';
+import path from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const __root = path.dirname(__dirname);
 
 async function markdownToJSX(markdown) {
   return new Promise((resolve, reject) => {
-    const pandoc = spawn('panda-exe');
+    const pandoc = spawn(`${__root}/bin/panda-exe`);
 
     let htmlText = '';
     let errorText = '';

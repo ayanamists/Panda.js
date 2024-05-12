@@ -9,12 +9,9 @@ import Text.Pandoc
 import Text.Pandoc.App (convertWithOpts,
                         defaultOpts, Opt(..), options,
                         parseOptionsFromArgs, handleOptInfo)
-import Text.Pandoc.Class (runIOorExplode)
-import Text.Pandoc.Error (handleError)
-import Text.Pandoc.Options (WriterOptions(..))
-import Text.Pandoc.Readers (readNative)
-import Text.Pandoc.Writers.Native (writeNative)
 import Text.Pandoc.Scripting (noEngine)
+import Text.Pandoc.Filter (Filter(..))
+import Data.Map as M (fromList)
 import System.Environment (getArgs, getProgName)
 import qualified Data.Text.IO as TIO
 import Panda.Pandoc2JSX
@@ -26,7 +23,11 @@ runPandoc input args = do
   case opt of
     Left info -> handleOptInfo noEngine info
     Right opt' -> convertWithOpts noEngine opt''
-      where opt'' = opt' { optOutputFile = Just $ input  , optTo = Just "native" }
+      where opt'' = opt' { optOutputFile = Just $ input
+                         , optTo = Just "native"
+                         , optFilters = [CiteprocFilter]
+                         , optMetadata = Meta $ fromList [("link-citations", (MetaBool True))]
+                         }
 
 
 main :: IO ()

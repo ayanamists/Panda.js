@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "generate": "node --experimental-specifier-resolution=node --loader ts-node/esm ./src/contents/cms/cli.ts"
+    "generate": "node --experimental-specifier-resolution=node --loader ts-node/esm ./src/contents/cms/cli.ts",
+    "panda-update": "cp ../panda/.stack-work/dist/x86_64-linux/ghc-9.6.4/build/panda-exe/panda-exe bin/"
   },
   "dependencies": {
     "@nextui-org/react": "^2.3.6",

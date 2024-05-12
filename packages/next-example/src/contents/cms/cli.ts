@@ -25,7 +25,7 @@ let conditions = '';
 for (const post of posts) {
   const variableName = changeName(post);
   imports += `//@ts-ignore
-import ${variableName} from './${post.id}.${post.metaData.language}.${post.metaData.ext}';\n`;
+import ${variableName} from './_posts/${post.id}.${post.metaData.language}.${post.metaData.ext}';\n`;
   conditions += `if (name === '${post.id}.${post.metaData.language}.${post.metaData.ext}') {\n  return <${variableName} />;\n}\n`;
 }
 

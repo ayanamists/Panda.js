@@ -39,7 +39,7 @@ function readMetaData() {
   //   |- cms
   //     |- index.ts  (this file)
   //   |- post1.en.md
-  const contentDir = dirname(__dirname);
+  const contentDir = join(dirname(__dirname), "_posts");
   const files = fs.readdirSync(contentDir);
   const posts: Post[] = [];
   for (const file of files) {
