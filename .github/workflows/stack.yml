@@ -32,6 +32,8 @@ jobs:
         with:
           name: panda-exe
           path: packages/next-example/bin/
+      - name: Change permissions
+        run: chmod +x packages/next-example/bin/panda-exe
       - name: Build production bundle
         uses: borales/actions-yarn@v4
         with:
