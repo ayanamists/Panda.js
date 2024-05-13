@@ -3,7 +3,7 @@ on: [push]
 permissions:
   contents: write
 jobs:
-  test:
+  panda-build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -14,3 +14,31 @@ jobs:
         with:
           name: panda-exe
           path: ./packages/panda/.stack-work/dist/x86_64-linux-tinfo6/ghc-9.6.4/build/panda-exe/panda-exe
+  next-build:
+    concurrency: ci-${{ github.ref }} # Recommended if you intend to make multiple deployments in quick succession.
+    needs: panda-build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+      - name: Run install
+        uses: borales/actions-yarn@v4
+        with:
+          cmd: install # will run `yarn install` command
+      - name: Download panda
+        uses: actions/download-artifact@v4
+        with:
+          name: panda-exe
+          path: packages/next-example/bin/
+      - name: Build production bundle
+        uses: borales/actions-yarn@v4
+        with:
+          cmd: build # will run `yarn build:prod` command
+      - name: Disable Jekyll
+        run: touch packages/next-example/out/.nojekyll
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: packages/next-example/out/
