@@ -39,7 +39,6 @@ library
     , aeson >=2
     , base >=4.7 && <5
     , bytestring >=0.11.5
-    , cabal-appimage ==0.4.0.2
     , containers >=0.6.5
     , mtl ==2.3.1
     , pandoc >=3.1
@@ -63,7 +62,6 @@ executable panda-exe
     , aeson >=2
     , base >=4.7 && <5
     , bytestring >=0.11.5
-    , cabal-appimage ==0.4.0.2
     , containers >=0.6.5
     , mtl ==2.3.1
     , panda
@@ -89,7 +87,6 @@ test-suite panda-test
     , aeson >=2
     , base >=4.7 && <5
     , bytestring >=0.11.5
-    , cabal-appimage ==0.4.0.2
     , containers >=0.6.5
     , mtl ==2.3.1
     , panda

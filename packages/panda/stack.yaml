@@ -67,3 +67,11 @@ packages:
 # compiler-check: newer-minor
 
 jobs: 8
+
+extra-deps:
+- preprocessor-tools-1.0.1
+- hsb2hs-0.3.1
+
+flags:
+  pandoc:
+    embed_data_files: true

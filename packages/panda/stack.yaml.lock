@@ -3,7 +3,21 @@
 # For more information, please see the documentation at:
 #   https://docs.haskellstack.org/en/stable/lock_files
 
-packages: []
+packages:
+- completed:
+    hackage: preprocessor-tools-1.0.1@sha256:061bbe5545e309df17d597bdb48f37e90e01c6828bec7e64ef1cbc910765970c,1682
+    pantry-tree:
+      sha256: dc9762b36082f73e73597d9d502d0727cd6e1d0f64b6ae2e10fc348643282a54
+      size: 1033
+  original:
+    hackage: preprocessor-tools-1.0.1
+- completed:
+    hackage: hsb2hs-0.3.1@sha256:37129826820761f0b76f49b040f428bc3947bb85e9fd5b62be050f7c51b0c0f2,925
+    pantry-tree:
+      sha256: e68eb3d29731b288745ce081e13517bd46052ce212c14dc3180b9a5a4a34cd04
+      size: 199
+  original:
+    hackage: hsb2hs-0.3.1
 snapshots:
 - completed:
     sha256: 6f0bea3ba5b07360f25bc886e8cff8d847767557a492a6f7f6dcb06e3cc79ee9
