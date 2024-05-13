@@ -7,8 +7,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Change directory
+        run: cd packages/panda
       - uses: freckle/stack-action@v5
       - uses: actions/upload-artifact@v4
         with:
           name: panda-exe
-          path: ./packages/panda/.stack-work/dist/x86_64-linux/ghc-9.6.4/build/panda-exe/panda-exe
+          path: ./.stack-work/dist/x86_64-linux/ghc-9.6.4/build/panda-exe/panda-exe
