@@ -43,6 +43,6 @@ main = do
       writeJSX defaultJSXWriterOptions doc
     case result of
       Left e -> putStrLn $ show e
-      Right result -> TIO.putStrLn result
+      Right _result -> TIO.putStrLn _result
 
 

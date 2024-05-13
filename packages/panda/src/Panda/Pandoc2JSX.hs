@@ -62,14 +62,6 @@ notePrompt blocks = composeBlocks $ runState (notePromptBlock blocks) emptyNoteP
         notePromptNote inline = return inline
 
 
-
-wrapDefs :: Text -> Text
-wrapDefs body =
-  T.intercalate "\n"
-  [ "import {Fragment as _Fragment, jsx as _jsx, jsxs as _jsxs} from \"react/jsx-runtime\";"
-  , "export default function MDXContent() { return " <> body <> "; }"
-  ]
-
 fullTag :: Text -> Text
 fullTag tag = "_component." <> tag
 
@@ -99,9 +91,6 @@ buildJSXS tag props = jsxs (wrapTag tag) (withDefaultProps tag props)
 
 buildJSX :: JSX a => Text -> [JSXProp] -> a -> a
 buildJSX tag props = jsx (wrapTag tag) (withDefaultProps tag props)
-
-simpleJSX :: JSX a => Text -> a -> a
-simpleJSX tag = buildJSX tag []
 
 simpleJSXS :: JSX a => Text -> [a] -> a
 simpleJSXS tag = buildJSXS tag []
