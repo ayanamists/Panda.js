@@ -9,9 +9,14 @@ interface MathProps {
 function Math({ children, display }: MathProps) {
   const math = children.join("");
   if (display === "inline") {
+    // TODO: how to handle overflow?
     return <InlineMath math={math} />;
   } else {
-    return <BlockMath math={math} />;
+    return (
+      <div className="overflow-auto">
+        <BlockMath math={math} />
+      </div>
+    );  
   }
 }
 

@@ -1,6 +1,7 @@
 "use client";
 
-import { Select, SelectItem } from '@nextui-org/select';
+import { Dropdown, DropdownItem, DropdownTrigger, DropdownMenu } from '@nextui-org/dropdown';
+import { Button } from '@nextui-org/button';
 import { useLocale } from 'next-intl';
 import { useState } from 'react';
 
@@ -23,7 +24,6 @@ const changeLocale = (locale: string) => {
 
 export default function LangSwitcher() {
   const locale = useLocale();
-  const [selectKeys, setSelectKeys] = useState(new Set([locale]));
 
   const lang = [{
     value: 'en',
@@ -38,27 +38,29 @@ export default function LangSwitcher() {
     name: '日本語',
   }];
 
-  const current = lang.find((item) => item.value === locale);
-  
+  // TODO: aria-labels
   return (
-    <Select
-      key={locale}
-      label="文/A"
-      placeholder={`${current?.name}`}
-      className="w-32"
-      variant='flat'
-      onChange={(e) => {
-        const value = e.target.value;
-        setSelectKeys(new Set([value]));
-        changeLocale(value);
-      }}
-      selectedKeys={selectKeys}
+    <Dropdown
     >
-      {lang.map((item) => (
-        <SelectItem key={item.value} value={item.value}>
-          {item.name}
-        </SelectItem>
-      ))}
-    </Select>
+      <DropdownTrigger>
+        <Button
+          variant="light"
+          className='text-md font-bold'
+          aria-label='Select Language'
+        >
+          文/A
+        </Button>
+      </DropdownTrigger>
+
+      <DropdownMenu onAction={(key) => {
+        changeLocale(key as string);
+      }}>
+        {lang.map((item) => (
+          <DropdownItem key={item.value} value={item.value}>
+            {item.name}
+          </DropdownItem>
+        ))}
+      </DropdownMenu>
+    </Dropdown>
   );
 }
