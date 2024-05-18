@@ -5,8 +5,10 @@ module Panda.Pandoc2JSX
   , defaultJSXWriterOptions
   ) where
 
+import Data.Default (def)
 import Text.Pandoc.Definition
 import Text.Pandoc.Class
+import Text.Pandoc.Writers.Shared (toTableOfContents)
 import Text.Pandoc.Walk (walkM)
 import Data.Text (Text)
 import qualified Data.Text as T
@@ -61,6 +63,9 @@ notePrompt blocks = composeBlocks $ runState (notePromptBlock blocks) emptyNoteP
                                  [Str $ T.pack $ show ctr] ("#" <> getNoteIdName ctr, "") ])
         notePromptNote inline = return inline
 
+insertTOC :: [Block] -> [Block]
+insertTOC blocks = tocBlock:blocks
+  where tocBlock = Div ("toc", ["toc"], []) [toTableOfContents def blocks]
 
 fullTag :: Text -> Text
 fullTag tag = "_component." <> tag
@@ -105,7 +110,7 @@ simpleEmtpyJSX :: JSX a => Text -> a
 simpleEmtpyJSX tag = emptyJSX (wrapTag tag) (emptyProps tag)
 
 _writeJSX :: JSX x => JSXWriterOptions -> Pandoc -> x
-_writeJSX _ (Pandoc _ blocks) = jsxFragments [] $ map writeJSXBlocks $ notePrompt blocks
+_writeJSX _ (Pandoc _ blocks) = jsxFragments [] . map writeJSXBlocks . notePrompt . insertTOC $ blocks
 
 toJSXBlock :: JSX a => Text -> [Inline] -> a
 toJSXBlock tag = simpleJSXS tag . map writeJSXInlines

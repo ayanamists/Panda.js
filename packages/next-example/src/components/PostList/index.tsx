@@ -6,7 +6,7 @@ import { Post } from '@/contents/cms';
 
 export default function PostList({ posts }: { posts: Post[] }) {
   return (
-    <Listbox>
+    <Listbox aria-label='Post List'>
       {posts.map(post => (
         <ListboxItem key={post.id}
           textValue={post.metaData.title}

@@ -1,14 +1,15 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Switch } from "@nextui-org/switch";
 import MoonIcon from "./MoonIcon";
 import SunIcon from "./SunIcon";
 import { useTheme } from "next-themes";
+import { Button } from "@nextui-org/button";
 
+// TODO: any way to remove the need of lazy loading? Current impl will cause a flash on load 
 export default function ThemeSwitcher() {
-  const [mounted, setMounted] = useState(false)
-  const { theme, setTheme } = useTheme()
+  const [mounted, setMounted] = useState(false);
+  const { theme, setTheme } = useTheme();
 
   useEffect(() => {
     setMounted(true);
@@ -17,21 +18,12 @@ export default function ThemeSwitcher() {
   if (!mounted) return null
 
   return (
-    <Switch
-      defaultSelected
-      size="lg"
-      color="secondary"
-      thumbIcon={({ isSelected, className }) =>
-        isSelected ? (
-          <SunIcon className={className} />
-        ) : (
-          <MoonIcon className={className} />
-        )
-      }
-      onChange={() => {
+    <Button isIconOnly aria-label="Theme Switch" variant="light"
+      onPress={() => {
         setTheme(theme === "dark" ? "light" : "dark");
       }}
     >
-    </Switch>
+      {(theme === "light") ? <MoonIcon /> : <SunIcon />}
+    </Button>  
   );
 }

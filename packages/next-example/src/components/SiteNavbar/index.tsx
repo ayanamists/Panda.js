@@ -10,19 +10,19 @@ export default function SiteNavbar() {
     <Navbar shouldHideOnScroll>
       <NavbarBrand className="flex flex-row gap-4">
         <p className="font-bold text-inherit">
-          <LLink href="/">
+          <LLink href="/" aria-label={t("main")}>
             {t("main")}
           </LLink>
         </p>
 
         <NavbarItem>
-          <LLink href="/blog/" className="font-bold">
+          <LLink href="/blog/" className="font-bold" aria-label={t("blog")}>
             {t("blog")}
           </LLink>
         </NavbarItem>
       </NavbarBrand>
 
-      <NavbarContent justify="end">
+      <NavbarContent justify="end" className="gap-1">
 
         <NavbarItem>
           <LangSwitcher />

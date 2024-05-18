@@ -12,6 +12,7 @@ export default function PostCard({ post }: { post: Post }) {
       <CardBody>
         <Link href={`/${post.metaData.language}/posts/${post.id}`}
           className='text-lg whitespace-normal'
+          aria-label='Post'
         >
           {post.metaData.title}
         </Link>

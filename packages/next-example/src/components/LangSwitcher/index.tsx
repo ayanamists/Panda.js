@@ -2,8 +2,6 @@
 
 import { Dropdown, DropdownItem, DropdownTrigger, DropdownMenu } from '@nextui-org/dropdown';
 import { Button } from '@nextui-org/button';
-import { useLocale } from 'next-intl';
-import { useState } from 'react';
 
 /**
  * Change the locale of the page
@@ -23,8 +21,6 @@ const changeLocale = (locale: string) => {
 }
 
 export default function LangSwitcher() {
-  const locale = useLocale();
-
   const lang = [{
     value: 'en',
     name: 'English',
@@ -44,6 +40,7 @@ export default function LangSwitcher() {
     >
       <DropdownTrigger>
         <Button
+          isIconOnly
           variant="light"
           className='text-md font-bold'
           aria-label='Select Language'
@@ -54,9 +51,10 @@ export default function LangSwitcher() {
 
       <DropdownMenu onAction={(key) => {
         changeLocale(key as string);
-      }}>
+      }} aria-label='Language Select Menu'>
         {lang.map((item) => (
-          <DropdownItem key={item.value} value={item.value}>
+          <DropdownItem key={item.value} value={item.value} 
+           aria-label={`Select Language ${item.name}`}>
             {item.name}
           </DropdownItem>
         ))}

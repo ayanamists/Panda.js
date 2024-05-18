@@ -1,5 +1,6 @@
 import NoteItem from "@/components/NoteItem";
 import Admonitions from "@/components/Admonitions";
+import TableOfContents from "@/components/TableOfContents";
 
 export default function Div({ children, ...rest }: { children: React.ReactNode, rest: any }) {
   const div = parseDiv({ children, ...rest });
@@ -27,6 +28,8 @@ function parseDiv({ children, ...rest }: { children: React.ReactNode, rest: any 
         type: selectDivProps(rest, "data-admonition-type"),
       };
       return (<Admonitions {...props}>{children}</Admonitions>);
+    } else if (rest.className === "toc") {
+      return (<TableOfContents>{children}</TableOfContents>);
     }
   }
 }
