@@ -6,9 +6,13 @@
   },
   "Navbar": {
     "main": "ホーム",
-    "blog": "ブログ"
+    "blog": "ブログ",
+    "favorites": ""
   },
   "LangSwitcher": {
     "name": "日本語"
+  },
+  "Favorites": {
+    "quotes": "モットー"
   }
 }

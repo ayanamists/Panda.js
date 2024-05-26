@@ -6,9 +6,13 @@
   },
   "Navbar": {
     "main": "Home",
-    "blog": "Blog"
+    "blog": "Blog",
+    "favorites": "Favorites"
   },
   "LangSwitcher": {
     "name": "English"
+  },
+  "Favorites": {
+    "quotes": "Mottos"
   }
 }

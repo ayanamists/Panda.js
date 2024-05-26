@@ -20,6 +20,13 @@ export default function SiteNavbar() {
             {t("blog")}
           </LLink>
         </NavbarItem>
+
+        <NavbarItem>
+          <LLink href="/favorites/" className="font-bold" aria-label={t("favorites")}>
+            {t("favorites")}
+          </LLink>
+        </NavbarItem>
+
       </NavbarBrand>
 
       <NavbarContent justify="end" className="gap-1">
