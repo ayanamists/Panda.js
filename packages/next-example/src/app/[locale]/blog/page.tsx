@@ -16,8 +16,8 @@ export default function BlogPage({
     .sort((a, b) => b.metaData.date.getTime() - a.metaData.date.getTime())
 
   return (
-    <main className="container mx-auto relative w-full px-6 py-12
-    md:max-w-4xl md:mx-auto lg:max-w-5xl lg:pt-16 lg:pb-28">
+    <main className="container mx-auto relative w-full px-6
+    md:max-w-4xl md:mx-auto lg:max-w-5xl lg:pt-2 lg:pb-28">
       <PostList posts={posts} />
     </main>
   );
