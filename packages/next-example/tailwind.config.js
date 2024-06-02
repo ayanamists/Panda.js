@@ -4,6 +4,13 @@ import typo from "@tailwindcss/typography";
 
 const color_primary = "#ec4899";
 const color_primary_dark = "#d946ef";
+const englishFont = "'Optima', 'Linux Biolinum O'";
+const chineseMainFont = "'Noto Serif CJK SC', 'Songti SC', 'SimSun'";
+const chineseKaiFont = "'KaiTi', 'STKaiti', 'AR PL UKai CN'";
+
+const headingFont = {
+  fontFamily: `${englishFont}, ${chineseKaiFont}`
+};
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
@@ -22,10 +29,31 @@ export default {
       typography: (theme) => ({
         DEFAULT: {
           css: {
-            fontFamily: ['Optima', 'Linux Biolinum O'],
+            fontFamily: `${englishFont}, ${chineseMainFont}`,
             '--tw-prose-quote-borders': color_primary,
-            '--tw-prose-invert-quote-borders': color_primary_dark
-          },
+            '--tw-prose-invert-quote-borders': color_primary_dark,
+            '--tw-prose-links': color_primary,
+            '--tw-prose-invert-links': color_primary_dark,
+            h1: headingFont,
+            h2: headingFont,
+            h3: headingFont,
+            h4: headingFont,
+            h5: headingFont,
+            h6: headingFont,
+
+            p: {
+              marginTop: '1em',
+              marginBottom: '1em',
+              fontSize: '18px'
+            },
+
+            li: {
+              p: {
+                marginTop: 0,
+                marginBottom: 0
+              }
+            }
+          }
         },
       }),
     }
