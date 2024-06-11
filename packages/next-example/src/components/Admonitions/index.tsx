@@ -17,7 +17,7 @@ export default function Admonitions({ type, children }: AdmonitionsProps) {
     "WARNING": CiWarning
   }[t] ?? CiSquareMore;
 
-  return (<div className="not-prose border-l-4 border-l-primary shadow-md rounded-xl">
+  return (<div className="border-l-4 border-l-primary shadow-md rounded-xl">
     <div className="pl-4 pr-3">
       <div className="pt-3">
         <div className="flex items-center font-bold gap-2">
@@ -27,7 +27,7 @@ export default function Admonitions({ type, children }: AdmonitionsProps) {
           {t}
         </div>
       </div>
-      <div className="pt-2 pb-3">
+      <div className="pb-1">
         {children}
       </div>
     </div>

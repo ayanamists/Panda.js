@@ -12,6 +12,10 @@ const headingFont = {
   fontFamily: `${englishFont}, ${chineseKaiFont}`
 };
 
+const mainFont = {
+  fontSize: "18px"
+}
+
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
   content: [
@@ -44,13 +48,25 @@ export default {
             p: {
               marginTop: '1em',
               marginBottom: '1em',
-              fontSize: '18px'
+              ...mainFont
             },
 
             li: {
               p: {
                 marginTop: 0,
                 marginBottom: 0
+              },
+              ...mainFont
+            },
+
+            blockQuote: {
+              ...mainFont
+            },
+
+            cite: {
+              fontStyle: "normal",
+              a: {
+                textDecoration: "none"
               }
             }
           }
