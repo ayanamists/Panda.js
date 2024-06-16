@@ -49,7 +49,7 @@ lookupMetaStringList :: Text -> Meta -> [Text]
 lookupMetaStringList key = map stringify . lookupMetaList key
 
 pandocToMeta :: Pandoc -> MetaData
-pandocToMeta (Pandoc meta blocks) = MetaData
+pandocToMeta (Pandoc meta _) = MetaData
   { authors = authorsValue
   , date = stringify $ docDate meta
   , title = stringify $ docTitle meta
