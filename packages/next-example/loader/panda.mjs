@@ -49,7 +49,8 @@ function getComponentsTable(config) {
     'p', 'div', 'em', "strong", "blockquote", 'a', 'code', 'pre', 'math',
     'u', 'strong', 'del', 'sup', 'sub', 'q', 'cite', 'br', 'note', 'span',
     'hr', 'figure', 'img',
-    "ul", "ol", "li" ];
+    "ul", "ol", "li",
+    "article"];
   let components = "{\n";
   let imports = new Set();
   for (const t of tag) {

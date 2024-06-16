@@ -20,13 +20,13 @@ export default function Page({ params }: PageProps) {
 
   const path = post.metaData.fullName;
   const heading = post.metaData.title;
-  return (<article>
+  return (<div>
     <h1 className="text-4xl font-bold mb-2">{heading}</h1>
     <div className="text-sm text-gray-500 mb-5">
       {post.metaData.date.toLocaleDateString()}
     </div>
     <PostContent name={path} />
-  </article>);
+  </div>);
 }
 
 

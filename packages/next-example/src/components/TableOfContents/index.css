@@ -1,0 +1,21 @@
+.toc ul li {
+    margin: 0;
+}
+
+.toc ul {
+    list-style-type: "λ>";
+    margin: 0;
+}
+
+.toc a {
+    text-decoration: none;
+}
+
+.toc a.dark-active {
+    color: white;
+}
+
+
+.toc a.light-active {
+    color: black;
+}

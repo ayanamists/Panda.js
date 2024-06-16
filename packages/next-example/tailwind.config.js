@@ -4,7 +4,7 @@ import typo from "@tailwindcss/typography";
 
 const color_primary = "#ec4899";
 const color_primary_dark = "#d946ef";
-const englishFont = "'Optima', 'Linux Biolinum O'";
+const englishFont = "'Optima', 'Linux Biolinum O', 'Candara'";
 const chineseMainFont = "'Noto Serif CJK SC', 'Songti SC', 'SimSun'";
 const chineseKaiFont = "'KaiTi', 'STKaiti', 'AR PL UKai CN'";
 
