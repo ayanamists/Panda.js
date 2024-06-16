@@ -32,6 +32,7 @@ dependencies:
 - MonadRandom == 0.6
 - mtl == 2.3.1
 - data-default >= 0.7.1.1
+- optparse-applicative >= 0.18.1.0
 
 
 ghc-options:

@@ -63,9 +63,8 @@ notePrompt blocks = composeBlocks $ runState (notePromptBlock blocks) emptyNoteP
                                  [Str $ T.pack $ show ctr] ("#" <> getNoteIdName ctr, "") ])
         notePromptNote inline = return inline
 
-insertTOC :: [Block] -> [Block]
-insertTOC blocks = tocBlock:blocks
-  where tocBlock = Div ("toc", ["toc"], []) [toTableOfContents def blocks]
+getTOC :: [Block] -> Block
+getTOC blocks = Div ("toc", ["toc"], []) [toTableOfContents def blocks]
 
 fullTag :: Text -> Text
 fullTag tag = "_component." <> tag
@@ -110,7 +109,9 @@ simpleEmtpyJSX :: JSX a => Text -> a
 simpleEmtpyJSX tag = emptyJSX (wrapTag tag) (emptyProps tag)
 
 _writeJSX :: JSX x => JSXWriterOptions -> Pandoc -> x
-_writeJSX _ (Pandoc _ blocks) = jsxFragments [] . map writeJSXBlocks . notePrompt . insertTOC $ blocks
+_writeJSX _ (Pandoc _ blocks) = jsxFragments [] [toc, article]
+  where article = simpleJSXS "article" . map writeJSXBlocks . notePrompt $ blocks
+        toc = writeJSXBlocks . getTOC $ blocks
 
 toJSXBlock :: JSX a => Text -> [Inline] -> a
 toJSXBlock tag = simpleJSXS tag . map writeJSXInlines
@@ -146,7 +147,7 @@ writeJSXBlocks (BulletList blocks) = simpleJSXS "ul" $ map toLiBlock blocks
 writeJSXBlocks (DefinitionList _) = undefined
 writeJSXBlocks (Header level attr inlines) = simpleAttrJSXS ("h" <> T.pack (show level)) attr $ map writeJSXInlines inlines
 writeJSXBlocks HorizontalRule = simpleEmtpyJSX "hr"
-writeJSXBlocks (Table _ _ _ _ _ _) = undefined
+writeJSXBlocks Table{} = undefined
 writeJSXBlocks (Figure _ _ blocks) = simpleJSXS "figure" $ map writeJSXBlocks blocks
 writeJSXBlocks (Div attr blocks) = simpleAttrJSXS "div" attr $ map writeJSXBlocks blocks
 
@@ -173,12 +174,12 @@ writeJSXInlines (Link attr inlines target) = buildJSXS "a" (writeAttrAndLink att
 -- note: the image tag in JSX is self-closing
 -- need some properly handling for the alt text
 writeJSXInlines (Image attr _ target) = emptyJSX (wrapTag "img") props
-  where props = withDefaultProps "img" $ [MapProp ("src", writeJSString $ fst target)] ++ writeAttr attr
+  where props = withDefaultProps "img" $ MapProp ("src", writeJSString $ fst target):writeAttr attr
 writeJSXInlines (Note blocks) = simpleJSXS "note" $ map writeJSXBlocks blocks
 writeJSXInlines (Span attr inlines) = simpleAttrJSXS "span" attr $ map writeJSXInlines inlines
 
 
 writeJSX :: PandocMonad m => JSXWriterOptions -> Pandoc -> m Text
 writeJSX opts doc = do
-  let (r, _) = runState ((_writeJSX opts doc) :: JSXText) 0
+  let (r, _) = runState (_writeJSX opts doc :: JSXText) 0
   return r

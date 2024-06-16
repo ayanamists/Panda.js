@@ -1,48 +1,69 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE ScopedTypeVariables #-}
+{-# OPTIONS_GHC -fno-warn-unused-top-binds #-}
 
 module Main (main) where
 
+import Data.Text (Text)
 import System.IO.Temp (withSystemTempFile)
 import System.IO (hClose)
 import Text.Pandoc
-import Text.Pandoc.App (convertWithOpts,
-                        defaultOpts, Opt(..), options,
-                        parseOptionsFromArgs, handleOptInfo)
+import Text.Pandoc.App
+  ( defaultOpts
+  , Opt(..)
+  , convertWithOpts)
 import Text.Pandoc.Scripting (noEngine)
 import Text.Pandoc.Filter (Filter(..))
 import Data.Map as M (fromList)
-import System.Environment (getArgs, getProgName)
 import qualified Data.Text.IO as TIO
 import Panda.Pandoc2JSX
+import Panda.MetaData
+import Options.Applicative
 
-runPandoc :: FilePath -> [String] -> IO ()
-runPandoc input args = do
-  prg <- getProgName
-  opt <- parseOptionsFromArgs options defaultOpts prg args
-  case opt of
-    Left info -> handleOptInfo noEngine info
-    Right opt' -> convertWithOpts noEngine opt''
-      where opt'' = opt' { optOutputFile = Just $ input
-                         , optTo = Just "native"
-                         , optFilters = [CiteprocFilter]
-                         , optMetadata = Meta $ fromList [("link-citations", (MetaBool True))]
-                         }
+data PandaOpts = PandaOpts
+  { inputFile :: Maybe String
+  , meta :: Bool
+  }
+
+parsePandaOpts :: Parser PandaOpts
+parsePandaOpts = PandaOpts
+  <$> optional (strOption (long "inputFile"
+     <> short 'i'
+     <> metavar "PATH"))
+  <*> switch ( long "meta"
+            <> short 'm'
+            <> help "whether output metadata")
+
+
+runPandoc :: String -> PandaOpts -> IO ()
+runPandoc input (PandaOpts _path _) = convertWithOpts noEngine opt'
+      where opt' = defaultOpts { optInputFiles = (:[]) <$> _path
+                               , optOutputFile = Just input
+                               , optTo = Just "native"
+                               , optFilters = [CiteprocFilter]
+                               , optMetadata = Meta $ fromList [("link-citations", MetaBool True)]
+                               , optStandalone = True
+                               }
+
+
+getResult :: PandocMonad m => PandaOpts -> Pandoc -> m Text
+getResult (PandaOpts _ False) = writeJSX defaultJSXWriterOptions
+getResult (PandaOpts _ True) = return . writeMeta
 
 
 main :: IO ()
 main = do
-  rawArgs <- getArgs
+  let argParseOpts = info (parsePandaOpts <**> helper)
+        (fullDesc <> progDesc "A Pandoc based m->jsx converter")
+
+  pandaOpts <- execParser argParseOpts
 
   withSystemTempFile "temp.native" $ \tempFile tempHandle -> do
     hClose tempHandle
-    runPandoc tempFile rawArgs
+    runPandoc tempFile pandaOpts
     contents <- TIO.readFile tempFile
-    result <- runIO $ do
-      doc <- readNative def contents
-      writeJSX defaultJSXWriterOptions doc
+    result <- runIO $ readNative def contents >>= getResult pandaOpts
     case result of
-      Left e -> putStrLn $ show e
+      Left e -> print e
       Right _result -> TIO.putStrLn _result
-
 
