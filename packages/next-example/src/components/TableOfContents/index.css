@@ -11,11 +11,14 @@
     text-decoration: none;
 }
 
-.toc a.dark-active {
-    color: white;
+.light {
+  --active-toc-li-color: black;
 }
 
+.dark {
+  --active-toc-li-color: white;
+}
 
-.toc a.light-active {
-    color: black;
+.toc a.active {
+    color: var(--active-toc-li-color);
 }

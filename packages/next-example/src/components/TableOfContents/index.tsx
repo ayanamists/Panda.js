@@ -2,7 +2,6 @@
 
 import './index.css';
 import { useEffect, useRef, useState, useCallback } from 'react';
-import { useTheme } from 'next-themes';
 
 
 interface TableOfContentsProps {
@@ -17,7 +16,6 @@ export default function TableOfContents({ children }: TableOfContentsProps) {
   const [active, setActive] = useState<Element | null>(null);
   const preActiveRef = useRef<Element | null>(null);
 
-  const { theme } = useTheme();
   // deep dark method for sync toc with user view
   const onScroll = useCallback(() => {
     const elements = titles.current;
@@ -61,7 +59,7 @@ export default function TableOfContents({ children }: TableOfContentsProps) {
     }
   }, [onScroll, titles]);
 
-  const activeClass = `${theme}-active`;
+  const activeClass = `active`;
   const cleanPreActive = useCallback(() => {
     const preActive = preActiveRef.current;
     if (preActive != null) {
