@@ -62,6 +62,8 @@ import _LambdaTheOriginJa from './_posts/lambda-the-origin.ja.md';
 //@ts-ignore
 import _LambdaTheOriginZhCn from './_posts/lambda-the-origin.zh-cn.md';
 //@ts-ignore
+import _MigrateZhCn from './_posts/migrate.zh-cn.org';
+//@ts-ignore
 import _MyNetworkConfigEn from './_posts/my-network-config.en.md';
 //@ts-ignore
 import _MyNetworkConfigJa from './_posts/my-network-config.ja.md';
@@ -178,6 +180,9 @@ if (name === 'lambda-the-origin.ja.md') {
 }
 if (name === 'lambda-the-origin.zh-cn.md') {
   return <_LambdaTheOriginZhCn />;
+}
+if (name === 'migrate.zh-cn.org') {
+  return <_MigrateZhCn />;
 }
 if (name === 'my-network-config.en.md') {
   return <_MyNetworkConfigEn />;

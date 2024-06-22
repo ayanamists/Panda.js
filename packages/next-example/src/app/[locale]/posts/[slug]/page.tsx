@@ -1,5 +1,5 @@
 import PostContent from '@/contents';
-import { getAllPosts, getPostById } from '@/contents/cms';
+import { getPostByLang, getPostById } from '@/contents/cms';
 import { unstable_setRequestLocale } from 'next-intl/server';
 
 interface PageProps {
@@ -9,11 +9,11 @@ interface PageProps {
   }
 }
 
-export default function Page({ params }: PageProps) {
+export default async function Page({ params }: PageProps) {
   unstable_setRequestLocale(params.locale);
   const id = params.slug;
   const lang = params.locale;
-  const post = getPostById(id, lang);
+  const post = await getPostById(id, lang);
   if (post == null) {
     throw new Error(`Post not found: id: ${id}, lang: ${lang}`);
   }
@@ -23,7 +23,7 @@ export default function Page({ params }: PageProps) {
   return (<div>
     <h1 className="text-4xl font-bold mb-2">{heading}</h1>
     <div className="text-sm text-gray-500 mb-5">
-      {post.metaData.date.toLocaleDateString()}
+    {new Date(post.metaData.date).toLocaleDateString()}
     </div>
     <PostContent name={path} />
   </div>);
@@ -34,9 +34,8 @@ export async function generateStaticParams({ params }: {
   params: { locale: string }
 }) {
   const locale = params.locale;
-  const posts = getAllPosts();
+  const posts = await getPostByLang(locale);
   return posts
-    .filter(post => post.metaData.language === locale)
     .map(post => ({
       slug: post.id,
     }));

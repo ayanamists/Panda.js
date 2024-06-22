@@ -1,4 +1,4 @@
-import { getAllPosts } from '@/contents/cms';
+import { getPostByLang } from '@/contents/cms';
 import PostList from '@/components/PostList';
 
 interface BlogPageProps {
@@ -8,12 +8,13 @@ interface BlogPageProps {
   }
 }
 
-export default function BlogPage({ 
+export default async function BlogPage({
   params: { locale } 
 }: BlogPageProps) {
-  const posts = getAllPosts()
-    .filter(post => post.metaData.language === locale && !post.metaData.draft)
-    .sort((a, b) => b.metaData.date.getTime() - a.metaData.date.getTime())
+  const posts = (await getPostByLang(locale))
+    .filter(post => !post.metaData.draft)
+    .sort((a, b) => new Date(b.metaData.date).getTime() -
+      new Date(a.metaData.date).getTime())
 
   return (
     <main className="container mx-auto relative w-full px-6

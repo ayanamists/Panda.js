@@ -6,7 +6,8 @@ import { getAllPosts, Post } from './';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-const posts = getAllPosts();
+// @ts-ignore
+const posts = await getAllPosts();
 
 function toUpper1(str: string) {
   const terms = str.split('-');

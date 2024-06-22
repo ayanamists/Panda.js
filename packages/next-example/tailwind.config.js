@@ -44,7 +44,7 @@ export default {
             h4: headingFont,
             h5: headingFont,
             h6: headingFont,
-
+            div: mainFont,
             p: {
               marginTop: '1em',
               marginBottom: '1em',

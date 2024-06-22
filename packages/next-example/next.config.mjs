@@ -11,10 +11,11 @@ const __dirname = path.dirname(__filename);
 
 const nextConfig = {
   output: 'export',
-  pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdx'],
+  pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdx'
+                  , 'org'],
   webpack: (config, options) => {
     config.module.rules.push({
-      test: /\.md/,
+      test: /\.(md|org)$/,
       use: [
         options.defaultLoaders.babel,
         {

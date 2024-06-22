@@ -45,6 +45,9 @@ jobs:
       - name: Change permissions
         run: chmod +x packages/next-example/bin/panda-exe
       # TODO: add cache for next build (this is problematic because of source file type may be different)
+      - name: Add panda to Path
+        run: |
+          echo "$(realpath packages/next-example/bin/)" >> $GITHUB_PATH
       - name: Build production bundle
         uses: borales/actions-yarn@v4
         with:

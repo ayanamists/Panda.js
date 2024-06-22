@@ -7,9 +7,9 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const __root = path.dirname(__dirname);
 
-async function markdownToJSX(markdown) {
+async function markdownToJSX(filePath) {
   return new Promise((resolve, reject) => {
-    const pandoc = spawn(`${__root}/bin/panda-exe`);
+    const pandoc = spawn(`panda-exe`, ["-i", filePath]);
 
     let htmlText = '';
     let errorText = '';
@@ -31,7 +31,6 @@ async function markdownToJSX(markdown) {
       resolve(htmlText);
     });
 
-    pandoc.stdin.write(markdown);
     pandoc.stdin.end();
   });
 }
@@ -68,7 +67,8 @@ function getComponentsTable(config) {
 }
 
 export default async function loader(source) {
-  const jsx = await markdownToJSX(source);
+  const filePath = this.resourcePath;
+  const jsx = await markdownToJSX(filePath);
   const line1 = 'import {Fragment as _Fragment, jsx as _jsx, jsxs as _jsxs} from "react/jsx-runtime";';
   const [components, imports] = getComponentsTable(config);
   const importsStr = imports.join('\n');

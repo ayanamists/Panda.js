@@ -18,7 +18,7 @@ export default function PostCard({ post }: { post: Post }) {
         </Link>
       </CardBody>
       <CardFooter className="flex flex-row justify-between">
-        <p className="text-md">{post.metaData.date.toLocaleDateString()}</p>
+        <p className="text-md">{new Date(post.metaData.date).toLocaleDateString()}</p>
         <p className="text-small text-default-500">{post.metaData.categories.join(" ")}</p>
       </CardFooter>
     </Card>
