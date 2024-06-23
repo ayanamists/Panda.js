@@ -25,6 +25,7 @@ source-repository head
 
 library
   exposed-modules:
+      Panda.CJK
       Panda.JSX
       Panda.MetaData
       Panda.Pandoc2JSX

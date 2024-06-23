@@ -14,6 +14,7 @@ import Data.Text (Text)
 import qualified Data.Text as T
 import Control.Monad.State.Lazy (State, runState, get, put)
 import Panda.JSX
+import Panda.CJK
 
 newtype JSXWriterOptions = JSXWriterOptions {
     jsxWriterOptions :: String
@@ -110,7 +111,7 @@ simpleEmtpyJSX tag = emptyJSX (wrapTag tag) (emptyProps tag)
 
 _writeJSX :: JSX x => JSXWriterOptions -> Pandoc -> x
 _writeJSX _ (Pandoc _ blocks) = jsxFragments [] [toc, article]
-  where article = simpleJSXS "article" . map writeJSXBlocks . notePrompt $ blocks
+  where article = simpleJSXS "article" . map writeJSXBlocks . processCJK . notePrompt $ blocks
         toc = writeJSXBlocks . getTOC $ blocks
 
 toJSXBlock :: JSX a => Text -> [Inline] -> a
