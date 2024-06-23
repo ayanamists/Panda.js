@@ -6,8 +6,9 @@ import { Link } from '@nextui-org/link';
 
 export default function PostCard({ post }: { post: Post }) {
   return (
-    <Card shadow='none' disableAnimation={true} isHoverable={false}
-      disableRipple={true}
+    <Card disableAnimation={true} isHoverable={false} fullWidth={true}
+      disableRipple={true} className='text-foreground bg-background'
+      shadow="none"
     >
       <CardBody>
         <Link href={`/${post.metaData.language}/posts/${post.id}`}

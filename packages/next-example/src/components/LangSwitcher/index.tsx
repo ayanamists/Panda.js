@@ -36,7 +36,7 @@ export default function LangSwitcher() {
 
   // TODO: aria-labels
   return (
-    <Dropdown
+    <Dropdown className="text-foreground bg-background"
     >
       <DropdownTrigger>
         <Button
@@ -45,7 +45,7 @@ export default function LangSwitcher() {
           className='text-md font-bold'
           aria-label='Select Language'
         >
-          文/A
+          <span className="text-foreground">文/A</span>
         </Button>
       </DropdownTrigger>
 

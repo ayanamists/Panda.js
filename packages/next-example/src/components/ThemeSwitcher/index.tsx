@@ -23,7 +23,9 @@ export default function ThemeSwitcher() {
         setTheme(theme === "dark" ? "light" : "dark");
       }}
     >
+      <div className="text-foreground">
       {(theme === "light") ? <MoonIcon /> : <SunIcon />}
+      </div>
     </Button>  
   );
 }
