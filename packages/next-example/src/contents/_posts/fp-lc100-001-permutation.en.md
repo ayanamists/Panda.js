@@ -10,7 +10,7 @@ tags:
 ---
 
 <div class="admonition" data-admonition-type="note">
-This article has some technical details, but the important thing is the story. If you don't understand, you can skip it, it won't affect the understanding of the story. However, I suggest at least understanding the content of the first section, so you know what Church is roughly doing.
+This article was translated from Chinese by ChatGPT and may contain some errors.
 </div>
 
 
