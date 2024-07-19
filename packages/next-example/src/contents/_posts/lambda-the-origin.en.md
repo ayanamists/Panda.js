@@ -73,10 +73,10 @@ In Church's system, there are indeed no sets or classes in the syntax, which are
 
 > 5. Undefined terms. We are now ready to set down a list of the undefined terms of our formal logic. They are as follows:
 $$
-\\{\\}(),\\ \lambda\[\],\\ \Pi,\ \Sigma,\ \\&, \\ \sim, \\ \iota, \\ A
+\{\}(),\ \lambda[],\ \Pi,\ \Sigma,\ \&, \ \sim, \ \iota, \ A
 $$
 
-Among them, $\\{\\}()$ represents the "action" (apply, commonly known as function call) in modern $\lambda$ calculus, $\lambda [\ ]$ is naturally $\lambda$ abstraction, $\Pi$ is a more complex syntax, $\Pi(P, Q)$ is roughly $\forall x. (P(x) \to Q(x))$[^5], $\Sigma$ is existence, $\\&$ is logical and, $\sim$ is logical not, $\iota$ is similar to the $\mu$ operator in recursive functions, $\iota(F)$ refers to "let $\\{F\\}(x)$" hold $x$". As for $A$, this symbol is particularly abstract, and will not be discussed here.
+Among them, $\{\}()$ represents the "action" (apply, commonly known as function call) in modern $\lambda$ calculus, $\lambda [\ ]$ is naturally $\lambda$ abstraction, $\Pi$ is a more complex syntax, $\Pi(P, Q)$ is roughly $\forall x. (P(x) \to Q(x))$[^5], $\Sigma$ is existence, $\&$ is logical and, $\sim$ is logical not, $\iota$ is similar to the $\mu$ operator in recursive functions, $\iota(F)$ refers to "the $x$ that $\{F\}(x)$ holds". As for $A$, this symbol is particularly abstract, and will not be discussed here.
 
 Afterwards, Church defined some syntactic sugar, or "macros". For example, he defined $V$, which is $\lor$ in modern logic, with the following definition:
 
@@ -162,8 +162,8 @@ Importantly, this derivation can be seen as a "calculation". If given a $\lambda
 Church also mentioned in his lecture at that time that he had found a way to define positive integers in his system, that is, the Church numbers we talk about today. $1, 2, 3$ are defined as:
 
 $$
-\mathsf{1} \equiv (\lambda f. \lambda x. f x) \\\\
-\mathsf{2} \equiv (\lambda f. \lambda x. f (f x)) \\\\
+\mathsf{1} \equiv (\lambda f. \lambda x. f x) \\
+\mathsf{2} \equiv (\lambda f. \lambda x. f (f x)) \\
 \mathsf{3} \equiv(\lambda f. \lambda x. f (f (f x)))
 $$
 
@@ -263,7 +263,7 @@ Their work, in general, should still be called "recursion theory". Especially ma
    fst and snd are defined as
    $$
    \begin{aligned}
-   \text{fst} &\equiv \lambda p. p (\lambda a \lambda b. a) \\\\ 
+   \text{fst} &\equiv \lambda p. p (\lambda a \lambda b. a) \\
    \text{snd} &\equiv \lambda p. p (\lambda a \lambda b. b)
    \end{aligned}
    $$

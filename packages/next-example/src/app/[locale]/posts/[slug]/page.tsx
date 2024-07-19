@@ -30,6 +30,10 @@ export default async function Page({ params }: PageProps) {
 }
 
 
+// FIXME 404 page throws hydration mismatch error when visiting non-existing page
+// see https://github.com/vercel/next.js/issues/54270
+//     https://github.com/vercel/next.js/issues/56253
+// seems to be next.js problem
 export async function generateStaticParams({ params }: {
   params: { locale: string }
 }) {

@@ -30,6 +30,10 @@ import _Fem_joke_1_nvshuJa from './_posts/fem_joke_1_nvshu.ja.md';
 //@ts-ignore
 import _Fem_joke_1_nvshuZhCn from './_posts/fem_joke_1_nvshu.zh-cn.md';
 //@ts-ignore
+import _FpLc100001PermutationEn from './_posts/fp-lc100-001-permutation.en.md';
+//@ts-ignore
+import _FpLc100001PermutationJa from './_posts/fp-lc100-001-permutation.ja.md';
+//@ts-ignore
 import _FpLc100001PermutationZhCn from './_posts/fp-lc100-001-permutation.zh-cn.md';
 //@ts-ignore
 import _GmpEn from './_posts/gmp.en.md';
@@ -132,6 +136,12 @@ if (name === 'fem_joke_1_nvshu.ja.md') {
 }
 if (name === 'fem_joke_1_nvshu.zh-cn.md') {
   return <_Fem_joke_1_nvshuZhCn />;
+}
+if (name === 'fp-lc100-001-permutation.en.md') {
+  return <_FpLc100001PermutationEn />;
+}
+if (name === 'fp-lc100-001-permutation.ja.md') {
+  return <_FpLc100001PermutationJa />;
 }
 if (name === 'fp-lc100-001-permutation.zh-cn.md') {
   return <_FpLc100001PermutationZhCn />;

@@ -73,10 +73,10 @@ Churchのシステムでは、文法に集合やクラスは存在せず、以�
 
 > 5. 定義されていない用語。私たちは今、私たちの形式論理の未定義の用語のリストを作成する準備ができました。それらは次のとおりです：
 $$
-\\{\\}(),\\ \lambda\[\],\\ \Pi,\ \Sigma,\ \\&, \\ \sim, \\ \iota, \\ A
+\{\}(),\ \lambda[],\ \Pi,\ \Sigma,\ \&, \ \sim, \ \iota, \ A
 $$
 
-ここで、$\\{\\}()$ は現代の $\lambda$ 計算での「適用」（apply、いわゆる関数呼び出し）を表し、$\lambda [\ ]$は自然に$\lambda$抽象を表します。$\Pi$は比較的複雑な文法で、$\Pi(P, Q)$は大体$\forall x. (P(x) \to Q(x))$[^5]を表します。$\Sigma$は存在を表し、$\\&$は論理積、$\sim$は論理否定を表します。$\iota$ は再帰関数の中の $\mu$ 演算子に似ており、$\iota(F)$は「 $\\{F\\}(x)$ を満たす $x$」を指します。$A$ については、この記号は特に抽象的で、ここでは議論しません。
+ここで、$\{\}()$ は現代の $\lambda$ 計算での「適用」（apply、いわゆる関数呼び出し）を表し、$\lambda [\ ]$は自然に$\lambda$抽象を表します。$\Pi$は比較的複雑な文法で、$\Pi(P, Q)$は大体$\forall x. (P(x) \to Q(x))$[^5]を表します。$\Sigma$は存在を表し、$\&$は論理積、$\sim$は論理否定を表します。$\iota$ は再帰関数の中の $\mu$ 演算子に似ており、$\iota(F)$は「 $\{F\}(x)$ を満たす $x$」を指します。$A$ については、この記号は特に抽象的で、ここでは議論しません。
 
 その後、Churchはいくつかのシンタックスシュガー、つまり「マクロ」を定義しました。例えば、彼は$V$を定義しました。これは現代の論理学での$\lor$に相当し、定義は以下のようになります：
 
@@ -162,8 +162,8 @@ Kleeneは1931年、22歳で学士を取得した後、Princeton大学でChurch�
 当時の講義でChurchは、彼のシステムで正の整数を定義する方法をすでに見つけているとも述べていました。これは今日でいうChurch数です。$1, 2, 3$は次のように定義されます：
 
 $$
-\mathsf{1} \equiv (\lambda f. \lambda x. f x) \\\\
-\mathsf{2} \equiv (\lambda f. \lambda x. f (f x)) \\\\
+\mathsf{1} \equiv (\lambda f. \lambda x. f x) \\
+\mathsf{2} \equiv (\lambda f. \lambda x. f (f x)) \\
 \mathsf{3} \equiv(\lambda f. \lambda x. f (f (f x)))
 $$
 
@@ -263,7 +263,7 @@ Churchの最初の目的は、彼のシステムを使って数学を形式化�
    fstとsndは次のように定義されます。
    $$
    \begin{aligned}
-   \text{fst} &\equiv \lambda p. p (\lambda a \lambda b. a) \\\\ 
+   \text{fst} &\equiv \lambda p. p (\lambda a \lambda b. a) \\ 
    \text{snd} &\equiv \lambda p. p (\lambda a \lambda b. b)
    \end{aligned}
    $$
