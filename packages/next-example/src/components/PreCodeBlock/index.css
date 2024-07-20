@@ -1,0 +1,65 @@
+:root.dark {
+  --theme-code-color: #839496;
+  --theme-text-shadow-color: rgba(0, 0, 0, 0.3);
+  --theme-background-color: #002b36;
+  --theme-comment-color: #586e75;
+  --theme-punctuation-color: #93a1a1;
+  --theme-property-color: #268bd2;
+  --theme-keyword-color: #268bd2;
+  --theme-tag-color: #268bd2;
+  --theme-class-name-color: #FFFFB6;
+  --theme-boolean-color: #b58900;
+  --theme-constant-color: #b58900;
+  --theme-symbol-color: #dc322f;
+  --theme-deleted-color: #dc322f;
+  --theme-number-color: #859900;
+  --theme-selector-color: #859900;
+  --theme-attr-name-color: #859900;
+  --theme-string-color: #859900;
+  --theme-char-color: #859900;
+  --theme-builtin-color: #859900;
+  --theme-inserted-color: #859900;
+  --theme-variable-color: #268bd2;
+  --theme-operator-color: #EDEDED;
+  --theme-function-color: #268bd2;
+  --theme-regex-color: #E9C062;
+  --theme-important-color: #fd971f;
+  --theme-entity-color: #FFFFB6;
+  --theme-url-color: #96CBFE;
+  --theme-language-css-token-string-color: #87C38A;
+  --theme-style-token-string-color: #87C38A;
+  --theme-atrule-color: #F9EE98;
+  --theme-attr-value-color: #F9EE98;
+}
+
+:root {
+  --theme-code-color: #657b83;
+  --theme-background-color: #fdf6e3;
+  --theme-selection-background-color: #073642;
+  --theme-comment-color: #93a1a1;
+  --theme-punctuation-color: #586e75;
+  --theme-property-color: #268bd2;
+  --theme-tag-color: #268bd2;
+  --theme-boolean-color: #268bd2;
+  --theme-number-color: #268bd2;
+  --theme-constant-color: #268bd2;
+  --theme-symbol-color: #268bd2;
+  --theme-deleted-color: #268bd2;
+  --theme-selector-color: #2aa198;
+  --theme-attr-name-color: #2aa198;
+  --theme-string-color: #2aa198;
+  --theme-char-color: #2aa198;
+  --theme-builtin-color: #2aa198;
+  --theme-url-color: #2aa198;
+  --theme-inserted-color: #2aa198;
+  --theme-entity-color: #657b83;
+  --theme-entity-background-color: #eee8d5;
+  --theme-atrule-color: #859900;
+  --theme-attr-value-color: #859900;
+  --theme-keyword-color: #859900;
+  --theme-function-color: #b58900;
+  --theme-class-name-color: #b58900;
+  --theme-regex-color: #cb4b16;
+  --theme-important-color: #cb4b16;
+  --theme-variable-color: #cb4b16;
+}
