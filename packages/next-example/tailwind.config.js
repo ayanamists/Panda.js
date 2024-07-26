@@ -29,6 +29,10 @@ const englishFont = "'Optima', 'Linux Biolinum O', 'Candara'";
 const chineseMainFont = "'Noto Serif CJK SC', 'Songti SC', 'SimSun'";
 const chineseKaiFont = "'KaiTi', 'STKaiti', 'AR PL UKai CN'";
 
+const monoFont = {
+  fontFamily: `Mononoki, 'Mononoki Nerd Font', FiraCode, 'FiraCode Nerd Font', JetBrainsMono, 'JetBrainsMono Nerd Font', Menlo, Monaco, monospace`
+}
+
 const headingFont = {
   fontFamily: `${englishFont}, ${chineseKaiFont}`
 };
@@ -117,7 +121,11 @@ export default {
 
             em: {
               ...chineseItalic
-            }
+            },
+
+            code: monoFont,
+            kdb: monoFont,
+            samp: monoFont
           }
         },
       }),

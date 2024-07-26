@@ -1,8 +1,10 @@
+const fontList = `Mononoki, 'Mononoki Nerd Font', FiraCode, 'FiraCode Nerd Font', JetBrainsMono, 'JetBrainsMono Nerd Font', Menlo, Monaco, monospace`;
+
 const style = {
   'code[class*="language-"]': {
     color: 'var(--theme-code-color)',
     textShadow: '0 1px var(--theme-text-shadow-color)',
-    fontFamily: "Inconsolata, Monaco, Consolas, 'Courier New', Courier, monospace",
+    fontFamily: fontList,
     direction: 'ltr',
     textAlign: 'left',
     whiteSpace: 'pre',
@@ -20,7 +22,7 @@ const style = {
   'pre[class*="language-"]': {
     color: 'var(--theme-code-color)',
     textShadow: '0 1px var(--theme-text-shadow-color)',
-    fontFamily: "Inconsolata, Monaco, Consolas, 'Courier New', Courier, monospace",
+    fontFamily: fontList,
     direction: 'ltr',
     textAlign: 'left',
     whiteSpace: 'pre',

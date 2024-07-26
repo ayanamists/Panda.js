@@ -23,10 +23,10 @@ function PreCodeBlock({ children, className }: PreCodeBlockProps) {
       showLineNumbers={true}
       showInlineLineNumbers={true}
       lineNumberStyle={{
-        minWidth: "2em",
+        minWidth: "1.6em",
         textAlign: "right",
         paddingRight: "0",
-        marginRight: "1em",
+        marginRight: "1.5em",
         fontStyle: "italic",
       }}
     >

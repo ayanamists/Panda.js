@@ -36,7 +36,7 @@ export default function Favorites({ params }: {
   const t = useTranslations("Favorites");
   return (<main className="w-full md:w-2xl lg:w-3xl mx-auto">
     <h1 className="text-4xl text-center">
-      {t("quotes")}
+      {t("mottos")}
     </h1>
 
     <div className="flex flex-col flex-wrap gap-2 content-center mt-4">
