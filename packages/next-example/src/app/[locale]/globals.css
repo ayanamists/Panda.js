@@ -4,6 +4,6 @@
 
 @layer base {
   html {
-    font-family: 'Linux Biolinum O', 'Optima', system-ui, serif;
+    font-family: system-ui, sans-serif;
   }
 }

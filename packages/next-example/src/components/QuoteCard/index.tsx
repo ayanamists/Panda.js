@@ -10,7 +10,7 @@ interface QuoteCardProps {
 }
 
 export default function QuoteCard(props: QuoteCardProps) {
-  return (<div className="xl:w-2/5 md:max-lg:w-4/5 w-4/5">
+  return (<div className="xl:w-2/5 md:max-lg:w-4/5 w-4/5 font-post">
     <Card
       isBlurred
       shadow="sm"
@@ -31,8 +31,9 @@ export default function QuoteCard(props: QuoteCardProps) {
 
           <div className="sm:col-span-2">
             <p className="text-xl">{props.text}</p>
-            <hr className="mx-auto mt-2"></hr>
-            <p className="mt-2 text-right">{props.author},
+            <hr className="mx-auto mt-2 border-primary"></hr>
+            <p className="mt-2 text-right">{props.author},</p>
+            <p className="text-right">
               <span className="italic">
                 <a className="hover:underline" href={props.originURL}>{props.from}</a>
               </span>

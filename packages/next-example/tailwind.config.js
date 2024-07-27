@@ -38,6 +38,7 @@ const headingFont = {
 };
 
 const mainFont = {
+  fontFamily: `${englishFont}, ${chineseMainFont}`,
   fontSize: "18px"
 }
 
@@ -62,10 +63,12 @@ export default {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        post: mainFont.fontFamily
+      },
       typography: (theme) => ({
         DEFAULT: {
           css: {
-            fontFamily: `${englishFont}, ${chineseMainFont}`,
             '--tw-prose-quote-borders': color_primary,
             '--tw-prose-links': color_primary,
             '--tw-prose-body': solarizedColors.black,

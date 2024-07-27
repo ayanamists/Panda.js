@@ -2,7 +2,7 @@
 
 import { Dropdown, DropdownItem, DropdownTrigger, DropdownMenu } from '@nextui-org/dropdown';
 import { Button } from '@nextui-org/button';
-import { IoLanguageSharp } from "react-icons/io5";
+import { IoLanguage } from "react-icons/io5";
 /**
  * Change the locale of the page
  * @param locale 
@@ -48,7 +48,7 @@ export default function LangSwitcher() {
           className='text-large font-bold text-foreground'
           aria-label='Select Language'
         >
-          <IoLanguageSharp />
+          <IoLanguage />
         </Button>
       </DropdownTrigger>
 

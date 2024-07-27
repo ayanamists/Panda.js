@@ -6,7 +6,8 @@ import { Link as LLink } from "@/navigation";
 import ThemeSwitcher from "../ThemeSwitcher";
 import LangSwitcher from "../LangSwitcher";
 import Garden from "./Garden";
-import { BsChatLeftQuote } from "react-icons/bs";
+import { IoNewspaper, IoHome, IoBookmarks } from "react-icons/io5";
+import NavbarButton from "./NavbarButton";
 
 export default function SiteNavbar() {
   const t = useTranslations('Navbar');
@@ -16,26 +17,27 @@ export default function SiteNavbar() {
     item: [{
       name: tf("mottos"),
       link: "mottos",
-      icon: <BsChatLeftQuote />
+      icon: <IoBookmarks />
     }]
   }
+
+  const links = [
+    {
+      name: t("main"),
+      link: "/",
+      icon: <IoHome />
+    },
+    {
+      name: t("blog"),
+      link: "/blog",
+      icon: <IoNewspaper />
+    }
+  ]
   return (
     <Navbar shouldHideOnScroll>
-      <NavbarContent className="flex flex-row gap-4" justify="center">
-        <NavbarItem className="font-bold">
-          <LLink href="/" aria-label={t("main")}>
-            {t("main")}
-          </LLink>
-        </NavbarItem>
-
-        <NavbarItem>
-          <LLink href="/blog/" className="font-bold" aria-label={t("blog")}>
-            {t("blog")}
-          </LLink>
-        </NavbarItem>
-
+      <NavbarContent className="flex flex-row gap-1.5" justify="center">
+        {links.map((i) => <NavbarButton key={i.name} {...i} />)}
         <Garden {...favouriteData} />
-
       </NavbarContent>
 
       <NavbarContent justify="end" className="gap-0">

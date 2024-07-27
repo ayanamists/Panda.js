@@ -8,7 +8,7 @@ import React from 'react';
 import Link from 'next/link';
 
 function SmallTitle({ children }: { children: React.ReactNode }) {
-  return (<h2 className='text-xl font-bold'>
+  return (<h2 className='text-xl font-bold font-post'>
     {children}
   </h2>)
 }
@@ -28,12 +28,13 @@ function HomePage() {
   const t = useTranslations('Index');
 
   return (
-    <div className='flex h-[60vh] ml-6 mr-6'>
+    <div className='flex min-h-[60vh] ml-6 mr-6'>
       <div className='m-auto flex gap-10 flex-wrap
         w-full md:w-3xl md:mx-auto lg:w-4xl justify-center'>
         <div className='w-full md:w-48 lg:w-30 flex flex-col'>
-          <div className='text-3xl text-center'>
+          <div className='text-3xl text-center font-post'>
             <ruby>李晨曦<rt>liˇ ʈʂʰənˊ ɕiˉ</rt></ruby>
+            <div className='text-sm'>Li Chenxi</div>
           </div>
           <div className='flex mt-2 gap-1 text-2xl justify-center'>
             <ProfileBadge href={"https://github.com/ayanamists"} icon={<FaGithub />} />
@@ -42,7 +43,7 @@ function HomePage() {
           </div>
         </div>
 
-        <div className='md:max-w-xl lg:max-w-2xl'>
+        <div className='md:max-w-xl lg:max-w-2xl font-post'>
           <div className='mb-5'>
             <SmallTitle>About</SmallTitle>
             {`I am currently a second-year master's student at Nanjing University, majoring in Computer Science. 
@@ -60,7 +61,7 @@ function HomePage() {
               </ul>
             </div>
 
-            <div>
+            <div className='font-post'>
               <SmallTitle>Dev Skills</SmallTitle>
               <ul>
                 <li>Web Development</li>
