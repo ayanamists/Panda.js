@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "postbuild": "next-sitemap",
     "start": "next start",
     "lint": "next lint",
     "generate": "node --experimental-specifier-resolution=node --loader ts-node/esm ./src/contents/cms/cli.ts",
@@ -17,11 +18,13 @@
     "framer-motion": "^11.1.7",
     "next": "14.2.3",
     "next-intl": "^3.12.2",
+    "next-sitemap": "^4.2.3",
     "next-themes": "^0.3.0",
     "react": "^18",
     "react-dom": "^18",
     "react-icons": "^5.2.1",
     "react-katex": "^3.0.1",
+    "react-live": "^4.1.7",
     "react-syntax-highlighter": "^15.5.0",
     "react-tooltip": "^5.26.4"
   },

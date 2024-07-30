@@ -8,5 +8,7 @@
   ],
   "scripts": {
     "build": "cd packages/next-example && yarn build"
-  }
+  },
+  "repository": "git@github.com:ayanamists/Panda.js.git",
+  "author": "Chenxi Li <ayanamists@gmail.com>"
 }
