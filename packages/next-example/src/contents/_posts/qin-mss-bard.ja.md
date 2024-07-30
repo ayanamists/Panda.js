@@ -75,7 +75,7 @@ def max_tails(arr, end):
 
 $$
 \begin{aligned}
-\textsf{arr\[0:end\]} &\equiv \[ x_1, x_2, \cdots, x_n \] \\\\
+\textsf{arr[0:end]} &\equiv [ x_1, x_2, \cdots, x_n ] \\
 m &= (\sum_{i=1}^n x_i) \uparrow (\sum_{i=2}^n x_i) \uparrow \cdots \uparrow (x_n) \uparrow 0
 \end{aligned}
 $$
@@ -106,9 +106,9 @@ $$
 
 $$
 \begin{aligned}
-& a_n x^n + a_{n-1} x^{n-1} + \cdots + a_0 \\\\
-= & ((a_n x^{n - 1}) + (a_{n-1} x^{n - 2}) + \cdots + a_{1}) x + a_0 \\\\
-= & \cdots \\\\
+& a_n x^n + a_{n-1} x^{n-1} + \cdots + a_0 \\
+= & ((a_n x^{n - 1}) + (a_{n-1} x^{n - 2}) + \cdots + a_{1}) x + a_0 \\
+= & \cdots \\
 = & (((a_n x + a_{n - 1}) x + \cdots) x + a_{1})x + a_0
 \end{aligned}
 $$
@@ -117,7 +117,7 @@ $$
 
 $$
 \begin{aligned}
-s_0 &= a_n \\\\
+s_0 &= a_n \\
 s_{i + 1} &= s_i t + a_{n - i - 1}
 \end{aligned}
 $$
@@ -130,7 +130,7 @@ $$
 
 $$
 \begin{aligned}
-& x_1x_2x_3 + x_2x_3 + x_3 + 1 \\\\
+& x_1x_2x_3 + x_2x_3 + x_3 + 1 \\
 =& (((x_1 + 1) x_2) + 1) x_3 + 1
 \end{aligned}
 $$
@@ -140,8 +140,8 @@ $$
 + $\odot$ は $\oplus$ に対して（右）分配します
 $$
 \begin{aligned}
-a \cdot c + b \cdot c &= (a + b) \cdot c \\\\
-(a \odot c) \oplus (b \odot c) &= (a \oplus b) \odot c \\\\
+a \cdot c + b \cdot c &= (a + b) \cdot c \\
+(a \odot c) \oplus (b \odot c) &= (a \oplus b) \odot c \\
 \end{aligned}
 $$
 + $\odot$ の（左）単位元が存在します、つまり、すべての $x$ に対して $a \odot x = x$ となる $a$ が存在します。
@@ -150,7 +150,7 @@ $$
 
 $$
 \begin{aligned}
-& ((x_1 \odot x_2) \odot x_3) \oplus (x_2 \odot x_3) \oplus (x_3) \oplus (1) \\\\
+& ((x_1 \odot x_2) \odot x_3) \oplus (x_2 \odot x_3) \oplus (x_3) \oplus (1) \\
 = & ((((x_1 \oplus 1) \odot x_2) \oplus 1) \odot x_3) \oplus 1
 \end{aligned}
 $$
@@ -163,7 +163,7 @@ $$
 
 $$
 \begin{aligned}
-\textsf{arr\[0:end\]} &\equiv \[ x_1, x_2, \cdots, x_n \] \\\\
+\textsf{arr[0:end]} &\equiv [ x_1, x_2, \cdots, x_n ] \\
 m &= (\sum_{i=1}^n x_i) \uparrow (\sum_{i=2}^n x_i) \uparrow \cdots \uparrow (x_n) \uparrow 0
 \end{aligned}
 $$
@@ -200,9 +200,9 @@ def max_tails(arr, end):
 
 $$
 \begin{aligned}
-& \textsf{max\\_tails}(\textsf{arr}, \textsf{end} + 1) \\\\
-=\ & \textsf{step}(\textsf{step}(\cdots,\textsf{arr}\[\textsf{end} - 1\]), \textsf{arr}\[\textsf{end}\]) \\\\
-=\ & \textsf{step}(\textsf{max\\_tails(arr, end)}, \textsf{arr}\[\textsf{end}\])
+& \textsf{max\_tails}(\textsf{arr}, \textsf{end} + 1) \\
+=\ & \textsf{step}(\textsf{step}(\cdots,\textsf{arr}[\textsf{end} - 1]), \textsf{arr}[\textsf{end}]) \\
+=\ & \textsf{step}(\textsf{max\_tails(arr, end)}, \textsf{arr}[\textsf{end}])
 \end{aligned}
 $$
 

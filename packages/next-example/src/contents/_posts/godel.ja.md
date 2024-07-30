@@ -59,12 +59,12 @@ Kurt Gödelのいくつかの有名な定理は、現代の論理学の基礎を
 
 一階理論については、それが完全であることを期待します。例えば、ペアノ算術では、以下の直感的な命題が証明されます：
 
-- $\forall n. n \le S(n) $
+- $\forall n. n \le S(n)$
 - $\forall n_1, n_2 . n_1 + n_2 = n_2 + n_1$
 
 それに対応して、直感的には成り立たない命題は否定されます。
 
-一階理論が十分に単純であれば、不完全性は容易に達成されます。例えば、記号表が $\\{ c, e \\}$ で、公理が $\emptyset$ の一階理論 $A$ を考えてみましょう。明らかに以下が成り立ちます：
+一階理論が十分に単純であれば、不完全性は容易に達成されます。例えば、記号表が $\{ c, e \}$ で、公理が $\emptyset$ の一階理論 $A$ を考えてみましょう。明らかに以下が成り立ちます：
 
 - $A \not\vdash c = e$
 - $A \not\vdash c \neq e$
@@ -93,8 +93,8 @@ Gödelが1931年に論文を発表した後、ChurchとTuringは1936-1937年に�
 
 $$
 \begin{aligned}
-\forall \vec{y_k}. (& (\varphi(0, \vec{y_k})\ \land \\\\
-    & (\varphi(x, \vec{y_k}) \rightarrow \varphi(S(x), \vec{y_k}))) \\\\ 
+\forall \vec{y_k}. (& (\varphi(0, \vec{y_k})\ \land \\
+    & (\varphi(x, \vec{y_k}) \rightarrow \varphi(S(x), \vec{y_k}))) \\ 
     & \rightarrow \forall x. \varphi(x, \vec{y_k}))
 \end{aligned}
 $$
@@ -232,11 +232,11 @@ def p(prog, x):
 
 半決定可能性にはいくつかの等価な定義があります：
 
-1. 再帰的に列挙可能（recursively enumerable, r.e.）。集合 $S$ が再帰的に列挙可能であるとは、$S = \emptyset$ または再帰的な全関数 $f$ が存在し、$S = \\{ y\ |\ \exists x. f(x) = y \\}$、つまり、$S$ は $f$ の値域であることを意味します。
+1. 再帰的に列挙可能（recursively enumerable, r.e.）。集合 $S$ が再帰的に列挙可能であるとは、$S = \emptyset$ または再帰的な全関数 $f$ が存在し、$S = \{ y\ |\ \exists x. f(x) = y \}$、つまり、$S$ は $f$ の値域であることを意味します。
 2. $S$ の部分[特性関数](https://zh.wikipedia.org/zh-hans/%E6%8C%87%E7%A4%BA%E5%87%BD%E6%95%B0)は部分的に再帰的です。
 3. $S$ はある部分再帰関数の値域です。
 
-「部分関数」（partial function）とは何でしょうか？簡単に言うと、一部の入力で定義されていない関数のことを指します。一部の入力で停止しないプログラムの「像」、つまり $\\{ (x, y)\ |\ x \in A, \texttt{p}(x) = y \\}$ は部分関数です。
+「部分関数」（partial function）とは何でしょうか？簡単に言うと、一部の入力で定義されていない関数のことを指します。一部の入力で停止しないプログラムの「像」、つまり $\{ (x, y)\ |\ x \in A, \texttt{p}(x) = y \}$ は部分関数です。
 
 これらの等価性は証明が必要で、[1, 5]を参照してください。
 
@@ -246,7 +246,7 @@ def p(prog, x):
 
 すでに、少なくとも Peano 算術 $\mathsf{PA}$ については、$\mathsf{PA} \vdash \psi$ の問題が半決定的であることを知っています。この結果と少しのプログラミングの技巧を用いると、すぐに Gödel の不完全性定理を得ることができます。
 
-まず、$\mathsf{PA}$ が完全であると仮定します。つまり、任意の $\psi$ について、$\mathsf{PA} \vdash \psi$ または $\mathsf{PA} \vdash \neg \psi$ です。$\mathsf{PA}$ の半決定器を $\texttt{p}$ とし、$\mathsf{PA}$ の決定器 $\texttt{p\\_total}$ を構築できます。構築は以下の通りです：
+まず、$\mathsf{PA}$ が完全であると仮定します。つまり、任意の $\psi$ について、$\mathsf{PA} \vdash \psi$ または $\mathsf{PA} \vdash \neg \psi$ です。$\mathsf{PA}$ の半決定器を $\texttt{p}$ とし、$\mathsf{PA}$ の決定器 $\texttt{p\_total}$ を構築できます。構築は以下の通りです：
 
 ```python
 from multiprocessing.pool import ThreadPool
@@ -267,14 +267,14 @@ def p_total(ψ):
 
 思いもよらなかったでしょう、このプログラムのキーは実は並行性にあります！並行性のもう一つの名前は「非決定性計算」で、実際、私はここでこの方法を用いて非決定性計算を模倣したいだけです。（つまり、`can_prove_input(ψ)` と `can_prove_input(¬ψ)` を「同時に」計算します）
 
-$\texttt{p\\_total}$ を詳しく分析してみましょう。完全性を考慮に入れて、場合分けを行います：
+$\texttt{p\_total}$ を詳しく分析してみましょう。完全性を考慮に入れて、場合分けを行います：
 
 - もし $\mathsf{PA} \vdash \psi$ ならば、`can_prove_input(ψ)` は停止し、`result.get()` は `ψ` を返すので、全体の関数は `True` を返します。注意してください、この時 `can_prove_input(¬ψ)` は停止しないので、`result.get()` は必ず `ψ` を返します。
 - もし $\mathsf{PA} \vdash \neg\psi$ ならば、`can_prove_input(¬ψ)` は停止し、`result.get()` は `¬ψ` を返し、全体の関数は `False` を返します。$\mathsf{PA}$ の一貫性に基づいて、この時 $\mathsf{PA} \not\vdash \psi$ です。
 
-したがって、$\texttt{p\\_total}$ は $\mathsf{PA} \vdash \psi$ の決定器です。これにより、$\mathsf{PA}$ は決定可能となり、これは不決定性の結果と矛盾します。したがって、仮定は成り立たず、$\mathsf{PA}$ は完全ではありません。
+したがって、$\texttt{p\_total}$ は $\mathsf{PA} \vdash \psi$ の決定器です。これにより、$\mathsf{PA}$ は決定可能となり、これは不決定性の結果と矛盾します。したがって、仮定は成り立たず、$\mathsf{PA}$ は完全ではありません。
 
-読者は納得しないかもしれません：これはズルではないか？ Gödel は何のマルチスレッドを知っているのか？実際、非決定性のチューリングマシンと決定性のチューリングマシンは等価であり、マルチスレッドもシングルスレッドでシミュレートすることができます。しかし、私たちはまだ「正常な」$\texttt{p\\_total}$ を提供することができます。
+読者は納得しないかもしれません：これはズルではないか？ Gödel は何のマルチスレッドを知っているのか？実際、非決定性のチューリングマシンと決定性のチューリングマシンは等価であり、マルチスレッドもシングルスレッドでシミュレートすることができます。しかし、私たちはまだ「正常な」$\texttt{p\_total}$ を提供することができます。
 
 ```python
 def can_prove_n(ψ, n):
@@ -324,7 +324,7 @@ Church の証明を引き続き使用する場合、まず $\approx_{\beta}$ を
 
 $$
 \begin{aligned}
-P(n_1, n_2) &\rightarrow \mathsf{PA \vdash P(n_1, n_2)} \\\\
+P(n_1, n_2) &\rightarrow \mathsf{PA \vdash P(n_1, n_2)} \\
 \neg P(n_1, n_2)& \rightarrow \mathsf{PA \vdash \neg P(n_1, n_2)}
 \end{aligned}
 $$
@@ -352,7 +352,7 @@ $\mathsf{P(x, y)}$ は**確定的な**、2つの自由変数を持つ $\mathsf{P
 Gödel は1931年の論文で、原始的な再帰関数はすべて表現可能であることを証明しました。関数の表現可能性については、教科書 [1] と資料 [9] の説明が少し異なり、資料 [9] は関数の表現可能性と関係の表現可能性を同一視しています。我々は一時的に後者の説明[^7] を採用し、関数 $f$ が表現可能であるとは、次のような $\mathsf{P}$ が存在するとき、かつそのときに限ります。
 
 $$
-f(\vec{m}) = n \rightarrow T \vdash \mathsf{P(\vec{m}, n)} \\\\
+f(\vec{m}) = n \rightarrow T \vdash \mathsf{P(\vec{m}, n)} \\
 f(\vec{m}) \neq n \rightarrow T \vdash \mathsf{\neg P(\vec{m}, n)}
 $$
 
@@ -396,7 +396,7 @@ def f_another(n):
 
 「潜在的に再帰的」とは、部分再帰関数 $g$ に対して、全関数 $f$ が存在し、$g$ が定義されている場所では $f(n) = g(n)$ となることを意味します。直感的には、この定理は「すべての半決定可能な集合が決定可能であるわけではない」と似ています。
 
-今、$T$ の判定器 $\texttt{p\\_t}$ が存在すると仮定します。Gödelの証明によれば、公式 $\mathsf{C(e, n, z, t)}$ が $C(e, n, z)$ を表現しているとします。そこで、新たなスーパーインタプリタを構築することができます。これは、すべての部分再帰関数 $g$ に対応する全関数 $f$ を見つけることができます。任意の $g$ を考え、その $e$ 値を $e_1$ とします。$f$ を以下のように構築します：
+今、$T$ の判定器 $\texttt{p\_t}$ が存在すると仮定します。Gödelの証明によれば、公式 $\mathsf{C(e, n, z, t)}$ が $C(e, n, z)$ を表現しているとします。そこで、新たなスーパーインタプリタを構築することができます。これは、すべての部分再帰関数 $g$ に対応する全関数 $f$ を見つけることができます。任意の $g$ を考え、その $e$ 値を $e_1$ とします。$f$ を以下のように構築します：
 
 ```python
 def f(n):

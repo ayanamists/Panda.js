@@ -59,12 +59,12 @@ Notice that this is a purely syntactic concept, and it seems to require specifyi
 
 For a first-order theory, we naturally hope that it is complete. For example, in Peano arithmetic, the following intuitive propositions can be proved:
 
-- $\forall n. n \le S(n) $
+- $\forall n. n \le S(n)$
 - $\forall n_1, n_2 . n_1 + n_2 = n_2 + n_1$
 
 And correspondingly, propositions that are not intuitively valid can be refuted.
 
-If the first-order theory is simple enough, incompleteness is easy to achieve. For example, consider a first-order theory $A$ with a symbol table of $\\{ c, e \\}$ and axioms of $\emptyset$, it is obvious that:
+If the first-order theory is simple enough, incompleteness is easy to achieve. For example, consider a first-order theory $A$ with a symbol table of $\{ c, e \}$ and axioms of $\emptyset$, it is obvious that:
 
 - $A \not\vdash c = e$
 - $A \not\vdash c \neq e$
@@ -93,8 +93,8 @@ How to enumerate? Consider Peano arithmetic and the Hilbert system. In the axiom
 
 $$
 \begin{aligned}
-\forall \vec{y_k}. (& (\varphi(0, \vec{y_k})\ \land \\\\
-    & (\varphi(x, \vec{y_k}) \rightarrow \varphi(S(x), \vec{y_k}))) \\\\ 
+\forall \vec{y_k}. (& (\varphi(0, \vec{y_k})\ \land \\
+    & (\varphi(x, \vec{y_k}) \rightarrow \varphi(S(x), \vec{y_k}))) \\ 
     & \rightarrow \forall x. \varphi(x, \vec{y_k}))
 \end{aligned}
 $$
@@ -232,11 +232,11 @@ If `prog(x)` halts, then the interpreter `exec(prog, x)` also halts.
 
 Semi-decidability has several equivalent definitions:
 
-1. Recursively enumerable (r.e.). A set $S$ is recursively enumerable, if and only if $S = \emptyset$ or there exists a recursive total function $f$, such that $S = \\{ y\ |\ \exists x. f(x) = y \\}$, that is, $S$ is the range of $f$.
+1. Recursively enumerable (r.e.). A set $S$ is recursively enumerable, if and only if $S = \emptyset$ or there exists a recursive total function $f$, such that $S = \{ y\ |\ \exists x. f(x) = y \}$, that is, $S$ is the range of $f$.
 2. The partial [characteristic function](https://zh.wikipedia.org/zh-hans/%E6%8C%87%E7%A4%BA%E5%87%BD%E6%95%B0) of $S$ is partially recursive.
 3. $S$ is the range of some partial recursive function.
 
-What is a "partial function"? Simply put, it is a function that is not defined on some inputs. A program that does not halt on some inputs, its "image", that is, $\\{ (x, y)\ |\ x \in A, \texttt{p}(x) = y \\}$ is a partial function.
+What is a "partial function"? Simply put, it is a function that is not defined on some inputs. A program that does not halt on some inputs, its "image", that is, $\{ (x, y)\ |\ x \in A, \texttt{p}(x) = y \}$ is a partial function.
 
 These equivalences need to be proven, you can refer to [1, 5].
 
@@ -246,7 +246,7 @@ The construction of `is_valid_stmt` and `is_valid_proof` requires that there exi
 
 We already know that, at least for Peano arithmetic $\mathsf{PA}$, the problem of $\mathsf{PA} \vdash \psi$ is semi-decidable. Based on this result and a little programming trick, we can immediately get Gödel's incompleteness theorem.
 
-First, assume that $\mathsf{PA}$ is complete, that is, for any $\psi$, $\mathsf{PA} \vdash \psi$ or $\mathsf{PA} \vdash \neg \psi$. Let the semi-decider of $\mathsf{PA}$ be $\texttt{p}$, a decider $\texttt{p\\_total}$ of $\mathsf{PA}$ can be constructed. The construction is as follows:
+First, assume that $\mathsf{PA}$ is complete, that is, for any $\psi$, $\mathsf{PA} \vdash \psi$ or $\mathsf{PA} \vdash \neg \psi$. Let the semi-decider of $\mathsf{PA}$ be $\texttt{p}$, a decider $\texttt{p\_total}$ of $\mathsf{PA}$ can be constructed. The construction is as follows:
 
 ```python
 from multiprocessing.pool import ThreadPool
@@ -267,14 +267,14 @@ def p_total(ψ):
 
 Unexpectedly, the key to this program is concurrency! Another name for concurrency is "non-deterministic computation". In fact, I just want to simulate non-deterministic computation with this method. (That is, "simultaneously" calculate `can_prove_input(ψ)` and `can_prove_input(¬ψ)`)
 
-Analyze $\texttt{p\\_total}$ carefully, consider completeness, and discuss it in different cases:
+Analyze $\texttt{p\_total}$ carefully, consider completeness, and discuss it in different cases:
 
 - If $\mathsf{PA} \vdash \psi$, then `can_prove_input(ψ)` will halt, `result.get()` returns `ψ`, so the entire function returns `True`. Note that at this time `can_prove_input(¬ψ)` will not halt, so `result.get()` will definitely return `ψ`.
 - If $\mathsf{PA} \vdash \neg\psi$, then `can_prove_input(¬ψ)` will halt, `result.get()` returns `¬ψ`, the entire function returns `False`. According to the consistency of $\mathsf{PA}$, $\mathsf{PA} \not\vdash \psi$ at this time.
 
-Therefore, $\texttt{p\\_total}$ is a decider of $\mathsf{PA} \vdash \psi$. In this way, $\mathsf{PA}$ is decidable, which contradicts the undecidable result. Therefore, the assumption is not established, $\mathsf{PA}$ is not complete.
+Therefore, $\texttt{p\_total}$ is a decider of $\mathsf{PA} \vdash \psi$. In this way, $\mathsf{PA}$ is decidable, which contradicts the undecidable result. Therefore, the assumption is not established, $\mathsf{PA}$ is not complete.
 
-Readers may not be convinced: Isn't this a trick? Where does Gödel know about multithreading? In fact, non-deterministic Turing machines and deterministic Turing machines are equivalent, and multithreading can also be simulated by single-threading. However, we can still give a more "normal" $\texttt{p\\_total}$.
+Readers may not be convinced: Isn't this a trick? Where does Gödel know about multithreading? In fact, non-deterministic Turing machines and deterministic Turing machines are equivalent, and multithreading can also be simulated by single-threading. However, we can still give a more "normal" $\texttt{p\_total}$.
 
 ```python
 def can_prove_n(ψ, n):
@@ -324,7 +324,7 @@ If we want to follow Church's proof, then, we first need to arithmetize $\approx
 
 $$
 \begin{aligned}
-P(n_1, n_2) &\rightarrow \mathsf{PA \vdash P(n_1, n_2)} \\\\
+P(n_1, n_2) &\rightarrow \mathsf{PA \vdash P(n_1, n_2)} \\
 \neg P(n_1, n_2)& \rightarrow \mathsf{PA \vdash \neg P(n_1, n_2)}
 \end{aligned}
 $$
@@ -350,8 +350,10 @@ However, I personally think it is a troublesome job to find $\mathsf{P}$.
 In Gödel's 1931 paper, he proved that all primitive recursive functions are representable. Regarding the representability of functions, textbooks [1] and materials [9] have different opinions. Material [9] equates the representability of functions with the representability of relations. We temporarily adopt the latter's statement[^7], a function $f$ is representable if and only if there exists a $\mathsf{P}$, such that
 
 $$
-f(\vec{m}) = n \rightarrow T \vdash \mathsf{P(\vec{m}, n)} \\\\
+\begin{aligned}
+f(\vec{m}) = n \rightarrow T \vdash \mathsf{P(\vec{m}, n)} \\
 f(\vec{m}) \neq n \rightarrow T \vdash \mathsf{\neg P(\vec{m}, n)}
+\end{aligned}
 $$
 
 Kleene proved the normal form theorem:
@@ -394,7 +396,7 @@ Here, $e$ can be roughly understood as the result after the program (recursive f
 
 The so-called "potentially recursive" means that for a partial recursive function $g$, there exists a total function $f$ such that $f(n) = g(n)$ where $g$ is defined. Intuitively, this theorem is similar to "not all semi-decidable sets are decidable".
 
-Now suppose there is a decider $\texttt{p\\_t}$ for $T$. According to Gödel's proof, there is a formula $\mathsf{C(e, n, z, t)}$ that represents $C(e, n, z)$. Then, a new super interpreter can be constructed that can find the corresponding total function $f$ for all partial recursive functions $g$. Consider any $g$ with $e$ value $e_1$, construct $f$ as follows:
+Now suppose there is a decider $\texttt{p\_t}$ for $T$. According to Gödel's proof, there is a formula $\mathsf{C(e, n, z, t)}$ that represents $C(e, n, z)$. Then, a new super interpreter can be constructed that can find the corresponding total function $f$ for all partial recursive functions $g$. Consider any $g$ with $e$ value $e_1$, construct $f$ as follows:
 
 ```python
 def f(n):

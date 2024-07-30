@@ -75,7 +75,7 @@ This seems to be a trivial transformation, I just broke down the two layers insi
 
 $$
 \begin{aligned}
-\textsf{arr\[0:end\]} &\equiv \[ x_1, x_2, \cdots, x_n \] \\\\
+\textsf{arr[0:end]} &\equiv [ x_1, x_2, \cdots, x_n ] \\
 m &= (\sum_{i=1}^n x_i) \uparrow (\sum_{i=2}^n x_i) \uparrow \cdots \uparrow (x_n) \uparrow 0
 \end{aligned}
 $$
@@ -106,9 +106,9 @@ For a given $t$, there are several ways to find the value of $f(t)$. The most tr
 
 $$
 \begin{aligned}
-& a_n x^n + a_{n-1} x^{n-1} + \cdots + a_0 \\\\
-= & ((a_n x^{n - 1}) + (a_{n-1} x^{n - 2}) + \cdots + a_{1}) x + a_0 \\\\
-= & \cdots \\\\
+& a_n x^n + a_{n-1} x^{n-1} + \cdots + a_0 \\
+= & ((a_n x^{n - 1}) + (a_{n-1} x^{n - 2}) + \cdots + a_{1}) x + a_0 \\
+= & \cdots \\
 = & (((a_n x + a_{n - 1}) x + \cdots) x + a_{1})x + a_0
 \end{aligned}
 $$
@@ -117,7 +117,7 @@ This can be written in an iterative form:
 
 $$
 \begin{aligned}
-s_0 &= a_n \\\\
+s_0 &= a_n \\
 s_{i + 1} &= s_i t + a_{n - i - 1}
 \end{aligned}
 $$
@@ -130,7 +130,7 @@ First, the input to this algorithm does not necessarily have to be a polynomial.
 
 $$
 \begin{aligned}
-& x_1x_2x_3 + x_2x_3 + x_3 + 1 \\\\
+& x_1x_2x_3 + x_2x_3 + x_3 + 1 \\
 =& (((x_1 + 1) x_2) + 1) x_3 + 1
 \end{aligned}
 $$
@@ -140,8 +140,8 @@ Secondly, the operations considered by the Qin Jiushao algorithm are not necessa
 + $\odot$ distributes over $\oplus$ (right)
 $$
 \begin{aligned}
-a \cdot c + b \cdot c &= (a + b) \cdot c \\\\
-(a \odot c) \oplus (b \odot c) &= (a \oplus b) \odot c \\\\
+a \cdot c + b \cdot c &= (a + b) \cdot c \\
+(a \odot c) \oplus (b \odot c) &= (a \oplus b) \odot c \\
 \end{aligned}
 $$
 + There exists a (left) unit element for $\odot$, i.e., there exists $a$ such that $\forall x, a \odot x = x$
@@ -150,7 +150,7 @@ Taking the previous expression as an example:
 
 $$
 \begin{aligned}
-& ((x_1 \odot x_2) \odot x_3) \oplus (x_2 \odot x_3) \oplus (x_3) \oplus (1) \\\\
+& ((x_1 \odot x_2) \odot x_3) \oplus (x_2 \odot x_3) \oplus (x_3) \oplus (1) \\
 = & ((((x_1 \oplus 1) \odot x_2) \oplus 1) \odot x_3) \oplus 1
 \end{aligned}
 $$
@@ -163,7 +163,7 @@ As mentioned earlier, `max_tails` can be written as:
 
 $$
 \begin{aligned}
-\textsf{arr\[0:end\]} &\equiv \[ x_1, x_2, \cdots, x_n \] \\\\
+\textsf{arr[0:end]} &\equiv [ x_1, x_2, \cdots, x_n ] \\
 m &= (\sum_{i=1}^n x_i) \uparrow (\sum_{i=2}^n x_i) \uparrow \cdots \uparrow (x_n) \uparrow 0
 \end{aligned}
 $$
@@ -200,9 +200,9 @@ Obviously, the time complexity of the rewritten `max_tails` is `O(n)`. Not only 
 
 $$
 \begin{aligned}
-& \textsf{max\\_tails}(\textsf{arr}, \textsf{end} + 1) \\\\
-=\ & \textsf{step}(\textsf{step}(\cdots,\textsf{arr}\[\textsf{end} - 1\]), \textsf{arr}\[\textsf{end}\]) \\\\
-=\ & \textsf{step}(\textsf{max\\_tails(arr, end)}, \textsf{arr}\[\textsf{end}\])
+& \textsf{max\_tails}(\textsf{arr}, \textsf{end} + 1) \\
+=\ & \textsf{step}(\textsf{step}(\cdots,\textsf{arr}[\textsf{end} - 1]), \textsf{arr}[\textsf{end}]) \\
+=\ & \textsf{step}(\textsf{max\_tails(arr, end)}, \textsf{arr}[\textsf{end}])
 \end{aligned}
 $$
 

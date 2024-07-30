@@ -70,7 +70,7 @@ This large $Λ$ introduces a type variable that needs to be explicitly applied w
 
 $$
 \begin{aligned}
-((Λ t. λ (x:t). x) \text{Int})1 & \Rightarrow \\\\
+((Λ t. λ (x:t). x) \text{Int})1 & \Rightarrow \\
 (λ (x:\text{Int}). x) 1 & \Rightarrow 1
 \end{aligned}
 $$
