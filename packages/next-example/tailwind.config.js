@@ -92,7 +92,7 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        post: mainFont.fontFamily
+        'mainpage': `${englishFont}, ${chineseMainFont}`,
       },
       typography: (theme) => ({
         DEFAULT: {
