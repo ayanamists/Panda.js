@@ -1,6 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 import { nextui } from '@nextui-org/react';
 import typo from "@tailwindcss/typography";
+import plugin from 'tailwindcss/plugin';
 
 
 const solarizedColors = {
@@ -26,25 +27,52 @@ const color_primary = solarizedColors.brred;
 const color_primary_dark = solarizedColors.magenta;
 
 const englishFont = "'Optima', 'Linux Biolinum O', 'Candara'";
-const chineseMainFont = "'Noto Serif CJK SC', 'Songti SC', 'SimSun'";
+const chineseMainFont = `'Noto Serif CJK SC', 'Songti SC', 'SimSun'`;
 const chineseKaiFont = "'KaiTi', 'STKaiti', 'AR PL UKai CN'";
+
+const jpMainFont = `'Noto Serif CJK JP', 'Toppan Bunkyu Midashi Min Std', 'MS Mincho', YuMincho`;
+const jpKaiFont = "YuKyokasho, 'UD Digi Kyokasho'";
+
+const mainNode = ["p", "li", "cite"]
+const itNode = ["em", "i", "blockQuote .cjk", "h1", "h2", "h3", "h4", "h5", "h6"]
+
+function mkFont(languageName, mainFont, itFont) {
+  const res = {}
+  for (const mn of mainNode) {
+    res[`html[lang="${languageName}"] .prose ${mn}`] = {
+      fontFamily: mainFont
+    }
+  }
+
+  for (const itn of itNode) {
+    res[`html[lang="${languageName}"] .prose ${itn}`] = {
+      fontFamily: itFont
+    }
+  }
+  return res
+}
+
+const chineseFontSetting =
+      mkFont("zh-cn", `${englishFont}, ${chineseMainFont}`, `${englishFont}, ${chineseKaiFont}`);
+const jpFontSetting =
+      mkFont("ja", `${englishFont}, ${jpMainFont}`, `${englishFont}, ${jpKaiFont}`);
+const enFontSetting =
+      mkFont("en", englishFont, englishFont);
+
+const postFontSetting = {
+  ...chineseFontSetting, ...jpFontSetting, ...enFontSetting
+}
 
 const monoFont = {
   fontFamily: `Mononoki, 'Mononoki Nerd Font', FiraCode, 'FiraCode Nerd Font', JetBrainsMono, 'JetBrainsMono Nerd Font', Menlo, Monaco, monospace`
 }
 
-const headingFont = {
-  fontFamily: `${englishFont}, ${chineseKaiFont}`
-};
-
 const mainFont = {
-  fontFamily: `${englishFont}, ${chineseMainFont}`,
   fontSize: "18px"
 }
 
 const chineseItalic = {
   ".cjk": {
-    fontFamily: chineseKaiFont,
     fontStyle: "normal"
   }
 }
@@ -85,12 +113,6 @@ export default {
             '--tw-prose-invert-bullets': color_primary_dark,
             '--tw-prose-invert-counters': color_primary_dark,
 
-            h1: headingFont,
-            h2: headingFont,
-            h3: headingFont,
-            h4: headingFont,
-            h5: headingFont,
-            h6: headingFont,
             div: mainFont,
             p: {
               marginTop: '1em',
@@ -159,7 +181,8 @@ export default {
         // ... rest of the colors
       }
     }
-  }), typo()],
+  }), typo(), plugin(function({ addBase, config }) {
+      addBase(postFontSetting)
+  })],
   darkMode: 'class',
 }
-

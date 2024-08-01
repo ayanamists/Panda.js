@@ -8,10 +8,6 @@ draft: false
 This article was translated from Chinese by ChatGPT and may contain some errors.
 </div>
 
-> 問有兩尖田一段，其尖長不等，兩大斜三十九步，兩小斜二十五步，中廣三十步，欲知其積幾何？
->
-> 術曰：以少廣求之，翻法入之。置半廣自乘為半冪，與小斜冪相減相乘為小率， 以半冪與大斜冪相減相乘為大率。以二率相減餘自乘為實，併二率倍之為從上廉，以一為益隅，開翻法三乘方得積。
-
 All along, some friends have looked down on functional programming. They feel that functional programming just adds some unnecessary abstraction, and the cost is a decrease in performance. Friends who hold this view, I'm afraid, have definitely not read Richard Bird's [_PEARLS OF FUNCTIONAL ALGORITHM DESIGN_](https://www.cambridge.org/core/books/pearls-of-functional-algorithm-design/B0CF0AC5A205AF9491298684113B088F). The content discussed in this book is indeed too obscure, and I have not read it all the way through.
 
 Fortunately, Richard Bird wrote a paper in 1989 that is only 5 pages long, [_Algebraic identities for program calculation_](https://academic.oup.com/comjnl/article/32/2/122/543545?login=false). This paper uses a famous problem--the maximum subarray sum[^1] (Maximum subarray problem) to fully demonstrate the unique understanding of algorithmic problems by functional programming thinking: the maximum subarray sum problem can be solved by the Qin Jiushao algorithm.

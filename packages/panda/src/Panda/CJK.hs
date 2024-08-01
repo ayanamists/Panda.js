@@ -25,7 +25,10 @@ isCJK c = 0x4E00 <= code && code <= 0x9FFF || -- CJK Unified Ideographs blocks
   0x3400 <= code && code <= 0x4DBF ||         -- CJK Unified Ideographs Extension A
   0x20000 <= code && code <= 0x2A6DF ||       -- CJK Unified Ideographs Extension B
   0xFA00 <= code && code <= 0xFAFF ||         -- CJK Compatibility Ideographs
-  0x3000 <= code && code <= 0x303F            -- CJK Symbols and Punctuation
+  0x3000 <= code && code <= 0x303F ||         -- CJK Symbols and Punctuation
+  0x3040 <= code && code <= 0x309F ||         -- Hiragana
+  0x30A0 <= code && code <= 0x30FF ||         -- Katakana
+  0x31F0 <= code && code <= 0x31FF            -- Katakana Phonetic Extensions
   where code = ord c
 
 
