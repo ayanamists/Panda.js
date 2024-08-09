@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Providers } from './provider';
-import SiteNavbar from "@/components/SiteNavbar";
 import { unstable_setRequestLocale } from 'next-intl/server';
-import 'react-tooltip/dist/react-tooltip.css';
+import dynamic from 'next/dynamic'
+
+const DynamicNavbar = dynamic(() => import('@/components/SiteNavbar'), {
+});
 
 export const metadata: Metadata = {
   title: "Aya's Blog",
@@ -23,7 +25,7 @@ export default function RootLayout({
     <html lang={params.locale} suppressHydrationWarning>
       <body className={`text-foreground bg-background min-h-screen`}>
         <Providers>
-          <SiteNavbar />
+          <DynamicNavbar />
           {children}
         </Providers>
       </body>

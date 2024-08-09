@@ -1,6 +1,7 @@
 "use client";
 
 import './index.module.css';
+import 'react-tooltip/dist/react-tooltip.css';
 import { Tooltip } from "react-tooltip";
 
 interface NoteItemProps {

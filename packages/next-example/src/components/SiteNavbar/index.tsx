@@ -1,8 +1,5 @@
-import
-{ Navbar, NavbarBrand, NavbarContent, NavbarItem
-} from "@nextui-org/navbar";
+import { Navbar, NavbarContent, NavbarItem } from "@nextui-org/navbar";
 import { useTranslations } from "next-intl";
-import { Link as LLink } from "@/navigation";
 import ThemeSwitcher from "../ThemeSwitcher";
 import LangSwitcher from "../LangSwitcher";
 import Garden from "./Garden";
