@@ -1,7 +1,6 @@
 import PostContent from '@/contents';
 import { getPostByLang, getPostById } from '@/contents/cms';
 import { unstable_setRequestLocale } from 'next-intl/server';
-import ClientPost from './ClientPost';
 
 interface PageProps {
   params: {
