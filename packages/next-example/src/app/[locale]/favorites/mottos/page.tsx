@@ -1,6 +1,8 @@
 import QuoteCard from "@/components/QuoteCard";
 import { useTranslations } from "next-intl";
 import { unstable_setRequestLocale } from "next-intl/server";
+import { Suspense } from "react";
+import Loading from "@/components/Loading";
 
 const quotes = [{
   text: `It is not only the violin that shapes the violinist, we are all shaped by the tools we train ourselves to use, and in this respect programming languages have a devious influence: they shape our thinking habits.`,
@@ -39,8 +41,14 @@ export default function Favorites({ params }: {
       {t("mottos")}
     </h1>
 
-    <div className="flex flex-col flex-wrap gap-2 content-center mt-4">
-      {quotes.map((q, id) => <QuoteCard key={id} {...q} /> )}
-    </div>
+    <Suspense fallback={<Loading />}>
+      <Mottos />
+    </Suspense>
   </main>);
+}
+
+function Mottos() {
+  return (<div className="flex flex-col flex-wrap gap-2 content-center mt-4">
+    {quotes.map((q, id) => <QuoteCard key={id} {...q} /> )}
+  </div>);
 }

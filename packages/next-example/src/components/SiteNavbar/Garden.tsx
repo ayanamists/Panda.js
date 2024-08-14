@@ -20,7 +20,7 @@ export default function Garden( { name, item } : GardenProps) {
   const rounter = useRouter();
   return (
     <Dropdown className="bg-background min-w-20">
-      <NavbarButton name={name} dropdown={true} icon={<IoSparkles />} />
+      <NavbarButton name={name} dropdown={true} icon={<IoSparkles />} link={"/favorites"}  />
       <DropdownMenu
         aria-label="favorite selects"
         className="w-auto min-w-20"

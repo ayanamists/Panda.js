@@ -15,7 +15,7 @@ export default function SiteNavbar() {
       name: tf("mottos"),
       link: "mottos",
       icon: <IoBookmarks />
-    }]
+    }],
   }
 
   const links = [
@@ -26,7 +26,7 @@ export default function SiteNavbar() {
     },
     {
       name: t("blog"),
-      link: "/blog",
+      link: "/posts",
       icon: <IoNewspaper />
     }
   ]

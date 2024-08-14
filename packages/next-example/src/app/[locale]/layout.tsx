@@ -7,6 +7,10 @@ import dynamic from 'next/dynamic'
 const DynamicNavbar = dynamic(() => import('@/components/SiteNavbar'), {
 });
 
+const DynamicTopLoader = dynamic(() => import("@/components/TopLoader"), {
+  ssr: false
+});
+
 export const metadata: Metadata = {
   title: "Aya's Blog",
   description: "A site powered by next.js and pandoc"
@@ -20,11 +24,11 @@ export default function RootLayout({
   params: { locale: string };
 }>) {
   unstable_setRequestLocale(params.locale);
-
   return (
     <html lang={params.locale} suppressHydrationWarning>
       <body className={`text-foreground bg-background min-h-screen`}>
         <Providers>
+          <DynamicTopLoader />
           <DynamicNavbar />
           {children}
         </Providers>

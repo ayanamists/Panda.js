@@ -2,7 +2,7 @@
 
 import { Post } from '@/contents/cms';
 import { Card, CardBody, CardFooter } from "@nextui-org/card";
-import { Link } from '@nextui-org/link';
+import Link from 'next/link';
 
 export default function PostCard({ post }: { post: Post }) {
   return (
@@ -12,7 +12,7 @@ export default function PostCard({ post }: { post: Post }) {
     >
       <CardBody>
         <Link href={`/${post.metaData.language}/posts/${post.id}`}
-          className='text-lg whitespace-normal'
+          className='text-lg whitespace-normal text-primary'
           aria-label='Post'
         >
           {post.metaData.title}

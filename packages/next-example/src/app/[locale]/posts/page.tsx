@@ -1,5 +1,7 @@
 import { getPostByLang } from '@/contents/cms';
 import PostList from '@/components/PostList';
+import { Suspense } from 'react';
+import Loading from '@/components/Loading';
 
 interface BlogPageProps {
   params: {
@@ -19,7 +21,9 @@ export default async function BlogPage({
   return (
     <main className="container mx-auto relative w-full px-6
     md:max-w-4xl md:mx-auto lg:max-w-5xl lg:pt-2 lg:pb-28">
-      <PostList posts={posts} />
+      <Suspense fallback={<Loading />}>
+        <PostList posts={posts} />
+      </Suspense>
     </main>
   );
 }
