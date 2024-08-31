@@ -34,7 +34,7 @@ const jpMainFont = `'Noto Serif CJK JP', 'Toppan Bunkyu Midashi Min Std', 'MS Mi
 const jpKaiFont = "YuKyokasho, 'UD Digi Kyokasho'";
 
 const mainNode = ["p", "li", "cite"]
-const itNode = ["em", "i", "blockQuote .cjk", "h1", "h2", "h3", "h4", "h5", "h6"]
+const itNode = ["em", "i", "blockQuote .cjk"]
 
 function mkFont(languageName, mainFont, itFont) {
   const res = {}

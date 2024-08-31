@@ -1,6 +1,7 @@
 import PostContent from '@/contents';
 import { getPostByLang, getPostById } from '@/contents/cms';
 import { unstable_setRequestLocale } from 'next-intl/server';
+import type { Metadata, ResolvingMetadata } from 'next'
 
 interface PageProps {
   params: {
@@ -43,4 +44,15 @@ export async function generateStaticParams({ params }: {
     .map(post => ({
       slug: post.id,
     }));
+}
+
+export async function generateMetadata(
+  { params }: PageProps,
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+  const post = await getPostById(params.slug, params.locale);
+  return {
+    title: post.metaData.title,
+    authors: [ { name: post.metaData.author } ],
+  }
 }
