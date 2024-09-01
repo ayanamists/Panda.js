@@ -8,7 +8,7 @@ import React from 'react';
 import Link from 'next/link';
 
 function SmallTitle({ children }: { children: React.ReactNode }) {
-  return (<h2 className='text-xl font-bold font-post'>
+  return (<h2 className='text-xl font-bold font-heading'>
     {children}
   </h2>)
 }

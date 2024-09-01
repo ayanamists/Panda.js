@@ -2,6 +2,7 @@ import PostContent from '@/contents';
 import { getPostByLang, getPostById } from '@/contents/cms';
 import { unstable_setRequestLocale } from 'next-intl/server';
 import type { Metadata, ResolvingMetadata } from 'next'
+import { formatDate } from '@/utils';
 
 interface PageProps {
   params: {
@@ -22,10 +23,10 @@ export default async function Page({ params }: PageProps) {
   const path = post.metaData.fullName;
   const heading = post.metaData.title;
   return (<div>
-    <h1 className="text-4xl font-bold mb-2">{heading}</h1>
-    <div className="text-sm text-gray-500 mb-5">
-    {new Date(post.metaData.date).toLocaleDateString()}
-    </div>
+    <h1 className="text-4xl font-bold mb-1 font-heading">{heading}</h1>
+    <time className="text-sm font-semibold text-gray-500 font-mono">
+      {formatDate(post.metaData.date)}
+    </time>
     <PostContent name={path} />
   </div>);
 }

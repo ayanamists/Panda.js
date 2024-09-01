@@ -26,9 +26,12 @@ const solarizedColors = {
 const color_primary = solarizedColors.brred;
 const color_primary_dark = solarizedColors.magenta;
 
-const englishFont = "'Optima', 'Linux Biolinum O', 'Candara'";
+const englishFont = "Palatino, Georgia, 'Linux Libertine O'";
 const chineseMainFont = `'Noto Serif CJK SC', 'Songti SC', 'SimSun'`;
 const chineseKaiFont = "'KaiTi', 'STKaiti', 'AR PL UKai CN'";
+
+const chineseHeadingFont = `'Noto Sans CJK', 'Microsoft YaHei', 'PingFang SC'`;
+const englishHeadingFont = `Optima, 'Linux Biolinum O', Candara`;
 
 const jpMainFont = `'Noto Serif CJK JP', 'Toppan Bunkyu Midashi Min Std', 'MS Mincho', YuMincho`;
 const jpKaiFont = "YuKyokasho, 'UD Digi Kyokasho'";
@@ -64,8 +67,12 @@ const postFontSetting = {
 }
 
 const monoFont = {
-  fontFamily: `Mononoki, 'Mononoki Nerd Font', FiraCode, 'FiraCode Nerd Font', JetBrainsMono, 'JetBrainsMono Nerd Font', Menlo, Monaco, monospace`
+  fontFamily: `Mononoki, 'Mononoki Nerd Font',
+FiraCode, 'FiraCode Nerd Font', JetBrainsMono,
+'JetBrainsMono Nerd Font', Menlo, Monaco, monospace`
 }
+
+const headingFont = `${englishHeadingFont}, ${chineseHeadingFont}`;
 
 const mainFont = {
   fontSize: "18px"
@@ -93,6 +100,8 @@ export default {
     extend: {
       fontFamily: {
         'mainpage': `${englishFont}, ${chineseMainFont}`,
+        'mono': monoFont.fontFamily,
+        'heading': headingFont
       },
       typography: (theme) => ({
         DEFAULT: {
@@ -114,16 +123,23 @@ export default {
             '--tw-prose-invert-counters': color_primary_dark,
 
             div: mainFont,
+            h2: {
+              marginTop: '1em',
+              marginBottom: '0.75em',
+            },
+
             p: {
               marginTop: '1em',
               marginBottom: '1em',
+              lineHeight: '1.7em',
               ...mainFont
             },
 
             li: {
               p: {
                 marginTop: 0,
-                marginBottom: 0
+                marginBottom: 0,
+                lineHeight: '1.25em',
               },
               ...mainFont
             },

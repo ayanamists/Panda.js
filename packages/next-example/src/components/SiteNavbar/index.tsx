@@ -31,7 +31,7 @@ export default function SiteNavbar() {
     }
   ]
   return (
-    <Navbar shouldHideOnScroll>
+      <Navbar height={'3rem'}>
       <NavbarContent className="flex flex-row gap-1.5" justify="center">
         {links.map((i) => <NavbarButton key={i.name} {...i} />)}
         <Garden {...favouriteData} />

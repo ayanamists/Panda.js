@@ -8,6 +8,7 @@ interface TableOfContentsProps {
   children: React.ReactNode
 }
 
+// TODO It's a good idea to sync url with scorll?
 export default function TableOfContents({ children }: TableOfContentsProps) {
 
   // titles, the document itself, should not change, or some bugs can happen
@@ -74,7 +75,7 @@ export default function TableOfContents({ children }: TableOfContentsProps) {
 
   // NOTE: this will only work when outer block is not static block
   // so I set the blog body to relative
-  return (<div className="xl:absolute xl:-right-8">
+  return (<div className="xl:absolute xl:-right-8 mt-2">
     <div className="xl:fixed xl:max-w-[300px]">
       <div className="toc">
       {children}
