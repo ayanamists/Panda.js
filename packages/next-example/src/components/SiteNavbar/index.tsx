@@ -3,6 +3,7 @@ import { useTranslations } from "next-intl";
 import ThemeSwitcher from "../ThemeSwitcher";
 import LangSwitcher from "../LangSwitcher";
 import Garden from "./Garden";
+import { HiExternalLink } from "react-icons/hi";
 import { IoNewspaper, IoHome, IoBookmarks } from "react-icons/io5";
 import NavbarButton from "./NavbarButton";
 
@@ -35,6 +36,7 @@ export default function SiteNavbar() {
       <NavbarContent className="flex flex-row gap-1.5" justify="center">
         {links.map((i) => <NavbarButton key={i.name} {...i} />)}
         <Garden {...favouriteData} />
+        <NavbarButton link={"https://wiki.ayayaya.org"} name={"Wiki"} icon={<HiExternalLink />}/>
       </NavbarContent>
 
       <NavbarContent justify="end" className="gap-0">
