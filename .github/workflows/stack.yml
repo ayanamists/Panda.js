@@ -52,9 +52,11 @@ jobs:
         uses: borales/actions-yarn@v4
         with:
           cmd: build # will run `yarn build:prod` command
-      - name: Disable Jekyll
-        run: touch packages/next-example/out/.nojekyll
-      - name: Deploy 🚀
-        uses: JamesIves/github-pages-deploy-action@v4
+
+      - name: Publish
+        uses: cloudflare/pages-action@v1
         with:
-          folder: packages/next-example/out/
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          projectName: ayayaya-home
+          directory: packages/next-example/out # e.g. 'dist'
