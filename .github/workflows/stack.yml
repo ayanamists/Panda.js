@@ -13,7 +13,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: panda-exe
-          path: ./packages/panda/.stack-work/dist/x86_64-linux-tinfo6/ghc-9.6.4/build/panda-exe/panda-exe
+          path: ./packages/panda/.stack-work/dist/x86_64-linux-tinfo6/ghc-9.8.2/build/panda-exe/panda-exe
   next-build:
     concurrency: ci-${{ github.ref }} # Recommended if you intend to make multiple deployments in quick succession.
     needs: panda-build

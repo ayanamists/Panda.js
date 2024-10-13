@@ -4,13 +4,16 @@ import CopyButton from "./CopyButton";
 import './index.css';
 
 interface PreCodeBlockProps {
-  children: string,
-  className: string
+  children: React.ReactDOM;
+  className?: string;
 }
 
-function PreCodeBlock({ children, className }: PreCodeBlockProps) {
-  const code = children;
-  const language = className;
+interface CodeBlockProps {
+  code: string,
+  language: string
+}
+
+function CodeBlock({ code, language }: CodeBlockProps) {
   return (
     <div className="border border-solid rounded-md not-prose
       border-zinc-400
@@ -34,6 +37,21 @@ function PreCodeBlock({ children, className }: PreCodeBlockProps) {
     </SyntaxHighlighter>
     </div>
   );
+}
+
+function PreCodeBlock({ children, className }: PreCodeBlockProps) {
+  const classNames = className?.split(" ");
+  const language = classNames?.[0];
+  let code = "";
+  if (typeof children === "string") {
+    code = children;
+  } else if (Array.isArray(children)) {
+    if (typeof children[0] === "string") {
+      code = children[0];
+    }
+  }
+
+  return (<CodeBlock code={code} language={language ?? ""} />);
 }
 
 export default PreCodeBlock;

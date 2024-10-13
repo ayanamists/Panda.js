@@ -60,9 +60,15 @@ notePrompt blocks = composeBlocks $ runState (notePromptBlock blocks) emptyNoteP
         notePromptBlock = walkM notePromptNote
         notePromptNote (Note _blocks) = do
           ctr <- nextNotePrompt _blocks
-          return $ (Superscript [Link (getNoteAnchorName ctr, [], [])
-                                 [Str $ T.pack $ show ctr] ("#" <> getNoteIdName ctr, "") ])
+          return $ Superscript [Link (getNoteAnchorName ctr, [], [])
+                                 [Str $ T.pack $ show ctr] ("#" <> getNoteIdName ctr, "") ]
         notePromptNote inline = return inline
+
+rawBlockMerge :: [Block] -> [Block]
+rawBlockMerge [] = []
+rawBlockMerge (RawBlock (Format "html") t1 : RawBlock (Format "html") t2 : xs) =
+  rawBlockMerge $ RawBlock (Format "html") (t1 <> t2) : xs
+rawBlockMerge (x:xs) = x:rawBlockMerge xs
 
 getTOC :: [Block] -> Block
 getTOC blocks = Div ("toc", ["toc"], []) [toTableOfContents def blocks]
@@ -74,7 +80,7 @@ wrapTag :: Text -> TagName
 wrapTag tag = JSExpr $ fullTag tag <> ".tag"
 
 withDefaultProps :: Text -> [JSXProp] -> [JSXProp]
-withDefaultProps tag props = (RawProp $ "..." <> fullTag tag <> ".add_props"):props
+withDefaultProps tag props = RawProp ("..." <> fullTag tag <> ".add_props"):props
 
 emptyProps :: Text -> [JSXProp]
 emptyProps tag = withDefaultProps tag []
@@ -97,21 +103,24 @@ buildJSXS tag props = jsxs (wrapTag tag) (withDefaultProps tag props)
 buildJSX :: JSX a => Text -> [JSXProp] -> a -> a
 buildJSX tag props = jsx (wrapTag tag) (withDefaultProps tag props)
 
-simpleJSXS :: JSX a => Text -> [a] -> a
-simpleJSXS tag = buildJSXS tag []
+simpleJSX :: JSX a => Text -> a -> a
+simpleJSX tag = buildJSX tag []
 
 simpleAttrJSX :: JSX a => Text -> Attr -> a -> a
 simpleAttrJSX tag attr = buildJSX tag (writeAttr attr)
 
-simpleAttrJSXS :: JSX a => Text -> Attr -> [a] -> a
-simpleAttrJSXS tag attr = buildJSXS tag (writeAttr attr)
-
 simpleEmtpyJSX :: JSX a => Text -> a
 simpleEmtpyJSX tag = emptyJSX (wrapTag tag) (emptyProps tag)
 
+simpleJSXS :: JSX a => Text -> [a] -> a
+simpleJSXS tag = buildJSXS tag []
+
+simpleAttrJSXS :: JSX a => Text -> Attr -> [a] -> a
+simpleAttrJSXS tag attr = buildJSXS tag (writeAttr attr)
+
 _writeJSX :: JSX x => JSXWriterOptions -> Pandoc -> x
 _writeJSX _ (Pandoc _ blocks) = jsxFragments [] [toc, article]
-  where article = simpleJSXS "article" . map writeJSXBlocks . processCJK . notePrompt $ blocks
+  where article = simpleJSXS "article" . map writeJSXBlocks . processCJK . notePrompt . rawBlockMerge $ blocks
         toc = writeJSXBlocks . getTOC $ blocks
 
 toJSXBlock :: JSX a => Text -> [Inline] -> a
@@ -141,6 +150,7 @@ writeJSXBlocks (Para inlines) = toJSXBlock tag inlines
   where tag = if any isBlockInline inlines then "div" else "p"
 writeJSXBlocks (LineBlock _) = undefined
 writeJSXBlocks (CodeBlock attr code) = simpleAttrJSX "pre" attr $ textJSX code
+writeJSXBlocks (RawBlock (Format "html") str) = simpleJSX "rawhtml" $ textJSX str
 writeJSXBlocks (RawBlock _ _) = textJSX ""
 writeJSXBlocks (BlockQuote blocks) = simpleJSXS "blockquote" $ map writeJSXBlocks blocks
 writeJSXBlocks (OrderedList _ blocks) = simpleJSXS "ol" $ map toLiBlock blocks

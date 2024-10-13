@@ -17,8 +17,7 @@
 #
 # resolver: ./custom-snapshot.yaml
 # resolver: https://example.com/snapshots/2023-01-01.yaml
-resolver:
-  url: https://raw.githubusercontent.com/commercialhaskell/stackage-snapshots/master/lts/22/13.yaml
+resolver: nightly-2024-10-11
 
 # User packages to be built.
 # Various formats can be used as shown in the example below.
@@ -49,7 +48,7 @@ packages:
 # extra-package-dbs: []
 
 # Control whether we use the GHC we find on the path
-# system-ghc: true
+system-ghc: true
 #
 # Require a specific version of Stack, using version ranges
 # require-stack-version: -any # Default
@@ -69,8 +68,8 @@ packages:
 jobs: 8
 
 extra-deps:
-- preprocessor-tools-1.0.1
-- hsb2hs-0.3.1
+- github: ayanamists/pangu-hs
+  commit: b2291b06e7386e6f33bb25ea69bc9e309d93bad4
 
 flags:
   pandoc:

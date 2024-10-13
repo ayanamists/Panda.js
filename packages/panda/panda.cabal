@@ -1,6 +1,6 @@
 cabal-version: 2.2
 
--- This file has been generated from package.yaml by hpack version 0.36.0.
+-- This file has been generated from package.yaml by hpack version 0.37.0.
 --
 -- see: https://github.com/sol/hpack
 
@@ -47,9 +47,10 @@ library
     , optparse-applicative >=0.18.1.0
     , pandoc >=3.1
     , pandoc-types ==1.23.1
+    , pangu-hs ==0.1.0.0
     , template-haskell >=2.20
     , temporary ==1.3
-    , text ==2.0.2
+    , text >=2.0.2
   default-language: Haskell2010
 
 executable panda-exe
@@ -73,9 +74,10 @@ executable panda-exe
     , panda
     , pandoc >=3.1
     , pandoc-types ==1.23.1
+    , pangu-hs ==0.1.0.0
     , template-haskell >=2.20
     , temporary ==1.3
-    , text ==2.0.2
+    , text >=2.0.2
   default-language: Haskell2010
 
 test-suite panda-test
@@ -100,7 +102,8 @@ test-suite panda-test
     , panda
     , pandoc >=3.1
     , pandoc-types ==1.23.1
+    , pangu-hs ==0.1.0.0
     , template-haskell >=2.20
     , temporary ==1.3
-    , text ==2.0.2
+    , text >=2.0.2
   default-language: Haskell2010

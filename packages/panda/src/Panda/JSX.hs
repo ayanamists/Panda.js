@@ -1,5 +1,6 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE FlexibleInstances #-}
+{-# LANGUAGE DeriveTraversable  #-}
 
 module Panda.JSX
   ( TagName(..)
@@ -50,10 +51,18 @@ tagNameToText :: TagName -> Text
 tagNameToText (RawString text) = wrapText text
 tagNameToText (JSExpr text) = text
 
-jsxToText :: Text -> Int -> TagName -> [JSXProp] -> [Text] -> Text
+data Children a = Empty | Child a | Children [a]
+  deriving (Functor, Foldable, Traversable)
+
+childrenToText :: Children Text -> Text
+childrenToText (Child child) = "children:" <> child
+childrenToText Empty = ""
+childrenToText (Children children) = "children:[" <> T.intercalate ", " children <> "]"
+
+jsxToText :: Text -> Int -> TagName -> [JSXProp] -> Children Text -> Text
 jsxToText func key tagName props children =
   func <> "("
-  <> (tagNameToText tagName) <> ", "
+  <> tagNameToText tagName <> ", "
     <> "{"
     <> propsToText props
     <> childrenToText children
@@ -63,17 +72,13 @@ jsxToText func key tagName props children =
 
 propsToText :: [JSXProp] -> Text
 propsToText [] = ""
-propsToText props = (T.intercalate ", " $ map propToText props) <> ","
+propsToText props = T.intercalate ", " (map propToText props) <> ","
   where
     propToText (RawProp text) = text
     propToText (MapProp (key, value)) = key <> ": " <> value
 
-childrenToText :: [Text] -> Text
-childrenToText [] = ""
-childrenToText children = "children:[" <> T.intercalate ", " children <> "]"
-
 jsxFragments :: JSX a => [JSXProp] -> [a] -> a
-jsxFragments props = jsxs (JSExpr "_Fragment") props
+jsxFragments = jsxs (JSExpr "_Fragment")
 
 type JSXText = State Int Text
 
@@ -83,7 +88,7 @@ getKey = do
   put $ key + 1
   return key
 
-buildJSXText :: Text -> TagName -> [JSXProp] -> [JSXText] -> JSXText
+buildJSXText :: Text -> TagName -> [JSXProp] -> Children JSXText -> JSXText
 buildJSXText t tagName props children = do
   key <- getKey
   let (children', _) = runState (sequence children) 0
@@ -91,6 +96,6 @@ buildJSXText t tagName props children = do
 
 instance JSX JSXText where
   textJSX = return . writeJSString
-  emptyJSX tagName props = buildJSXText "_jsx" tagName props []
-  jsx tagName props child = buildJSXText "_jsxs" tagName props [child]
-  jsxs tagName props children = buildJSXText "_jsxs" tagName props children
+  emptyJSX tagName props = buildJSXText "_jsx" tagName props Empty
+  jsx tagName props child = buildJSXText "_jsx" tagName props (Child child)
+  jsxs tagName props children = buildJSXText "_jsxs" tagName props (Children children)

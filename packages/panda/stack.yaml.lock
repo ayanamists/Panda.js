@@ -5,23 +5,19 @@
 
 packages:
 - completed:
-    hackage: preprocessor-tools-1.0.1@sha256:061bbe5545e309df17d597bdb48f37e90e01c6828bec7e64ef1cbc910765970c,1682
+    name: pangu-hs
     pantry-tree:
-      sha256: dc9762b36082f73e73597d9d502d0727cd6e1d0f64b6ae2e10fc348643282a54
-      size: 1033
+      sha256: b60bca48f5c2750b23e80893cdbba3dabd42d9198dadd39a154f174d254ef1b2
+      size: 623
+    sha256: f0c2daab996b2304598fa20d743eecf0f660c415000bcaa9b6b97e2cfad4de49
+    size: 4885
+    url: https://github.com/ayanamists/pangu-hs/archive/b2291b06e7386e6f33bb25ea69bc9e309d93bad4.tar.gz
+    version: 0.1.0.0
   original:
-    hackage: preprocessor-tools-1.0.1
-- completed:
-    hackage: hsb2hs-0.3.1@sha256:37129826820761f0b76f49b040f428bc3947bb85e9fd5b62be050f7c51b0c0f2,925
-    pantry-tree:
-      sha256: e68eb3d29731b288745ce081e13517bd46052ce212c14dc3180b9a5a4a34cd04
-      size: 199
-  original:
-    hackage: hsb2hs-0.3.1
+    url: https://github.com/ayanamists/pangu-hs/archive/b2291b06e7386e6f33bb25ea69bc9e309d93bad4.tar.gz
 snapshots:
 - completed:
-    sha256: 6f0bea3ba5b07360f25bc886e8cff8d847767557a492a6f7f6dcb06e3cc79ee9
-    size: 712905
-    url: https://raw.githubusercontent.com/commercialhaskell/stackage-snapshots/master/lts/22/13.yaml
-  original:
-    url: https://raw.githubusercontent.com/commercialhaskell/stackage-snapshots/master/lts/22/13.yaml
+    sha256: 1435a8c3c419d01af402eef9c0938adb601031d8ed625622ef1519fa726db042
+    size: 665058
+    url: https://raw.githubusercontent.com/commercialhaskell/stackage-snapshots/master/nightly/2024/10/11.yaml
+  original: nightly-2024-10-11
