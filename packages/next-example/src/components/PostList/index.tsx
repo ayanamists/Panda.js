@@ -18,8 +18,8 @@ export default function PostList({ posts }: { posts: Post[] }) {
   return (
     <Listbox aria-label='Post List' className='mt-6'>
       {posts.map(post => (
-        <ListboxItem key={post.id}
-          textValue={post.metaData.title}
+        <ListboxItem
+          key={post.id}
           href={`/posts/${post.id}`}
           as={Link}
         >

@@ -19,7 +19,7 @@ export default function NavbarButton({ name, dropdown = false, link, icon }: Nav
   const button = (
     <Button
       className={
-      `text-medium w-auto p-0 bg-transparent
+      `text-sm w-auto p-0 bg-transparent
       min-w-14
       gap-0.5
       ${highlight ? "text-primary" : "text-foreground"}

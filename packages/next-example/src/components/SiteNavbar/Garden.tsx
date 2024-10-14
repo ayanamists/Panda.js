@@ -1,9 +1,8 @@
 "use client";
 
-import { NavbarItem } from "@nextui-org/navbar";
-import { Dropdown, DropdownTrigger, DropdownMenu, DropdownItem } from "@nextui-org/dropdown";
+import { Dropdown, DropdownMenu, DropdownItem } from "@nextui-org/dropdown";
 import React from "react";
-import { useRouter } from "@/navigation";
+import { Link } from "@/navigation";
 import NavbarButton from "./NavbarButton";
 import { IoSparkles } from "react-icons/io5";
 
@@ -17,7 +16,6 @@ interface GardenProps {
 }
 
 export default function Garden( { name, item } : GardenProps) {
-  const rounter = useRouter();
   return (
     <Dropdown className="bg-background min-w-20">
       <NavbarButton name={name} dropdown={true} icon={<IoSparkles />} link={"/favorites"}  />
@@ -27,15 +25,14 @@ export default function Garden( { name, item } : GardenProps) {
         itemClasses={{
           base: "gap-4",
         }}
-        onAction={(key) => {
-          rounter.push(key as string)
-        }}
       >
         {item.map((i) =>
           <DropdownItem
             className="gap-1"
             key={`/favorites/${i.link}`}
             startContent={i.icon}
+            as={Link}
+            href={`/favorites/${i.link}`}
           >
             {i.name}
           </DropdownItem>)

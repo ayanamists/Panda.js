@@ -32,15 +32,10 @@ export default function SiteNavbar() {
     }
   ]
   return (
-    <Navbar height={'3rem'}
-      classNames={{
-        item: [
-          'data-[active=true]:text-primary'
-        ]
-      }}>
-      <NavbarBrand>
+    <Navbar height={'2.5rem'}>
+      <NavbarBrand className="hidden sm:block">
       </NavbarBrand>
-      <NavbarContent className="flex flex-row gap-2" justify="center">
+      <NavbarContent className="flex flex-row gap-1" justify="center">
         {links.map((i) => <NavbarButton key={i.name} {...i} />)}
         <Garden {...favouriteData} />
         <NavbarButton link={"https://wiki.ayayaya.org"} name={"Wiki"} icon={<HiExternalLink />} />
