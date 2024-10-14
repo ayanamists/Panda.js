@@ -1,4 +1,4 @@
-import { Navbar, NavbarContent, NavbarItem } from "@nextui-org/navbar";
+import { Navbar, NavbarBrand, NavbarContent, NavbarItem } from "@nextui-org/navbar";
 import { useTranslations } from "next-intl";
 import ThemeSwitcher from "../ThemeSwitcher";
 import LangSwitcher from "../LangSwitcher";
@@ -32,11 +32,18 @@ export default function SiteNavbar() {
     }
   ]
   return (
-      <Navbar height={'3rem'}>
-      <NavbarContent className="flex flex-row gap-1.5" justify="center">
+    <Navbar height={'3rem'}
+      classNames={{
+        item: [
+          'data-[active=true]:text-primary'
+        ]
+      }}>
+      <NavbarBrand>
+      </NavbarBrand>
+      <NavbarContent className="flex flex-row gap-2" justify="center">
         {links.map((i) => <NavbarButton key={i.name} {...i} />)}
         <Garden {...favouriteData} />
-        <NavbarButton link={"https://wiki.ayayaya.org"} name={"Wiki"} icon={<HiExternalLink />}/>
+        <NavbarButton link={"https://wiki.ayayaya.org"} name={"Wiki"} icon={<HiExternalLink />} />
       </NavbarContent>
 
       <NavbarContent justify="end" className="gap-0">

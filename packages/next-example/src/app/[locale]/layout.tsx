@@ -2,11 +2,9 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Providers } from './provider';
 import { unstable_setRequestLocale } from 'next-intl/server';
-import dynamic from 'next/dynamic'
+import dynamic from 'next/dynamic';
 
-const DynamicNavbar = dynamic(() => import('@/components/SiteNavbar'), {
-});
-
+import SiteNavbar from "@/components/SiteNavbar";
 const DynamicTopLoader = dynamic(() => import("@/components/TopLoader"), {
   ssr: false
 });
@@ -26,10 +24,10 @@ export default function RootLayout({
   unstable_setRequestLocale(params.locale);
   return (
     <html lang={params.locale} suppressHydrationWarning>
-      <body className={`text-foreground bg-background min-h-screen`}>
+      <body className={`text-foreground bg-background`}>
         <Providers>
           <DynamicTopLoader />
-          <DynamicNavbar />
+          <SiteNavbar />
           {children}
         </Providers>
       </body>

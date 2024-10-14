@@ -1,6 +1,6 @@
-import { useTranslations } from 'next-intl';
 import { unstable_setRequestLocale } from 'next-intl/server';
 import { FaGithub } from "react-icons/fa";
+import { FaTwitter } from "react-icons/fa";
 import { SiDouban } from "react-icons/si";
 import { SiZhihu } from "react-icons/si";
 
@@ -17,16 +17,15 @@ function ProfileBadge({ href, icon }: {
   href: string,
   icon: React.ReactNode
 }) {
-  return (<div>
-    <Link href={href}>
-      {icon}
-    </Link>
-  </div>)
+  return (
+    <div className='hover:text-primary'>
+      <Link href={href}>
+        {icon}
+      </Link>
+    </div>)
 }
 
 function HomePage() {
-  const t = useTranslations('Index');
-
   return (
     <div className='flex min-h-[60vh] ml-6 mr-6'>
       <div className='m-auto flex gap-10 flex-wrap
@@ -38,6 +37,7 @@ function HomePage() {
           </div>
           <div className='flex mt-2 gap-1 text-2xl justify-center'>
             <ProfileBadge href={"https://github.com/ayanamists"} icon={<FaGithub />} />
+            <ProfileBadge href={"https://x.com/chezchenxi"} icon={<FaTwitter />} />
             <ProfileBadge href={"https://www.douban.com/people/191397140"} icon={<SiDouban />} />
             <ProfileBadge href={"https://www.zhihu.com/people/woodwardchenxi"} icon={<SiZhihu />} />
           </div>

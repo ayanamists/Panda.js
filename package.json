@@ -9,6 +9,9 @@
   "scripts": {
     "build": "cd packages/next-example && yarn build"
   },
+  "resolutions": {
+    "@react-aria/utils": "^3.25.2"
+  },
   "repository": "git@github.com:ayanamists/Panda.js.git",
   "author": "Chenxi Li <ayanamists@gmail.com>"
 }
