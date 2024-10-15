@@ -12,6 +12,10 @@ interface NavbarButtonProps {
   icon?: React.ReactNode
 }
 
+function guard<a>(cond: boolean, value: a) {
+  return cond ? value : undefined
+}
+
 export default function NavbarButton({ name, dropdown = false, link, icon }: NavbarButtonProps) {
   const path = usePathname();
   const highlight = (link === '/' && path === '/') ||
@@ -28,8 +32,8 @@ export default function NavbarButton({ name, dropdown = false, link, icon }: Nav
       variant="light"
       startContent={icon}
       aria-label={`Goto ${name}`}
-      href={link}
-      as={dropdown ? undefined : Link}
+      href={guard(!dropdown, link)}
+      as={guard(!dropdown, Link)}
     >
       {name}
     </Button>
