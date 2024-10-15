@@ -22,15 +22,10 @@ export default function PostList({ posts }: { posts: Post[] }) {
           key={post.id}
           href={`/posts/${post.id}`}
           as={Link}
+          description={<PostDate date={post.metaData.date} />}
+          textValue={post.metaData.title}
         >
-          <div className='sm:flex items-center'>
-            <div className='w-24'>
-              <PostDate date={post.metaData.date} />
-            </div>
-            <div>
-              <PostCard post={post} />
-            </div>
-          </div>
+          <PostCard post={post} />
         </ListboxItem>
       ))}
     </Listbox>
