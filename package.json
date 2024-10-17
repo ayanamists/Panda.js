@@ -7,7 +7,7 @@
     "packages/*"
   ],
   "scripts": {
-    "build": "cd packages/next-example && yarn build"
+    "build": "cd packages/next-example && yarn generate && yarn build"
   },
   "resolutions": {
     "@react-aria/utils": "^3.25.2"

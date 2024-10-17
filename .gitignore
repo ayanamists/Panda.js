@@ -36,3 +36,4 @@ yarn-error.log*
 next-env.d.ts
 
 packages/next-example/bin/*
+packages/next-example/src/contents/index.ts
