@@ -1,6 +1,8 @@
 import NoteItem from "@/components/NoteItem";
 import Admonitions from "@/components/Admonitions";
 import TableOfContents from "@/components/TableOfContents";
+import OrgResult from "@/components/OrgResult";
+import CodeWithResult from "../CodeWithResult";
 
 export default function Div({ children, ...rest }: { children: React.ReactNode, rest: any }) {
   const div = parseDiv({ children, ...rest });
@@ -30,6 +32,10 @@ function parseDiv({ children, ...rest }: { children: React.ReactNode, rest: any 
       return (<Admonitions {...props}>{children}</Admonitions>);
     } else if (rest.className === "toc") {
       return (<TableOfContents>{children}</TableOfContents>);
+    } else if (rest.className === "org-result") {
+      return (<OrgResult>{children}</OrgResult>);
+    } else if (rest.className === "code-with-result") {
+      return (<CodeWithResult>{children}</CodeWithResult>);
     }
   }
 }

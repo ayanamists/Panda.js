@@ -8,6 +8,11 @@ draft: false
 この記事はChatGPTによって中国語から翻訳されたもので、いくつかの誤りが含まれているかもしれません。不正確な部分があればご了承ください。
 </div>
 
+
+> 問有兩尖田一段，其尖長不等，兩大斜三十九步，兩小斜二十五步，中廣三十步，欲知其積幾何？
+>
+> 術曰：以少廣求之，翻法入之。置半廣自乘為半冪，與小斜冪相減相乘為小率， 以半冪與大斜冪相減相乘為大率。以二率相減餘自乘為實，併二率倍之為從上廉，以一為益隅，開翻法三乘方得積。
+
 部の人々は、関数型プログラミングを軽視しています。彼らは、関数型プログラミングが無意味な抽象化を増やすだけで、その代償はパフォーマンスの低下だと感じるかもしれません。このような見解を持つ人々は、おそらくRichard Birdの著書 [_PEARLS OF FUNCTIONAL ALGORITHM DESIGN_](https://www.cambridge.org/core/books/pearls-of-functional-algorithm-design/B0CF0AC5A205AF9491298684113B088F) を読んだことがないでしょう。この本の内容は確かに難解で、私も一度も完全に読み通したことはありません。
 
 幸運なことに、Richard Birdは1989年にわずか5ページの論文 [_Algebraic identities for program calculation_](https://academic.oup.com/comjnl/article/32/2/122/543545?login=false) を書いています。この論文では、最大部分配列和[^1]（Maximum subarray problem）という有名な問題を用いて、関数型プログラミング思考がアルゴリズム問題に対する独特の理解を見事に示しています：最大部分配列和問題は秦九韶アルゴリズムで解くことができます。

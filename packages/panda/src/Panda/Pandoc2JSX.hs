@@ -5,14 +5,17 @@ module Panda.Pandoc2JSX
   , defaultJSXWriterOptions
   ) where
 
+import qualified Text.Pandoc.Writers.AnnotatedTable as Ann
 import Data.Default (def)
 import Text.Pandoc.Definition
 import Text.Pandoc.Class
 import Text.Pandoc.Writers.Shared (toTableOfContents)
-import Text.Pandoc.Walk (walkM)
+import Text.Pandoc.Walk (walkM, walk)
 import Data.Text (Text)
 import qualified Data.Text as T
 import Control.Monad.State.Lazy (State, runState, get, put)
+import Data.Maybe (catMaybes)
+import Data.Char (chr)
 import Panda.JSX
 import Panda.CJK
 
@@ -70,6 +73,15 @@ rawBlockMerge (RawBlock (Format "html") t1 : RawBlock (Format "html") t2 : xs) =
   rawBlockMerge $ RawBlock (Format "html") (t1 <> t2) : xs
 rawBlockMerge (x:xs) = x:rawBlockMerge xs
 
+wrapOrgResult :: [Block] -> [Block]
+wrapOrgResult (c@(CodeBlock (_, _, kvs) _):t:bs)
+  | ("exports", "both") `elem` kvs =
+    Div ("", ["code-with-result"], [])
+      [c, Div ("", ["org-result"], []) [t]]
+    :wrapOrgResult bs
+wrapOrgResult (b:bs) = b:wrapOrgResult bs
+wrapOrgResult []     = []
+
 getTOC :: [Block] -> Block
 getTOC blocks = Div ("toc", ["toc"], []) [toTableOfContents def blocks]
 
@@ -88,14 +100,16 @@ emptyProps tag = withDefaultProps tag []
 writeAttr :: Attr -> [JSXProp]
 writeAttr (idName, classes, kvs) = writeId idName ++ writeClasses classes ++ map writeKV kvs
   where
-    writeKV (key, value) = MapProp (writeDoubleQuotesJSString key, writeDoubleQuotesJSString value)
+    writeKV (key, value) = MapProp (writeDoubleQuotesJSString key, RawString value)
     writeClasses []       = []
-    writeClasses _classes = [MapProp ("className", writeJSString $ T.intercalate " " _classes)]
+    writeClasses _classes = [
+      MapProp ("className", JSExpr $ writeJSString $ T.intercalate " " _classes)]
     writeId "" = []
-    writeId _idName = [MapProp ("id", writeJSString _idName)]
+    writeId _idName = [MapProp ("id", JSExpr $ writeJSString _idName)]
 
 writeAttrAndLink :: Attr -> Target -> [JSXProp]
-writeAttrAndLink attr (url, _) = MapProp ("href", writeJSString url):writeAttr attr
+writeAttrAndLink attr (url, _) = MapProp
+  ("href", JSExpr $ writeJSString url):writeAttr attr
 
 buildJSXS :: JSX a => Text -> [JSXProp] -> [a] -> a
 buildJSXS tag props = jsxs (wrapTag tag) (withDefaultProps tag props)
@@ -120,7 +134,13 @@ simpleAttrJSXS tag attr = buildJSXS tag (writeAttr attr)
 
 _writeJSX :: JSX x => JSXWriterOptions -> Pandoc -> x
 _writeJSX _ (Pandoc _ blocks) = jsxFragments [] [toc, article]
-  where article = simpleJSXS "article" . map writeJSXBlocks . processCJK . notePrompt . rawBlockMerge $ blocks
+  where article = simpleJSXS "article" .
+          map writeJSXBlocks
+          . processCJK
+          . walk wrapOrgResult
+          . notePrompt
+          . rawBlockMerge
+          $ blocks
         toc = writeJSXBlocks . getTOC $ blocks
 
 toJSXBlock :: JSX a => Text -> [Inline] -> a
@@ -158,7 +178,8 @@ writeJSXBlocks (BulletList blocks) = simpleJSXS "ul" $ map toLiBlock blocks
 writeJSXBlocks (DefinitionList _) = undefined
 writeJSXBlocks (Header level attr inlines) = simpleAttrJSXS ("h" <> T.pack (show level)) attr $ map writeJSXInlines inlines
 writeJSXBlocks HorizontalRule = simpleEmtpyJSX "hr"
-writeJSXBlocks Table{} = undefined
+writeJSXBlocks (Table attr caption colspecs thead tbody tfoot) =
+  tableToJSX (Ann.toTable attr caption colspecs thead tbody tfoot)
 writeJSXBlocks (Figure _ _ blocks) = simpleJSXS "figure" $ map writeJSXBlocks blocks
 writeJSXBlocks (Div attr blocks) = simpleAttrJSXS "div" attr $ map writeJSXBlocks blocks
 
@@ -177,7 +198,8 @@ writeJSXInlines (Code attr text) = simpleAttrJSX "code" attr $ textJSX text
 writeJSXInlines Space = textJSX " "
 writeJSXInlines SoftBreak = textJSX " "
 writeJSXInlines LineBreak = simpleEmtpyJSX "br"
-writeJSXInlines (Math t text) = buildJSX "math" [MapProp ("display", disType t)] $ textJSX text
+writeJSXInlines (Math t text) = buildJSX "math"
+  [MapProp ("display", JSExpr $ disType t)] $ textJSX text
   where disType InlineMath = writeJSString "inline"
         disType DisplayMath = writeJSString "block"
 writeJSXInlines (RawInline _ text) = textJSX text
@@ -185,12 +207,123 @@ writeJSXInlines (Link attr inlines target) = buildJSXS "a" (writeAttrAndLink att
 -- note: the image tag in JSX is self-closing
 -- need some properly handling for the alt text
 writeJSXInlines (Image attr _ target) = emptyJSX (wrapTag "img") props
-  where props = withDefaultProps "img" $ MapProp ("src", writeJSString $ fst target):writeAttr attr
+  where props = withDefaultProps "img" $
+          MapProp ("src", JSExpr $ writeJSString $ fst target):writeAttr attr
 writeJSXInlines (Note blocks) = simpleJSXS "note" $ map writeJSXBlocks blocks
 writeJSXInlines (Span attr inlines) = simpleAttrJSXS "span" attr $ map writeJSXInlines inlines
-
 
 writeJSX :: PandocMonad m => JSXWriterOptions -> Pandoc -> m Text
 writeJSX opts doc = do
   let (r, _) = runState (_writeJSX opts doc :: JSXText) 0
   return r
+
+-- | The part of a table; header, footer, or body.
+data TablePart = Thead | Tfoot | Tbody
+  deriving (Eq)
+
+data CellType = HeaderCell | BodyCell
+
+data TableRow = TableRow TablePart Attr Ann.RowNumber Ann.RowHead Ann.RowBody
+
+tableToJSX :: JSX a => Ann.Table -> a
+tableToJSX (Ann.Table attr caption _ thead tbodies tfoot) =
+  simpleAttrJSXS "table" attr
+    (catMaybes [ tableCaption caption
+    , tableHead thead
+    ] ++ tableBodies tbodies ++
+    catMaybes [tableFoot tfoot])
+
+tableCaption :: JSX a => Caption -> Maybe a
+tableCaption (Caption _ []) = Nothing
+tableCaption (Caption _ longCapt) = Just $
+  simpleJSXS "caption" . map writeJSXBlocks $ longCapt
+
+tableHead :: JSX a => Ann.TableHead -> Maybe a
+tableHead (Ann.TableHead attr rows) =
+  tablePartToJSX Thead attr rows
+
+tableFoot :: JSX a => Ann.TableFoot -> Maybe a
+tableFoot (Ann.TableFoot attr rows) =
+  tablePartToJSX Tfoot attr rows
+
+tablePartToJSX :: JSX a => TablePart -> Attr -> [Ann.HeaderRow] -> Maybe a
+tablePartToJSX tblpart attr rows
+  | null rows || all isEmptyRow rows = Nothing
+  | otherwise = Just $ simpleAttrJSXS tag attr $ headerRowsToJSX tblpart rows
+    where
+      isEmptyRow (Ann.HeaderRow _attr _rownum cells) = all isEmptyCell cells
+      isEmptyCell (Ann.Cell _colspecs _colnum cell) =
+        cell == Cell nullAttr AlignDefault (RowSpan 1) (ColSpan 1) []
+      tag = case tblpart of
+                 Thead -> "thead"
+                 Tfoot -> "tfoot"
+                 Tbody -> "tbody"
+
+tableBodies :: JSX a => [Ann.TableBody] -> [a]
+tableBodies = map tableBodyToJSX
+
+tableBodyToJSX :: JSX a => Ann.TableBody -> a
+tableBodyToJSX (Ann.TableBody attr _rowHeadCols inthead rows) =
+  simpleAttrJSXS "tbody" attr
+    (intermediateHead [inthead] ++ bodyRowsToJSX rows)
+  where
+    intermediateHead _inthead
+      | null _inthead = []
+      | otherwise = concatMap (headerRowsToJSX Thead) _inthead
+
+
+headerRowsToJSX :: JSX a => TablePart -> [Ann.HeaderRow] -> [a]
+headerRowsToJSX tablepart =
+  map (tableRowToJSX . toTableRow)
+  where
+    toTableRow (Ann.HeaderRow attr rownum rowbody) =
+      TableRow tablepart attr rownum [] rowbody
+
+bodyRowsToJSX :: JSX a => [Ann.BodyRow] -> [a]
+bodyRowsToJSX =
+  map tableRowToJSX . zipWith toTableRow [1..]
+  where
+    toTableRow rownum (Ann.BodyRow attr _rownum rowhead rowbody) =
+      TableRow Tbody attr rownum rowhead rowbody
+
+
+tableRowToJSX :: JSX a => TableRow -> a
+tableRowToJSX (TableRow tblpart attr _rownum rowhead rowbody) =
+  simpleAttrJSXS "tr" attr (headcells ++ bodycells)
+  where
+    celltype = case tblpart of
+                    Thead -> HeaderCell
+                    _     -> BodyCell
+    headcells = map (cellToJSX HeaderCell) rowhead
+    bodycells = map (cellToJSX celltype) rowbody
+
+cellToJSX :: JSX a => CellType -> Ann.Cell -> a
+cellToJSX cellType (Ann.Cell _colspecs _colnum
+                    (Cell attr align rowspan colspan item)) =
+  buildJSXS (cellTag cellType)
+  (cellAttr align rowspan colspan attr) $
+  forceNoneEmpty (map writeJSXBlocks item)
+  where forceNoneEmpty [] = [textJSX $ T.pack [chr 0xa0]]
+        forceNoneEmpty x  = x
+
+cellTag :: CellType -> Text
+cellTag HeaderCell = "th"
+cellTag BodyCell   = "td"
+
+cellAttr :: Alignment -> RowSpan -> ColSpan -> Attr -> [JSXProp]
+cellAttr align rowspan colspan attr =
+  writeAttr attr ++ map mkProp (
+  [ ("rowSpan", T.pack $ show (unRowSpan rowspan))
+  , ("colSpan", T.pack $ show (unColSpan colspan))
+  ] ++ maybe [] (\x -> [("style", x)]) (htmlAlignmentToString align))
+  where
+    unRowSpan (RowSpan n) = n
+    unColSpan (ColSpan n) = n
+
+    htmlAlignmentToString :: Alignment -> Maybe Text
+    htmlAlignmentToString AlignLeft    = Just "{ textAlign: left; }"
+    htmlAlignmentToString AlignRight   = Just "{ textAlign: right; }"
+    htmlAlignmentToString AlignCenter  = Just "{ textAlign: center; }"
+    htmlAlignmentToString AlignDefault = Nothing
+
+    mkProp (k, v) = MapProp (writeDoubleQuotesJSString k, JSExpr v)

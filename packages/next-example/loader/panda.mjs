@@ -49,7 +49,8 @@ function getComponentsTable(config) {
     'u', 'strong', 'del', 'sup', 'sub', 'q', 'cite', 'br', 'note', 'span',
     'hr', 'figure', 'img',
     "ul", "ol", "li",
-    "article"];
+    "article", "rawhtml",
+    "table", "tr", "th", "td", "thead", "tbody"];
   let components = "{\n";
   let imports = new Set();
   for (const t of tag) {

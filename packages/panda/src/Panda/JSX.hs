@@ -3,7 +3,8 @@
 {-# LANGUAGE DeriveTraversable  #-}
 
 module Panda.JSX
-  ( TagName(..)
+  ( MetaExpr(..)
+  , TagName
   , JSX(..)
   , JSXProp(..)
   , JSXText
@@ -19,9 +20,12 @@ import Data.Text (Text)
 import qualified Data.Text as T
 import Control.Monad.State.Lazy (State, get, put, runState)
 
-data JSXProp = RawProp Text | MapProp (Text, Text)
+data JSXProp = RawProp Text | MapProp (Text, MetaExpr)
 
-data TagName = RawString Text | JSExpr Text
+data MetaExpr = RawString Text | JSExpr Text
+
+type TagName = MetaExpr
+
 
 class JSX a where
   textJSX :: Text -> a
@@ -47,9 +51,9 @@ writeJSString str = "`" <> rep str <> "`"
 writeDoubleQuotesJSString :: Text -> Text
 writeDoubleQuotesJSString str = "\"" <> str <> "\""
 
-tagNameToText :: TagName -> Text
-tagNameToText (RawString text) = wrapText text
-tagNameToText (JSExpr text) = text
+metaExprToText :: TagName -> Text
+metaExprToText (RawString text) = wrapText text
+metaExprToText (JSExpr text) = text
 
 data Children a = Empty | Child a | Children [a]
   deriving (Functor, Foldable, Traversable)
@@ -62,7 +66,7 @@ childrenToText (Children children) = "children:[" <> T.intercalate ", " children
 jsxToText :: Text -> Int -> TagName -> [JSXProp] -> Children Text -> Text
 jsxToText func key tagName props children =
   func <> "("
-  <> tagNameToText tagName <> ", "
+  <> metaExprToText tagName <> ", "
     <> "{"
     <> propsToText props
     <> childrenToText children
@@ -75,7 +79,7 @@ propsToText [] = ""
 propsToText props = T.intercalate ", " (map propToText props) <> ","
   where
     propToText (RawProp text) = text
-    propToText (MapProp (key, value)) = key <> ": " <> value
+    propToText (MapProp (key, value)) = key <> ": " <> metaExprToText value
 
 jsxFragments :: JSX a => [JSXProp] -> [a] -> a
 jsxFragments = jsxs (JSExpr "_Fragment")

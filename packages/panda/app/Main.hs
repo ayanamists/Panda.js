@@ -13,6 +13,7 @@ import Text.Pandoc.App
   , Opt(..)
   , convertWithOpts)
 import Text.Pandoc.Scripting (noEngine)
+import Text.Pandoc.Format
 import Text.Pandoc.Filter (Filter(..))
 import Data.Map as M (fromList)
 import qualified Data.Text.IO as TIO
@@ -43,12 +44,17 @@ runPandoc input (PandaOpts _path _) = convertWithOpts noEngine opt'
                                , optFilters = [CiteprocFilter]
                                , optMetadata = Meta $ fromList [("link-citations", MetaBool True)]
                                , optStandalone = True
+                               , optShiftHeadingLevelBy = if isOrgModeFile _path then 1 else 0
                                }
 
 
 getResult :: PandocMonad m => PandaOpts -> Pandoc -> m Text
 getResult (PandaOpts _ False) = writeJSX defaultJSXWriterOptions
 getResult (PandaOpts _ True) = return . writeMeta
+
+isOrgModeFile :: Maybe String -> Bool
+isOrgModeFile s = Just "org" == (formatName <$> format)
+  where format = formatFromFilePaths . (:[]) =<< s
 
 
 main :: IO ()

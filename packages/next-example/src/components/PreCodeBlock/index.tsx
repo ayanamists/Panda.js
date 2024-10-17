@@ -6,6 +6,7 @@ import './index.css';
 interface PreCodeBlockProps {
   children: React.ReactDOM;
   className?: string;
+  exports?: "string";
 }
 
 interface CodeBlockProps {
@@ -19,22 +20,22 @@ function CodeBlock({ code, language }: CodeBlockProps) {
       border-zinc-400
       relative">
       <CopyButton code={code} />
-    <SyntaxHighlighter
-      language={language}
-      // @ts-ignore
-      style={styles}
-      showLineNumbers={true}
-      showInlineLineNumbers={true}
-      lineNumberStyle={{
-        minWidth: "1.6em",
-        textAlign: "right",
-        paddingRight: "0",
-        marginRight: "1.5em",
-        fontStyle: "italic",
-      }}
-    >
-      {code}
-    </SyntaxHighlighter>
+      <SyntaxHighlighter
+        language={language}
+        // @ts-ignore
+        style={styles}
+        showLineNumbers={true}
+        showInlineLineNumbers={true}
+        lineNumberStyle={{
+          minWidth: "1.6em",
+          textAlign: "right",
+          paddingRight: "0",
+          marginRight: "1.5em",
+          fontStyle: "italic",
+        }}
+      >
+        {code.trim()}
+      </SyntaxHighlighter>
     </div>
   );
 }

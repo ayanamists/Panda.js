@@ -1,0 +1,22 @@
+.org-table table {
+  border-collapse: collapse;
+  table-layout: fixed;
+  width: 80%;
+}
+.org-table th, .org-table td {
+  border: 1px solid #ccc;
+  padding: 0px;
+  text-align: center;
+  overflow: hidden;
+  width: 18px;
+}
+
+.org-table td.empty:after {
+  content: 'Empty cell';
+  visibility: hidden;
+  speak: none;
+}
+
+.org-table th {
+  background-color: #f2f2f2;
+}

@@ -4,7 +4,7 @@
 
 tl;dr: 本站已迁移至 Pandoc + React 技术栈。
 
-** 再见，Hugo
+* 再见，Hugo
 
 经过了不到一年的使用，我决定彻底放弃 Hugo 极其相关技术栈。
 
@@ -21,7 +21,7 @@ tl;dr: 本站已迁移至 Pandoc + React 技术栈。
 
 因此，我决定迁移到 Pandoc + React 技术栈。
 
-** 技术选型
+* 技术选型
 
 怎么把 Pandoc 和 React 结合起来，是一个未被探索的问题。我目前采用的方法是
 
@@ -34,11 +34,11 @@ tl;dr: 本站已迁移至 Pandoc + React 技术栈。
 Pandoc 能够解析的 markup 语言，例如 markdown, org-mode, reStructuredText 等等。
 [fn:: 本文就是一个 org-mode 文档]
 
-** 实现
+* 实现
 
 目前实现在[[https://github.com/ayanamists/Panda.js][仓库]]中。
 
-** TODO
+* TODO
 
 目前的实现非常脏，主要的问题是
 
