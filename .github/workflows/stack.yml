@@ -10,12 +10,17 @@ jobs:
       - uses: freckle/stack-action@v5
         with:
           working-directory: packages/panda
+      - name: Get Local Install Root
+        id: get_local_install_root
+        run: echo "LOCAL_INSTALL_ROOT=$(stack path --local-install-root)" >> $GITHUB_OUTPUT
+        shell: bash
+        working-directory: ./packages/panda
       - uses: actions/upload-artifact@v4
         with:
           name: panda-exe
-          path: ./packages/panda/.stack-work/dist/x86_64-linux/ghc-9.8.2/build/panda-exe/panda-exe
+          path: ${{ steps.get_local_install_root.outputs.LOCAL_INSTALL_ROOT }}/bin/panda-exe
   next-build:
-    concurrency: ci-${{ github.ref }} # Recommended if you intend to make multiple deployments in quick succession.
+    concurrency: ci-${{ github.ref }}
     needs: panda-build
     runs-on: ubuntu-latest
     steps:
