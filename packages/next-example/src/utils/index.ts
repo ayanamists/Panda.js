@@ -1,4 +1,4 @@
-export function joinChildren(children: React.ReactDOM, delimiter: string): string {
+export function joinChildren(children: React.ReactElement, delimiter: string): string {
   if (typeof children === "string") {
     return children;
   } else if (Array.isArray(children)) {

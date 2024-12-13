@@ -3,7 +3,7 @@ import "katex/dist/katex.min.css";
 import { joinChildren } from "@/utils";
 
 interface MathProps {
-  children: React.ReactDOM;
+  children: React.ReactElement;
   display: "inline" | "block";
 }
 

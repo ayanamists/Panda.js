@@ -5,13 +5,14 @@ import type { Metadata, ResolvingMetadata } from 'next'
 import { formatDate } from '@/utils';
 
 interface PageProps {
-  params: {
+  params: Promise<{
     slug: string
     locale: string
-  }
+  }>
 }
 
-export default async function Page({ params }: PageProps) {
+export default async function Page(props: PageProps) {
+  const params = await props.params;
   unstable_setRequestLocale(params.locale);
   const id = params.slug;
   const lang = params.locale;
@@ -47,10 +48,8 @@ export async function generateStaticParams({ params }: {
     }));
 }
 
-export async function generateMetadata(
-  { params }: PageProps,
-  parent: ResolvingMetadata
-): Promise<Metadata> {
+export async function generateMetadata(props: PageProps, parent: ResolvingMetadata): Promise<Metadata> {
+  const params = await props.params;
   const post = await getPostById(params.slug, params.locale);
   return {
     title: post.metaData.title,

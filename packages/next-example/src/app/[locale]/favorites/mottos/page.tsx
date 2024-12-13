@@ -1,7 +1,7 @@
 import QuoteCard from "@/components/QuoteCard";
 import { useTranslations } from "next-intl";
 import { unstable_setRequestLocale } from "next-intl/server";
-import { Suspense } from "react";
+import { Suspense, use } from "react";
 import Loading from "@/components/Loading";
 
 const quotes = [{
@@ -30,10 +30,13 @@ const quotes = [{
   avatarURL: "https://livedoor.blogimg.jp/acideigakan/imgs/f/5/f5af7021.jpg"
 }]
 
-export default function Favorites({ params }: {
-  params: { locale: string }
-}) {
-  
+export default function Favorites(
+  props: {
+    params: Promise<{ locale: string }>
+  }
+) {
+  const params = use(props.params);
+
   unstable_setRequestLocale(params.locale);
   const t = useTranslations("Favorites");
   return (<main className="w-full md:w-2xl lg:w-3xl mx-auto">

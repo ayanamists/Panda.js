@@ -4,15 +4,19 @@ import { Suspense } from 'react';
 import Loading from '@/components/Loading';
 
 interface BlogPageProps {
-  params: {
+  params: Promise<{
     page: string
     locale: string
-  }
+  }>
 }
 
-export default async function BlogPage({
-  params: { locale } 
-}: BlogPageProps) {
+export default async function BlogPage(props: BlogPageProps) {
+  const params = await props.params;
+
+  const {
+    locale
+  } = params;
+
   const posts = (await getPostByLang(locale))
     .filter(post => !post.metaData.draft)
     .sort((a, b) => new Date(b.metaData.date).getTime() -

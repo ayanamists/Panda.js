@@ -2,25 +2,25 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Providers } from './provider';
 import { unstable_setRequestLocale } from 'next-intl/server';
-import dynamic from 'next/dynamic';
-
+import DynamicTopLoader from "@/components/DynamicTopLoader";
 import SiteNavbar from "@/components/SiteNavbar";
-const DynamicTopLoader = dynamic(() => import("@/components/TopLoader"), {
-  ssr: false
-});
-
 export const metadata: Metadata = {
   title: "Aya's Blog",
   description: "A site powered by next.js and pandoc"
 };
 
-export default function RootLayout({
-  children,
-  params
-}: Readonly<{
-  children: React.ReactNode;
-  params: { locale: string };
-}>) {
+export default async function RootLayout(
+  props: Readonly<{
+    children: React.ReactNode;
+    params: Promise<{ locale: string }>;
+  }>
+) {
+  const params = await props.params;
+
+  const {
+    children
+  } = props;
+
   unstable_setRequestLocale(params.locale);
   return (
     <html lang={params.locale} suppressHydrationWarning>

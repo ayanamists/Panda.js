@@ -26,7 +26,7 @@ export default function Heading({ children, level, id }: HeadingProps) {
     fontSize = 'text-base';
   }
 
-  const Tag = `h${level}` as keyof JSX.IntrinsicElements;
+  const Tag = `h${level}` as keyof React.JSX.IntrinsicElements;
 
   return (
     // disable underlining

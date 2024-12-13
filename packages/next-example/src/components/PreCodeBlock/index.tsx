@@ -4,7 +4,7 @@ import CopyButton from "./CopyButton";
 import './index.css';
 
 interface PreCodeBlockProps {
-  children: React.ReactDOM;
+  children: React.ReactElement;
   className?: string;
   exports?: "string";
 }

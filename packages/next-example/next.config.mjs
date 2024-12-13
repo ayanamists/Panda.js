@@ -30,9 +30,6 @@ const nextConfig = {
     })
     return config
   },
-  // there's a bug in swc minifier
-  // see: https://github.com/swc-project/swc/issues/8931
-  swcMinify: false
 };
 
 export default withBundleAnalyzer(withNextIntl(nextConfig));

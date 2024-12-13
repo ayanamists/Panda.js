@@ -78,9 +78,12 @@ function HomePage() {
   );
 }
 
-export default function Index({ params }: {
-  params: { locale: string }
-}) {
+export default async function Index(
+  props: {
+    params: Promise<{ locale: string }>
+  }
+) {
+  const params = await props.params;
   unstable_setRequestLocale(params.locale);
 
   return (
