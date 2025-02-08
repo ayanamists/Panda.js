@@ -1,6 +1,6 @@
 "use client";
 
-import { Dropdown, DropdownMenu, DropdownItem } from "@nextui-org/dropdown";
+import { Dropdown, DropdownMenu, DropdownItem } from "@heroui/dropdown";
 import React from "react";
 import { Link } from "@/navigation";
 import NavbarButton from "./NavbarButton";

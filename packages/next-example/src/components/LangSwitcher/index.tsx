@@ -1,7 +1,7 @@
 "use client";
 
-import { Dropdown, DropdownItem, DropdownTrigger, DropdownMenu } from '@nextui-org/dropdown';
-import { Button } from '@nextui-org/button';
+import { Dropdown, DropdownItem, DropdownTrigger, DropdownMenu } from "@heroui/dropdown";
+import { Button } from "@heroui/button";
 import { IoLanguage } from "react-icons/io5";
 /**
  * Change the locale of the page

@@ -1,6 +1,6 @@
 "use client";
 
-import { Listbox, ListboxItem } from '@nextui-org/listbox';
+import { Listbox, ListboxItem } from "@heroui/listbox";
 import PostCard from '@/components/PostCard';
 import { Post } from '@/contents/cms';
 import { formatDate } from '@/utils';

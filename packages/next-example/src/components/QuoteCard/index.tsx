@@ -1,5 +1,5 @@
-import { Card, CardBody } from "@nextui-org/card";
-import { Image } from "@nextui-org/image";
+import { Card, CardBody } from "@heroui/card";
+import { Image } from "@heroui/image";
 
 interface QuoteCardProps {
   text: string;

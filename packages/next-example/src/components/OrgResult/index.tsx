@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import './table.css';
 import { FaCaretRight } from "react-icons/fa";
-import { Button } from "@nextui-org/button";
+import { Button } from "@heroui/button";
 
 
 interface OrgResultProp {

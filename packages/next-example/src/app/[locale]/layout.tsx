@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Providers } from './provider';
-import { unstable_setRequestLocale } from 'next-intl/server';
+import { setRequestLocale } from 'next-intl/server';
 import DynamicTopLoader from "@/components/DynamicTopLoader";
 import SiteNavbar from "@/components/SiteNavbar";
 export const metadata: Metadata = {
@@ -21,11 +21,11 @@ export default async function RootLayout(
     children
   } = props;
 
-  unstable_setRequestLocale(params.locale);
+  setRequestLocale(params.locale);
   return (
     <html lang={params.locale} suppressHydrationWarning>
       <body className={`text-foreground bg-background`}>
-        <Providers>
+        <Providers locale={params.locale}>
           <DynamicTopLoader />
           <SiteNavbar />
           {children}

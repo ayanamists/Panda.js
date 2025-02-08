@@ -1,4 +1,3 @@
-import { unstable_setRequestLocale } from 'next-intl/server';
 import { FaGithub } from "react-icons/fa";
 import { FaTwitter } from "react-icons/fa";
 import { SiDouban } from "react-icons/si";
@@ -78,14 +77,7 @@ function HomePage() {
   );
 }
 
-export default async function Index(
-  props: {
-    params: Promise<{ locale: string }>
-  }
-) {
-  const params = await props.params;
-  unstable_setRequestLocale(params.locale);
-
+export default async function Index() {
   return (
     <main>
       <HomePage />

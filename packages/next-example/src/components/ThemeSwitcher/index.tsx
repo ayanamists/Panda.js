@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import MoonIcon from "./MoonIcon";
 import SunIcon from "./SunIcon";
 import { useTheme } from "next-themes";
-import { Button } from "@nextui-org/button";
+import { Button } from "@heroui/button";
 
 // TODO: any way to remove the need of lazy loading? Current impl will cause a flash on load 
 export default function ThemeSwitcher() {

@@ -1,16 +1,22 @@
 'use client';
 
-import { NextUIProvider } from '@nextui-org/system'
+import { HeroUIProvider } from "@heroui/system"
 import { ThemeProvider as NextThemesProvider } from "next-themes";
+import { NextIntlClientProvider } from 'next-intl';
 
 
-export function Providers({ children }: { children: React.ReactNode }) {
+export function Providers({ locale, children }: {
+  locale: string,
+  children: React.ReactNode,
+}) {
 
   return (
-    <NextUIProvider>
-      <NextThemesProvider attribute="class" defaultTheme="system">
-        {children}
-      </NextThemesProvider>
-    </NextUIProvider>
+    <NextIntlClientProvider locale={locale}>
+      <HeroUIProvider>
+        <NextThemesProvider attribute="class" defaultTheme="system">
+          {children}
+        </NextThemesProvider>
+      </HeroUIProvider>
+    </NextIntlClientProvider>
   )
 }

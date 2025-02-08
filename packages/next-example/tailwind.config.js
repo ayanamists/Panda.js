@@ -1,5 +1,5 @@
 /** @type {import('tailwindcss').Config} */
-import { nextui } from '@nextui-org/theme';
+import { heroui } from "@heroui/theme";
 import typo from "@tailwindcss/typography";
 import plugin from 'tailwindcss/plugin';
 
@@ -94,7 +94,7 @@ export default {
     // Or if using `src` directory:
     "./src/**/*.{js,ts,jsx,tsx,mdx}",
     // Note: This is a monorepo, so the path need to point to the root directory
-    "../../node_modules/@nextui-org/theme/dist/components/(button|dropdown|navbar|card|listbox|image).js"
+    "../../node_modules/@heroui/theme/dist/components/(button|dropdown|navbar|card|listbox|image).js"
   ],
   theme: {
     extend: {
@@ -172,7 +172,7 @@ export default {
       }),
     }
   },
-  plugins: [nextui({
+  plugins: [heroui({
     themes: {
       light: {
         colors: {

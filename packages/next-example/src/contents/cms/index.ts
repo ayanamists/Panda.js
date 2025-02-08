@@ -68,7 +68,7 @@ function callPanda(fullPath: string) {
   return new Promise((resolve, reject) => {
     let res = "";
     let error = "";
-    const panda = spawn(`panda-exe`, ['-m', '-i', fullPath]);
+    const panda = spawn(`bin/panda-exe`, ['-m', '-i', fullPath]);
     panda.stdout.on('data', (data) => {
       res += data.toString();
     });

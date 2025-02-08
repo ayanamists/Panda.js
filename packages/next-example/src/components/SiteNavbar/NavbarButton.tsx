@@ -1,8 +1,8 @@
 "use client";
 
-import { Button } from "@nextui-org/button";
-import { DropdownTrigger }  from "@nextui-org/dropdown";
-import { NavbarItem } from "@nextui-org/navbar";
+import { Button } from "@heroui/button";
+import { DropdownTrigger }  from "@heroui/dropdown";
+import { NavbarItem } from "@heroui/navbar";
 import { usePathname, Link } from "@/navigation";
 
 interface NavbarButtonProps {

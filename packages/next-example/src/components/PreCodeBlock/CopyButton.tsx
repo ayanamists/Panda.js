@@ -1,7 +1,7 @@
 "use client";
 
 import { FaRegCopy } from "react-icons/fa6";
-import { Button } from "@nextui-org/button";
+import { Button } from "@heroui/button";
 import copy from 'copy-to-clipboard';
 import { useState } from "react";
 import { IoCheckmarkDoneOutline } from "react-icons/io5";
