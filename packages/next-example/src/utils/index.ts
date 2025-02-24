@@ -18,3 +18,7 @@ export function formatDate(ds: string) {
 function formatNum(n: number) {
   return n.toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false })
 }
+
+export function getAnimateTitleId(id: string) {
+  return `animate-${id}`
+}

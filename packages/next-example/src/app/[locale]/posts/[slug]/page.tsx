@@ -1,8 +1,9 @@
-import PostContent from '@/contents';
 import { getPostByLang, getPostById } from '@/contents/cms';
 import { unstable_setRequestLocale } from 'next-intl/server';
 import type { Metadata, ResolvingMetadata } from 'next'
-import { formatDate } from '@/utils';
+import Title from '@/components/AnimatedPostTitle';
+import AnimatedPostContent from "@/components/AnimatedPostContent";
+import PostDate from "@/components/PostDate";
 
 interface PageProps {
   params: Promise<{
@@ -23,12 +24,11 @@ export default async function Page(props: PageProps) {
 
   const path = post.metaData.fullName;
   const heading = post.metaData.title;
+  const date = post.metaData.date;
   return (<div>
-    <h1 className="text-4xl font-bold mb-1 font-heading">{heading}</h1>
-    <time className="text-sm font-semibold text-gray-500 font-mono">
-      {formatDate(post.metaData.date)}
-    </time>
-    <PostContent name={path} />
+    <Title id={id} heading={heading} />
+    <PostDate date={date} />
+    <AnimatedPostContent name={path} />
   </div>);
 }
 
@@ -53,6 +53,6 @@ export async function generateMetadata(props: PageProps, parent: ResolvingMetada
   const post = await getPostById(params.slug, params.locale);
   return {
     title: post.metaData.title,
-    authors: [ { name: post.metaData.author } ],
+    authors: [{ name: post.metaData.author }],
   }
 }

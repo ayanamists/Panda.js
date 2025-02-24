@@ -2,17 +2,11 @@
 
 import { Listbox, ListboxItem } from "@heroui/listbox";
 import PostCard from '@/components/PostCard';
+import PostDate from "@/components/PostDate";
 import { Post } from '@/contents/cms';
-import { formatDate } from '@/utils';
+import { getAnimateTitleId } from '@/utils';
 import { Link } from '@/navigation';
-
-function PostDate({ date }: { date: string }) {
-  return (
-    <time className="text-sm font-semibold text-gray-500 font-mono">
-      {formatDate(date)}
-    </time>
-  );
-}
+import { motion } from "framer-motion";
 
 export default function PostList({ posts }: { posts: Post[] }) {
   return (
@@ -25,7 +19,12 @@ export default function PostList({ posts }: { posts: Post[] }) {
           description={<PostDate date={post.metaData.date} />}
           textValue={post.metaData.title}
         >
-          <PostCard post={post} />
+          <motion.div
+            key={post.id}
+            layoutId={getAnimateTitleId(post.id)}
+          >
+            <PostCard post={post} />
+          </motion.div>
         </ListboxItem>
       ))}
     </Listbox>
