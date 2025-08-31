@@ -29,7 +29,7 @@ resolver: nightly-2024-10-11
 #   - auto-update
 #   - wai
 packages:
-- .
+  - .
 # Dependency packages to be pulled from upstream that are not in the resolver.
 # These entries can reference officially published versions as well as
 # forks / in-progress versions pinned to a git hash. For example:
@@ -68,8 +68,8 @@ system-ghc: true
 jobs: 8
 
 extra-deps:
-- github: ayanamists/pangu-hs
-  commit: b2291b06e7386e6f33bb25ea69bc9e309d93bad4
+  - github: ayanamists/pangu-hs
+    commit: b2291b06e7386e6f33bb25ea69bc9e309d93bad4
 
 flags:
   pandoc:
