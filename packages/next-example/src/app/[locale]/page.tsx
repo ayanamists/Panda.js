@@ -1,5 +1,6 @@
 import { FaGithub } from "react-icons/fa";
 import { FaTwitter } from "react-icons/fa";
+import { FaHeart } from "react-icons/fa";
 import { SiDouban } from "react-icons/si";
 import { SiZhihu } from "react-icons/si";
 import { SiMeituan } from "react-icons/si";
@@ -55,6 +56,10 @@ function HomePage() {
               <SiMeituan className="w-6 h-6 ml-1" />
               <span>.</span>
             </span>
+            <div className="mt-2 flex items-center text-rose-500">
+              <FaHeart className="w-3.5 h-3.5 mr-1.5 animate-pulse" />
+              <span className="font-serif italic font-medium tracking-wide">In love.</span>
+            </div>
           </div>
 
           <div className='flex lg:gap-20 md:gap-20 gap-5 flex-wrap mb-5'>
