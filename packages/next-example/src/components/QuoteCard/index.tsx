@@ -10,15 +10,16 @@ interface QuoteCardProps {
 }
 
 export default function QuoteCard(props: QuoteCardProps) {
-  return (<div className="xl:w-2/5 md:max-lg:w-4/5 w-4/5 font-post">
+  return (<div className="w-full font-mainpage">
     <Card
       isBlurred
-      shadow="sm"
+      shadow="none"
+      className="border border-foreground/[0.06] bg-foreground/[0.02]"
     >
       <CardBody>
         <div className="grid grid-cols-1 sm:grid-cols-3
         grid-rows-2 sm:grid-rows-1
-        gap-0 sm:gap-4
+        gap-0 sm:gap-6
         place-items-center">
           { props.avatarURL && <Image
             width={"200"}
@@ -30,12 +31,12 @@ export default function QuoteCard(props: QuoteCardProps) {
           }
 
           <div className="sm:col-span-2">
-            <p className="text-xl">{props.text}</p>
-            <hr className="mx-auto mt-2 border-primary"></hr>
-            <p className="mt-2 text-right">{props.author},</p>
-            <p className="text-right">
+            <p className="text-lg text-foreground/80 leading-relaxed italic">{props.text}</p>
+            <hr className="mx-auto mt-3 border-foreground/10"></hr>
+            <p className="mt-2 text-right text-sm text-foreground/60">{props.author},</p>
+            <p className="text-right text-sm">
               <span className="italic">
-                <a className="hover:underline" href={props.originURL}>{props.from}</a>
+                <a className="text-foreground/50 hover:text-primary transition-colors duration-200" href={props.originURL}>{props.from}</a>
               </span>
             </p>
           </div>

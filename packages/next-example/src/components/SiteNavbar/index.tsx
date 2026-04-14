@@ -1,10 +1,7 @@
-import { Navbar, NavbarBrand, NavbarContent, NavbarItem } from "@heroui/navbar";
 import { useTranslations } from "next-intl";
 import ThemeSwitcher from "../ThemeSwitcher";
 import LangSwitcher from "../LangSwitcher";
 import Garden from "./Garden";
-import { HiExternalLink } from "react-icons/hi";
-import { IoNewspaper, IoHome, IoBookmarks } from "react-icons/io5";
 import NavbarButton from "./NavbarButton";
 
 export default function SiteNavbar() {
@@ -15,42 +12,28 @@ export default function SiteNavbar() {
     item: [{
       name: tf("mottos"),
       link: "mottos",
-      icon: <IoBookmarks />
     }],
   }
 
-  const links = [
-    {
-      name: t("main"),
-      link: "/",
-      icon: <IoHome />
-    },
-    {
-      name: t("blog"),
-      link: "/posts",
-      icon: <IoNewspaper />
-    }
-  ]
   return (
-    <Navbar height={'2.5rem'}>
-      <NavbarBrand className="hidden sm:block">
-      </NavbarBrand>
-      <NavbarContent className="flex flex-row gap-1" justify="center">
-        {links.map((i) => <NavbarButton key={i.name} {...i} />)}
-        <Garden {...favouriteData} />
-        <NavbarButton link={"https://wiki.ayayaya.org"} name={"Wiki"} icon={<HiExternalLink />} />
-      </NavbarContent>
+    <nav className="sticky top-0 z-50 bg-background/80 backdrop-blur-sm border-b border-foreground/[0.06]">
+      <div className="max-w-3xl mx-auto h-10 px-6 flex items-center justify-between">
 
-      <NavbarContent justify="end" className="gap-0">
+        {/* Navigation links */}
+        <div className="flex items-center gap-5">
+          <NavbarButton name={t("main")} link="/" />
+          <NavbarButton name={t("blog")} link="/posts" />
+          <Garden {...favouriteData} />
+          <NavbarButton name="Wiki" link="https://wiki.ayayaya.org" />
+        </div>
 
-        <NavbarItem>
+        {/* Utilities */}
+        <div className="flex items-center gap-2">
           <LangSwitcher />
-        </NavbarItem>
-
-        <NavbarItem>
           <ThemeSwitcher />
-        </NavbarItem>
+        </div>
 
-      </NavbarContent>
-    </Navbar>);
+      </div>
+    </nav>
+  );
 }

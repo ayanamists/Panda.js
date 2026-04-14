@@ -11,7 +11,7 @@ const quotes = [{
   originURL: "https://www.cs.utexas.edu/users/EWD/transcriptions/OtherDocs/Haskell.html",
   avatarURL: "https://upload.wikimedia.org/wikipedia/commons/d/d9/Edsger_Wybe_Dijkstra.jpg"
 }, {
-  text: "Young man, in mathematics you don't understand things. You just get used to them.",  
+  text: "Young man, in mathematics you don't understand things. You just get used to them.",
   author: "John Von Neumann",
   from: "Quoted from The Dancing Wu Li Masters: An Overview of the New Physics. By Gary Zukav",
   originURL: "https://todayinsci.com/V/VonNeumann_John/VonNeumannJohn-UnderstandQuote500px.htm",
@@ -39,8 +39,8 @@ export default function Favorites(
 
   unstable_setRequestLocale(params.locale);
   const t = useTranslations("Favorites");
-  return (<main className="w-full md:w-2xl lg:w-3xl mx-auto">
-    <h1 className="text-4xl text-center">
+  return (<main className="w-full max-w-2xl mx-auto px-6 py-8 lg:py-12">
+    <h1 className="text-2xl font-heading tracking-tight text-center mb-8">
       {t("mottos")}
     </h1>
 
@@ -51,7 +51,7 @@ export default function Favorites(
 }
 
 function Mottos() {
-  return (<div className="flex flex-col flex-wrap gap-2 content-center mt-4">
+  return (<div className="flex flex-col gap-4">
     {quotes.map((q, id) => <QuoteCard key={id} {...q} /> )}
   </div>);
 }

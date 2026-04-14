@@ -1,14 +1,8 @@
 "use client";
 
 import { Dropdown, DropdownItem, DropdownTrigger, DropdownMenu } from "@heroui/dropdown";
-import { Button } from "@heroui/button";
 import { IoLanguage } from "react-icons/io5";
-/**
- * Change the locale of the page
- * @param locale 
- * 
- * TODO: dirty hack here. any better way to change locale?
- */
+
 const changeLocale = (locale: string) => {
   const currentUrl = window.location.pathname;
   const newUrl = currentUrl.split('/').map((item, index) => {
@@ -37,26 +31,26 @@ export default function LangSwitcher() {
     icon: "🇯🇵"
   }];
 
-  // TODO: aria-labels
   return (
-    <Dropdown className="text-foreground bg-background min-w-16"
-    >
+    <Dropdown className="bg-background min-w-20 border border-foreground/[0.06] shadow-sm shadow-foreground/[0.04] rounded-md">
       <DropdownTrigger>
-        <Button
-          isIconOnly
-          variant="light"
-          className='text-large font-bold text-foreground'
-          aria-label='Select Language'
+        <button
+          className="text-foreground/30 hover:text-foreground/60 transition-colors duration-200 p-1"
+          aria-label="Select Language"
         >
-          <IoLanguage />
-        </Button>
+          <IoLanguage className="w-[14px] h-[14px]" />
+        </button>
       </DropdownTrigger>
 
       <DropdownMenu onAction={(key) => {
         changeLocale(key as string);
-      }} aria-label='Language Select Menu'>
+      }} aria-label="Language Select Menu"
+        itemClasses={{
+          base: "gap-2 text-[13px] text-foreground/60 data-[hover=true]:text-foreground data-[hover=true]:bg-foreground/[0.04]",
+        }}
+      >
         {lang.map((item) => (
-          <DropdownItem key={item.value} value={item.value} 
+          <DropdownItem key={item.value} value={item.value}
             aria-label={`Select Language ${item.name}`}
             startContent={item.icon}
           >

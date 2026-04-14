@@ -31,8 +31,8 @@ export default function Heading({ children, level, id }: HeadingProps) {
   return (
     // disable underlining
     <Tag className={`${fontSize} font-heading`} id={id}>
-      <Link href={`#${id}`} color="secondary" className="pr-3 no-underline hover:underline text-primary
-      font-sans">❖</Link>
+      <Link href={`#${id}`} className="pr-2 no-underline hover:underline text-primary/40 hover:text-primary
+      transition-colors duration-200 font-sans text-sm">§</Link>
       {children}
     </Tag>
   );

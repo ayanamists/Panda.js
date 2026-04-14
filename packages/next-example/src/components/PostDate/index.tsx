@@ -2,7 +2,7 @@ import { formatDate } from "@/utils";
 
 function PostDate({ date }: { date: string }) {
   return (
-    <time className="text-sm font-semibold text-gray-500 font-mono">
+    <time className="text-sm text-foreground/40 font-mono tracking-wide">
       {formatDate(date)}
     </time>
   );

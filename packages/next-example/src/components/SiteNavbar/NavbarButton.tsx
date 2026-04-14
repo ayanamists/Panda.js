@@ -1,53 +1,47 @@
 "use client";
 
-import { Button } from "@heroui/button";
 import { DropdownTrigger }  from "@heroui/dropdown";
-import { NavbarItem } from "@heroui/navbar";
 import { usePathname, Link } from "@/navigation";
 
 interface NavbarButtonProps {
   name: string;
   dropdown?: boolean;
   link: string;
-  icon?: React.ReactNode
 }
 
-function guard<a>(cond: boolean, value: a) {
-  return cond ? value : undefined
-}
-
-export default function NavbarButton({ name, dropdown = false, link, icon }: NavbarButtonProps) {
+export default function NavbarButton({ name, dropdown = false, link }: NavbarButtonProps) {
   const path = usePathname();
   const highlight = (link === '/' && path === '/') ||
                     (link !== '/' && path.includes(link.substring(1)));
-  const button = (
-    <Button
-      className={
-      `text-sm w-auto p-0 bg-transparent
-      min-w-14
-      gap-0.5
-      ${highlight ? "text-primary" : "text-foreground"}
-      `}
-      radius="sm"
-      variant="light"
-      startContent={icon}
-      aria-label={`Goto ${name}`}
-      href={guard(!dropdown, link)}
-      as={guard(!dropdown, Link)}
-    >
-      {name}
-    </Button>
-  );
 
-  return dropdown ? (
-    <NavbarItem>
+  const classes = `text-[13px] tracking-wide transition-colors duration-200 ${
+    highlight
+      ? "text-foreground"
+      : "text-foreground/40 hover:text-foreground/70"
+  }`;
+
+  if (dropdown) {
+    return (
       <DropdownTrigger>
-        {button}
+        <button className={classes} aria-label={name}>
+          {name}
+        </button>
       </DropdownTrigger>
-    </NavbarItem>
-  ) : (
-    <NavbarItem>
-      {button}
-    </NavbarItem>
+    );
+  }
+
+  const isExternal = link.startsWith('http');
+  if (isExternal) {
+    return (
+      <a href={link} target="_blank" rel="noopener noreferrer" className={classes}>
+        {name}<span className="text-[10px] ml-0.5 opacity-40">↗</span>
+      </a>
+    );
+  }
+
+  return (
+    <Link href={link as "/"} className={classes}>
+      {name}
+    </Link>
   );
 }

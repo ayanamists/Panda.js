@@ -13,7 +13,7 @@ const Title:
     return (<motion.div
       layoutId={getAnimateTitleId(id)}
     >
-      <h1 className="text-4xl font-bold mb-1 font-heading">{heading}</h1>
+      <h1 className="text-3xl font-bold mb-1 font-heading tracking-tight">{heading}</h1>
     </motion.div>);
   }
 
