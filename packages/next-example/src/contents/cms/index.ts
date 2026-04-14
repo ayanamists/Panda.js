@@ -1,12 +1,17 @@
 import { spawn } from 'child_process';
 import { fileURLToPath } from 'url';
-import { dirname, join } from 'path';
+import { dirname, join, resolve } from 'path';
 import fs from 'fs';
 const { stat } = fs.promises;
 import cacache from 'cacache';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
+
+// Resolve panda-exe: check local bin/ first (CI & local), then fall back to PATH
+const __root = resolve(__dirname, '..', '..', '..');
+const localBin = resolve(__root, 'bin', 'panda-exe');
+const pandaExe = fs.existsSync(localBin) ? localBin : 'panda-exe';
 
 export type PostExt = 'md' | 'org';
 
@@ -68,7 +73,7 @@ function callPanda(fullPath: string) {
   return new Promise((resolve, reject) => {
     let res = "";
     let error = "";
-    const panda = spawn(`bin/panda-exe`, ['-m', '-i', fullPath]);
+    const panda = spawn(pandaExe, ['-m', '-i', fullPath]);
     panda.stdout.on('data', (data) => {
       res += data.toString();
     });

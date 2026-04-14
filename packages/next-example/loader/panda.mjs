@@ -1,4 +1,5 @@
 import { spawn } from 'child_process';
+import { existsSync } from 'fs';
 import config from "../panda.config.mjs";
 import { fileURLToPath } from 'url';
 import path from 'path';
@@ -7,9 +8,13 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const __root = path.dirname(__dirname);
 
+// Resolve panda-exe: check local bin/ first (CI & local), then fall back to PATH
+const localBin = path.resolve(__root, 'bin', 'panda-exe');
+const pandaExe = existsSync(localBin) ? localBin : 'panda-exe';
+
 async function markdownToJSX(filePath) {
   return new Promise((resolve, reject) => {
-    const pandoc = spawn(`panda-exe`, ["-i", filePath]);
+    const pandoc = spawn(pandaExe, ["-i", filePath]);
 
     let htmlText = '';
     let errorText = '';
