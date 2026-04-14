@@ -9,22 +9,22 @@ import typo from "@tailwindcss/typography";
  */
 const manuscript = {
   // Light mode
-  paper:      '#f5f3ee',   // warm ivory background
-  paperLight: '#faf9f6',   // elevated surface
-  ink:        '#2b2d30',   // graphite foreground
-  inkDeep:    '#1a1c1e',   // headings
-  inkMuted:   '#6b6d70',   // secondary text
+  paper:      '#f5f3ee',
+  paperLight: '#faf9f6',
+  ink:        '#2b2d30',
+  inkDeep:    '#1a1c1e',
+  inkMuted:   '#6b6d70',
 
   // Dark mode
-  slate:      '#1a1c20',   // deep charcoal background
-  slateLight: '#22252a',   // elevated surface
-  pearl:      '#c4c1b8',   // warm pearl foreground
-  pearlBright:'#e0ded8',   // headings
-  pearlMuted: '#7a7870',   // secondary text
+  slate:      '#1a1c20',
+  slateLight: '#22252a',
+  pearl:      '#c4c1b8',
+  pearlBright:'#e0ded8',
+  pearlMuted: '#7a7870',
 
   // Accents
-  sage:       '#5b7f6a',   // primary (light)
-  teal:       '#6aab8e',   // primary (dark)
+  sage:       '#5b7f6a',
+  teal:       '#6aab8e',
 
   // Semantic
   red:        '#b85450',
@@ -39,13 +39,9 @@ const color_primary_dark = manuscript.teal;
 
 const englishFont = "Palatino, Georgia, 'Linux Libertine O'";
 const chineseMainFont = `'Noto Serif CJK SC', 'Songti SC', 'SimSun'`;
-const chineseKaiFont = "'KaiTi', 'STKaiti', 'AR PL UKai CN'";
 
 const chineseHeadingFont = `'Noto Sans CJK', 'Microsoft YaHei', 'PingFang SC'`;
 const englishHeadingFont = `Optima, 'Linux Biolinum O', Candara`;
-
-const jpMainFont = `'Noto Serif CJK JP', 'Toppan Bunkyu Midashi Min Std', 'MS Mincho', YuMincho`;
-const jpKaiFont = "YuKyokasho, 'UD Digi Kyokasho'";
 
 const monoFont = {
   fontFamily: `Mononoki, 'Mononoki Nerd Font',
@@ -62,14 +58,8 @@ const mainFont = {
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
   content: [
-    "./app/**/*.{js,ts,jsx,tsx,mdx}",
-    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./components/**/*.{js,ts,jsx,tsx,mdx}",
-
-    // Or if using `src` directory:
     "./src/**/*.{js,ts,jsx,tsx,mdx}",
-    // Note: This is a monorepo, so the path need to point to the root directory
-    "../../node_modules/@heroui/theme/dist/components/(button|dropdown|navbar|card|listbox|image).js"
+    "../../node_modules/@heroui/theme/dist/**/*.{js,mjs}"
   ],
   theme: {
     extend: {

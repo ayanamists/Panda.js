@@ -1,5 +1,5 @@
 import { getPostByLang, getPostById } from '@/contents/cms';
-import { unstable_setRequestLocale } from 'next-intl/server';
+import { setRequestLocale } from 'next-intl/server';
 import type { Metadata, ResolvingMetadata } from 'next'
 import Title from '@/components/AnimatedPostTitle';
 import AnimatedPostContent from "@/components/AnimatedPostContent";
@@ -14,7 +14,7 @@ interface PageProps {
 
 export default async function Page(props: PageProps) {
   const params = await props.params;
-  unstable_setRequestLocale(params.locale);
+  setRequestLocale(params.locale);
   const id = params.slug;
   const lang = params.locale;
   const post = await getPostById(id, lang);

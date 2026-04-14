@@ -1,6 +1,6 @@
 import QuoteCard from "@/components/QuoteCard";
 import { useTranslations } from "next-intl";
-import { unstable_setRequestLocale } from "next-intl/server";
+import { setRequestLocale } from "next-intl/server";
 import { Suspense, use } from "react";
 import Loading from "@/components/Loading";
 
@@ -37,7 +37,7 @@ export default function Favorites(
 ) {
   const params = use(props.params);
 
-  unstable_setRequestLocale(params.locale);
+  setRequestLocale(params.locale);
   const t = useTranslations("Favorites");
   return (<main className="w-full max-w-2xl mx-auto px-6 py-8 lg:py-12">
     <h1 className="text-2xl font-heading tracking-tight text-center mb-8">

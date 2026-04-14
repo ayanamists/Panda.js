@@ -10,5 +10,12 @@
     "build": "cd packages/next-example && yarn generate && yarn build"
   },
   "repository": "git@github.com:ayanamists/Panda.js.git",
-  "author": "Chenxi Li <ayanamists@gmail.com>"
+  "author": "Chenxi Li <ayanamists@gmail.com>",
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.2.2"
+  },
+  "resolutions": {
+    "@types/react": "19.2.14",
+    "@types/react-dom": "19.2.3"
+  }
 }
