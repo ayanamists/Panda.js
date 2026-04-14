@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import './fonts.css';
 import { Providers } from './provider';
 import { setRequestLocale } from 'next-intl/server';
 import DynamicTopLoader from "@/components/DynamicTopLoader";

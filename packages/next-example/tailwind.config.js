@@ -1,30 +1,41 @@
 /** @type {import('tailwindcss').Config} */
 import { heroui } from "@heroui/theme";
 import typo from "@tailwindcss/typography";
-import plugin from 'tailwindcss/plugin';
 
+/*
+ * "Manuscript" palette
+ * Light — warm ivory paper, graphite ink, sage-green accent
+ * Dark  — deep charcoal, pearl-gray text, muted teal accent
+ */
+const manuscript = {
+  // Light mode
+  paper:      '#f5f3ee',   // warm ivory background
+  paperLight: '#faf9f6',   // elevated surface
+  ink:        '#2b2d30',   // graphite foreground
+  inkDeep:    '#1a1c1e',   // headings
+  inkMuted:   '#6b6d70',   // secondary text
 
-const solarizedColors = {
-  brblack: '#002b36',
-  black: '#073642',
-  brgreen: '#586e75',
-  bryellow: '#657b83',
-  brblue: '#839496',
-  brcyan: '#93a1a1',
-  white: '#eee8d5',
-  brwhite: '#fdf6e3',
-  yellow: '#b58900',
-  brred: '#cb4b16',
-  red: '#dc322f',
-  magenta: '#d33682',
-  brmagenta: '#6c71c4',
-  blue: '#268bd2',
-  cyan: '#2aa198',
-  green: '#859900'
+  // Dark mode
+  slate:      '#1a1c20',   // deep charcoal background
+  slateLight: '#22252a',   // elevated surface
+  pearl:      '#c4c1b8',   // warm pearl foreground
+  pearlBright:'#e0ded8',   // headings
+  pearlMuted: '#7a7870',   // secondary text
+
+  // Accents
+  sage:       '#5b7f6a',   // primary (light)
+  teal:       '#6aab8e',   // primary (dark)
+
+  // Semantic
+  red:        '#b85450',
+  green:      '#6a8f5b',
+  blue:       '#5879a5',
+  amber:      '#a68a4c',
+  violet:     '#7c6b9e',
 };
 
-const color_primary = solarizedColors.brred;
-const color_primary_dark = solarizedColors.magenta;
+const color_primary = manuscript.sage;
+const color_primary_dark = manuscript.teal;
 
 const englishFont = "Palatino, Georgia, 'Linux Libertine O'";
 const chineseMainFont = `'Noto Serif CJK SC', 'Songti SC', 'SimSun'`;
@@ -36,36 +47,6 @@ const englishHeadingFont = `Optima, 'Linux Biolinum O', Candara`;
 const jpMainFont = `'Noto Serif CJK JP', 'Toppan Bunkyu Midashi Min Std', 'MS Mincho', YuMincho`;
 const jpKaiFont = "YuKyokasho, 'UD Digi Kyokasho'";
 
-const mainNode = ["p", "li", "cite"]
-const itNode = ["em", "i", "blockQuote .cjk"]
-
-function mkFont(languageName, mainFont, itFont) {
-  const res = {}
-  for (const mn of mainNode) {
-    res[`html[lang="${languageName}"] .prose ${mn}`] = {
-      fontFamily: mainFont
-    }
-  }
-
-  for (const itn of itNode) {
-    res[`html[lang="${languageName}"] .prose ${itn}`] = {
-      fontFamily: itFont
-    }
-  }
-  return res
-}
-
-const chineseFontSetting =
-      mkFont("zh-cn", `${englishFont}, ${chineseMainFont}`, `${englishFont}, ${chineseKaiFont}`);
-const jpFontSetting =
-      mkFont("ja", `${englishFont}, ${jpMainFont}`, `${englishFont}, ${jpKaiFont}`);
-const enFontSetting =
-      mkFont("en", englishFont, englishFont);
-
-const postFontSetting = {
-  ...chineseFontSetting, ...jpFontSetting, ...enFontSetting
-}
-
 const monoFont = {
   fontFamily: `Mononoki, 'Mononoki Nerd Font',
 FiraCode, 'FiraCode Nerd Font', JetBrainsMono,
@@ -76,12 +57,6 @@ const headingFont = `${englishHeadingFont}, ${chineseHeadingFont}`;
 
 const mainFont = {
   fontSize: "18px"
-}
-
-const chineseItalic = {
-  ".cjk": {
-    fontStyle: "normal"
-  }
 }
 
 // eslint-disable-next-line import/no-anonymous-default-export
@@ -108,17 +83,15 @@ export default {
           css: {
             '--tw-prose-quote-borders': color_primary,
             '--tw-prose-links': color_primary,
-            '--tw-prose-body': solarizedColors.black,
-            '--tw-prose-headings': solarizedColors.brblack,
-            '--tw-prose-quotes': solarizedColors.brblack,
-            '--tw-prose-bullets': solarizedColors.brred,
-            '--tw-prose-counters': solarizedColors.brred,
+            '--tw-prose-body': manuscript.ink,
+            '--tw-prose-headings': manuscript.inkDeep,
+            '--tw-prose-quotes': manuscript.inkDeep,
+            '--tw-prose-bullets': color_primary,
+            '--tw-prose-counters': color_primary,
 
             '--tw-prose-invert-quote-borders': color_primary_dark,
             '--tw-prose-invert-links': color_primary_dark,
-            '--tw-prose-invert-headings': solarizedColors.brcyan,
-            // '--tw-prose-invert-body': solarizedColors.brblue,
-            // '--tw-prose-invert-quotes': solarizedColors.brcyan,
+            '--tw-prose-invert-headings': manuscript.pearlBright,
             '--tw-prose-invert-bullets': color_primary_dark,
             '--tw-prose-invert-counters': color_primary_dark,
 
@@ -129,6 +102,7 @@ export default {
             },
 
             p: {
+              fontFamily: 'var(--prose-body-font)',
               marginTop: '1em',
               marginBottom: '1em',
               lineHeight: '1.7em',
@@ -136,6 +110,7 @@ export default {
             },
 
             li: {
+              fontFamily: 'var(--prose-body-font)',
               p: {
                 marginTop: 0,
                 marginBottom: 0,
@@ -145,11 +120,13 @@ export default {
             },
 
             blockQuote: {
+              fontFamily: 'var(--prose-body-font)',
               ...mainFont,
-              ...chineseItalic
+              '.cjk': { fontStyle: 'normal' }
             },
 
             cite: {
+              fontFamily: 'var(--prose-body-font)',
               fontStyle: "normal",
               a: {
                 textDecoration: "none"
@@ -157,11 +134,13 @@ export default {
             },
 
             i: {
-              ...chineseItalic
+              fontFamily: 'var(--prose-italic-font)',
+              '.cjk': { fontStyle: 'normal' }
             },
 
             em: {
-              ...chineseItalic
+              fontFamily: 'var(--prose-italic-font)',
+              '.cjk': { fontStyle: 'normal' }
             },
 
             code: monoFont,
@@ -176,29 +155,25 @@ export default {
     themes: {
       light: {
         colors: {
-          background: solarizedColors.white, // or DEFAULT
-          foreground: solarizedColors.black, // or 50 to 900 DEFAULT
+          background: manuscript.paper,
+          foreground: manuscript.ink,
           primary: {
             DEFAULT: color_primary,
           },
-          lightwhite: solarizedColors.brwhite,
-          // ... rest of the colors
+          lightwhite: manuscript.paperLight,
         },
       },
       dark: {
         colors: {
-          background: solarizedColors.black,
-          foreground: solarizedColors.brcyan,
+          background: manuscript.slate,
+          foreground: manuscript.pearl,
           primary: {
             DEFAULT: color_primary_dark,
           },
-          lightblack: solarizedColors.brblack
+          lightblack: '#141618'
         },
-        // ... rest of the colors
       }
     }
-  }), typo(), plugin(function({ addBase, config }) {
-      addBase(postFontSetting)
-  })],
+  }), typo()],
   darkMode: 'class',
 }

@@ -1,0 +1,15 @@
+/* Language-specific prose font stacks */
+html[lang="zh-cn"] {
+  --prose-body-font: Palatino, Georgia, 'Linux Libertine O', 'Noto Serif CJK SC', 'Songti SC', 'SimSun';
+  --prose-italic-font: Palatino, Georgia, 'Linux Libertine O', 'KaiTi', 'STKaiti', 'AR PL UKai CN';
+}
+
+html[lang="ja"] {
+  --prose-body-font: Palatino, Georgia, 'Linux Libertine O', 'Noto Serif CJK JP', 'Toppan Bunkyu Midashi Min Std', 'MS Mincho', YuMincho;
+  --prose-italic-font: Palatino, Georgia, 'Linux Libertine O', YuKyokasho, 'UD Digi Kyokasho';
+}
+
+html[lang="en"] {
+  --prose-body-font: Palatino, Georgia, 'Linux Libertine O';
+  --prose-italic-font: Palatino, Georgia, 'Linux Libertine O';
+}
