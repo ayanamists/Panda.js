@@ -35,8 +35,8 @@ function SectionRule({ delay }: { delay: string }) {
 function SectionLabel({ children, delay }: { children: React.ReactNode, delay: string }) {
   return (
     <div className={`animate-fade-up ${delay} flex items-baseline gap-2.5 mb-2.5`}>
-      <span className="text-primary font-heading text-sm">§</span>
-      <h2 className="text-xs font-heading tracking-[0.2em] uppercase text-foreground/50">
+      <span className="text-primary font-heading text-base">§</span>
+      <h2 className="text-sm font-heading tracking-[0.2em] uppercase text-foreground/50">
         {children}
       </h2>
     </div>
@@ -52,7 +52,7 @@ function HomePage() {
         <header className="mb-4">
           {/* Type judgment — the polymorphic identity */}
           <div className="animate-fade-in delay-0 mb-5 select-none" aria-hidden="true">
-            <span className="font-serif italic text-primary/20 tracking-[0.3em] text-sm">
+            <span className="font-serif italic text-primary/20 tracking-[0.3em] text-base">
               Γ <span className="not-italic text-primary/15">⊢</span> λx.x
               <span className="not-italic text-primary/15 mx-0.5">:</span>
               ∀α. α → α
@@ -68,10 +68,10 @@ function HomePage() {
 
           {/* IPA + Romanization */}
           <div className="animate-fade-up delay-1 mt-1.5 flex items-baseline gap-2.5">
-            <span className="text-sm text-foreground/50 tracking-wide font-mainpage">
+            <span className="text-base text-foreground/50 tracking-wide font-mainpage">
               Li Chenxi
             </span>
-            <span className="text-[11px] text-foreground/30 tracking-wider font-mono">
+            <span className="text-sm text-foreground/30 tracking-wider font-mono">
               /liˇ ʈʂʰənˊ ɕiˉ/
             </span>
           </div>
@@ -90,16 +90,16 @@ function HomePage() {
         {/* ── About ── */}
         <section>
           <SectionLabel delay="delay-3">About</SectionLabel>
-          <div className="animate-fade-up delay-3 leading-relaxed font-mainpage space-y-1.5">
-            <p className="text-[15px] text-foreground/80">
+          <div className="animate-fade-up delay-3 leading-snug font-mainpage space-y-1.5">
+            <p className="text-lg text-foreground/80">
               A programmer working at the intersection of theory and practice.
             </p>
-            <p className="text-[14px] text-foreground/60">
+            <p className="text-base text-foreground/60">
               B.Eng., Sun Yat-sen University
               <span className="mx-1.5 text-foreground/25">·</span>
               M.Eng., Nanjing University
             </p>
-            <p className="inline-flex items-center text-[14px] text-foreground/60">
+            <p className="inline-flex items-center text-base text-foreground/60">
               <span>Currently at Meituan</span>
               <SiMeituan className="w-4 h-4 ml-1.5 text-foreground/35" />
               <span className="mx-1.5 text-foreground/25">·</span>
@@ -125,8 +125,8 @@ function HomePage() {
                   'Program Analysis',
                   'Mathematical Logic',
                 ].map((item) => (
-                  <li key={item} className="text-[14px] text-foreground/70 font-mainpage flex items-baseline gap-2">
-                    <span className="text-primary/40 text-[10px]">—</span>
+                  <li key={item} className="text-base text-foreground/70 font-mainpage flex items-baseline gap-2">
+                    <span className="text-primary/40 text-sm">—</span>
                     {item}
                   </li>
                 ))}
@@ -142,8 +142,8 @@ function HomePage() {
                   'Docker & CI/CD',
                   'VSCode / Emacs',
                 ].map((item) => (
-                  <li key={item} className="text-[14px] text-foreground/70 font-mainpage flex items-baseline gap-2">
-                    <span className="text-primary/40 text-[10px]">—</span>
+                  <li key={item} className="text-base text-foreground/70 font-mainpage flex items-baseline gap-2">
+                    <span className="text-primary/40 text-sm">—</span>
                     {item}
                   </li>
                 ))}
@@ -157,8 +157,8 @@ function HomePage() {
         {/* ── Publications ── */}
         <section>
           <SectionLabel delay="delay-6">Publications</SectionLabel>
-          <div className="animate-fade-up delay-6 text-[14px] leading-[1.75] text-foreground/70 font-mainpage pl-5 -indent-5">
-            <span className="text-primary/50 font-mono text-[11px] mr-0.5">[1]</span>
+          <div className="animate-fade-up delay-6 text-base leading-snug text-foreground/70 font-mainpage pl-5 -indent-5">
+            <span className="text-primary/50 font-mono text-sm mr-0.5">[1]</span>
             {' '}
             <span className="text-foreground/90">Chenxi Li</span>,
             {' '}Haoran Lin, Tian Tan, and Yue Li.
@@ -181,7 +181,7 @@ function HomePage() {
               href="https://doi.org/10.1145/3763081"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-primary/60 font-mono text-[11px] hover:text-primary transition-colors duration-300"
+              className="text-primary/60 font-mono text-sm hover:text-primary transition-colors duration-300"
             >
               doi↗
             </a>

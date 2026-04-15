@@ -1,15 +1,17 @@
-/* Language-specific prose font stacks */
+/* Language-specific prose font stacks
+   Web fonts (var(--font-serif-en)) handle English glyphs;
+   CJK characters fall through to system fonts. */
 html[lang="zh-cn"] {
-  --prose-body-font: Palatino, Georgia, 'Linux Libertine O', 'Noto Serif CJK SC', 'Songti SC', 'SimSun';
-  --prose-italic-font: Palatino, Georgia, 'Linux Libertine O', 'KaiTi', 'STKaiti', 'AR PL UKai CN';
+  --prose-body-font: var(--font-serif-en), Palatino, Georgia, 'Linux Libertine O', 'Noto Serif CJK SC', 'Songti SC', 'SimSun';
+  --prose-italic-font: var(--font-serif-en), Palatino, Georgia, 'Linux Libertine O', 'KaiTi', 'STKaiti', 'AR PL UKai CN';
 }
 
 html[lang="ja"] {
-  --prose-body-font: Palatino, Georgia, 'Linux Libertine O', 'Noto Serif CJK JP', 'Toppan Bunkyu Midashi Min Std', 'MS Mincho', YuMincho;
-  --prose-italic-font: Palatino, Georgia, 'Linux Libertine O', YuKyokasho, 'UD Digi Kyokasho';
+  --prose-body-font: var(--font-serif-en), Palatino, Georgia, 'Linux Libertine O', 'Noto Serif CJK JP', 'Toppan Bunkyu Midashi Min Std', 'MS Mincho', YuMincho;
+  --prose-italic-font: var(--font-serif-en), Palatino, Georgia, 'Linux Libertine O', YuKyokasho, 'UD Digi Kyokasho';
 }
 
 html[lang="en"] {
-  --prose-body-font: Palatino, Georgia, 'Linux Libertine O';
-  --prose-italic-font: Palatino, Georgia, 'Linux Libertine O';
+  --prose-body-font: var(--font-serif-en), Palatino, Georgia, 'Linux Libertine O';
+  --prose-italic-font: var(--font-serif-en), Palatino, Georgia, 'Linux Libertine O';
 }

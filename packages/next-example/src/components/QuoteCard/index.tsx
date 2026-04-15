@@ -14,7 +14,7 @@ export default function QuoteCard(props: QuoteCardProps) {
     <Card
       isBlurred
       shadow="none"
-      className="border border-foreground/[0.06] bg-foreground/[0.02]"
+      className="border border-foreground/[0.06] bg-foreground/[0.02] font-mainpage"
     >
       <CardBody>
         <div className="grid grid-cols-1 sm:grid-cols-3

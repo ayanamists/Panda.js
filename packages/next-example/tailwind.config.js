@@ -37,14 +37,14 @@ const manuscript = {
 const color_primary = manuscript.sage;
 const color_primary_dark = manuscript.teal;
 
-const englishFont = "Palatino, Georgia, 'Linux Libertine O'";
+const englishFont = "var(--font-serif-en), Palatino, Georgia, 'Linux Libertine O'";
 const chineseMainFont = `'Noto Serif CJK SC', 'Songti SC', 'SimSun'`;
 
 const chineseHeadingFont = `'Noto Sans CJK', 'Microsoft YaHei', 'PingFang SC'`;
-const englishHeadingFont = `Optima, 'Linux Biolinum O', Candara`;
+const englishHeadingFont = `var(--font-heading-en), Optima, 'Linux Biolinum O', Candara`;
 
 const monoFont = {
-  fontFamily: `Mononoki, 'Mononoki Nerd Font',
+  fontFamily: `var(--font-mono-web), Mononoki, 'Mononoki Nerd Font',
 FiraCode, 'FiraCode Nerd Font', JetBrainsMono,
 'JetBrainsMono Nerd Font', Menlo, Monaco, monospace`
 }
@@ -52,7 +52,7 @@ FiraCode, 'FiraCode Nerd Font', JetBrainsMono,
 const headingFont = `${englishHeadingFont}, ${chineseHeadingFont}`;
 
 const mainFont = {
-  fontSize: "18px"
+  fontSize: "16px"
 }
 
 // eslint-disable-next-line import/no-anonymous-default-export
@@ -85,6 +85,7 @@ export default {
             '--tw-prose-invert-bullets': color_primary_dark,
             '--tw-prose-invert-counters': color_primary_dark,
 
+            fontFamily: 'var(--prose-body-font)',
             div: mainFont,
             h2: {
               marginTop: '1em',

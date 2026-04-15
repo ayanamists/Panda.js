@@ -3,7 +3,7 @@
 
 @layer base {
   html {
-    font-family: system-ui, sans-serif;
+    font-family: var(--font-serif-en), Palatino, Georgia, 'Linux Libertine O', serif;
   }
 }
 
