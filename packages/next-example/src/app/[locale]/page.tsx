@@ -7,6 +7,7 @@ import { SiMeituan } from "react-icons/si";
 
 import React from 'react';
 import Link from 'next/link';
+import CalligraphyName from '@/components/CalligraphyName';
 
 function SocialLink({ href, icon, label }: {
   href: string,
@@ -59,11 +60,9 @@ function HomePage() {
             </span>
           </div>
 
-          {/* Name */}
-          <h1 className="animate-fade-up delay-1 font-mainpage">
-            <span className="text-3xl md:text-4xl tracking-[0.12em]">
-              李晨曦
-            </span>
+          {/* Name — 集字 calligraphy from 魏碑 & Tang kaishu */}
+          <h1 className="animate-fade-up delay-1">
+            <CalligraphyName className="text-4xl md:text-5xl text-foreground" />
           </h1>
 
           {/* IPA + Romanization */}
