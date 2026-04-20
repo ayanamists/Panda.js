@@ -26,8 +26,13 @@ export default async function Page(props: PageProps) {
   const heading = post.metaData.title;
   const date = post.metaData.date;
   return (<div>
-    <Title id={id} heading={heading} />
-    <PostDate date={date} />
+    <header className="mb-10">
+      <Title id={id} heading={heading} />
+      <div className="mt-3">
+        <PostDate date={date} />
+      </div>
+      <div className="mt-6 h-px bg-gradient-to-r from-foreground/[0.08] via-foreground/[0.06] to-transparent" />
+    </header>
     <AnimatedPostContent name={path} />
   </div>);
 }

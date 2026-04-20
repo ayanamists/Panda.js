@@ -1,24 +1,32 @@
+.toc ul {
+    list-style: none;
+    margin: 0;
+    padding-left: 0.75em;
+}
+
+.toc > ul {
+    padding-left: 0;
+}
+
 .toc ul li {
     margin: 0;
 }
 
-.toc ul {
-    list-style-type: "λ>";
-    margin: 0;
-}
-
 .toc a {
+    display: block;
+    padding: 0.25em 0;
+    padding-left: 0.75em;
     text-decoration: none;
+    border-left: 1px solid transparent;
+    color: color-mix(in srgb, var(--color-foreground, currentColor) 30%, transparent);
+    transition: color 0.3s, border-color 0.3s;
 }
 
-.light {
-  --active-toc-li-color: black;
-}
-
-.dark {
-  --active-toc-li-color: white;
+.toc a:hover {
+    color: color-mix(in srgb, var(--color-foreground, currentColor) 60%, transparent);
 }
 
 .toc a.active {
-    color: var(--active-toc-li-color);
+    color: color-mix(in srgb, var(--color-foreground, currentColor) 85%, transparent);
+    border-left-color: color-mix(in srgb, var(--color-foreground, currentColor) 20%, transparent);
 }

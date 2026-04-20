@@ -1,31 +1,56 @@
 "use client";
 
-import PostCard from '@/components/PostCard';
 import PostDate from "@/components/PostDate";
 import { Post } from '@/contents/cms';
 import { getAnimateTitleId } from '@/utils';
 import { Link } from '@/navigation';
 import { motion } from "framer-motion";
 
+function groupByYear(posts: Post[]): [string, Post[]][] {
+  const groups = new Map<string, Post[]>();
+  for (const post of posts) {
+    const year = new Date(post.metaData.date).getFullYear().toString();
+    const group = groups.get(year) ?? [];
+    group.push(post);
+    groups.set(year, group);
+  }
+  return Array.from(groups.entries());
+}
+
 export default function PostList({ posts }: { posts: Post[] }) {
+  const years = groupByYear(posts);
+
   return (
-    <ul className="mt-8 space-y-0 divide-y divide-foreground/[0.06]">
-      {posts.map(post => (
-        <li key={post.id}>
-          <Link
-            href={`/posts/${post.id}` as "/"}
-            className="group block py-4 -mx-3 px-3 rounded-md
-              hover:bg-foreground/[0.03] transition-colors duration-200"
-          >
-            <motion.div layoutId={getAnimateTitleId(post.id)}>
-              <PostCard post={post} />
-            </motion.div>
-            <div className="mt-1">
-              <PostDate date={post.metaData.date} />
-            </div>
-          </Link>
-        </li>
+    <div className="space-y-12">
+      {years.map(([year, yearPosts]) => (
+        <section key={year}>
+          <h2 className="font-heading text-xs uppercase tracking-[0.2em] text-foreground/25 mb-4">
+            {year}
+          </h2>
+          <ul>
+            {yearPosts.map(post => (
+              <li key={post.id}>
+                <Link
+                  href={`/posts/${post.id}` as "/"}
+                  className="group flex items-baseline justify-between gap-4
+                    py-2.5 transition-colors duration-200"
+                >
+                  <motion.span
+                    layoutId={getAnimateTitleId(post.id)}
+                    className="text-[15px] text-foreground/70 group-hover:text-foreground/95
+                      transition-colors duration-200 font-mainpage leading-snug"
+                  >
+                    {post.metaData.title}
+                  </motion.span>
+                  <span className="shrink-0 hidden sm:block">
+                    <PostDate date={post.metaData.date} compact />
+                  </span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
       ))}
-    </ul>
+    </div>
   );
 }
