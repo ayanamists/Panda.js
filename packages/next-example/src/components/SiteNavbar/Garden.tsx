@@ -1,9 +1,7 @@
 "use client";
 
-import { Dropdown, DropdownMenu, DropdownItem } from "@heroui/dropdown";
-import React from "react";
-import { Link } from "@/navigation";
-import NavbarButton from "./NavbarButton";
+import { Link, usePathname } from "@/navigation";
+import { navLinkClass, NavUnderline } from "./NavbarButton";
 
 interface GardenProps {
   name: string;
@@ -13,26 +11,26 @@ interface GardenProps {
   }[]
 }
 
-export default function Garden( { name, item } : GardenProps) {
+export default function Garden({ name, item }: GardenProps) {
+  const path = usePathname();
+  const highlight = path.includes("favorites");
+
   return (
-    <Dropdown className="bg-background min-w-24 border border-foreground/[0.06] shadow-sm shadow-foreground/[0.04] rounded-md">
-      <NavbarButton name={name} dropdown={true} link={"/favorites"} />
-      <DropdownMenu
-        aria-label="favorite selects"
-        className="w-auto min-w-24"
-        itemClasses={{
-          base: "gap-2 text-[13px] text-foreground/60 data-[hover=true]:text-foreground data-[hover=true]:bg-foreground/[0.04]",
-        }}
-      >
+    <details className="nav-details relative">
+      <summary className={`${navLinkClass(highlight)} cursor-pointer`}>
+        {name}
+        <NavUnderline highlight={highlight} />
+      </summary>
+      <div className="absolute left-0 z-50 mt-2 min-w-24 rounded-md border border-foreground/[0.06] bg-background py-1 shadow-sm shadow-foreground/[0.04]">
         {item.map((i) =>
-          <DropdownItem
-            key={`/favorites/${i.link}`}
-            as={Link}
-            href={`/favorites/${i.link}`}
+          <Link
+            key={i.link}
+            href={`/favorites/${i.link}` as "/"}
+            className="block px-3 py-1.5 text-[13px] text-foreground/60 hover:bg-foreground/[0.04] hover:text-foreground"
           >
             {i.name}
-          </DropdownItem>)
-        }
-      </DropdownMenu>
-    </Dropdown>);
+          </Link>)}
+      </div>
+    </details>
+  );
 }

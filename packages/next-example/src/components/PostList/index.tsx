@@ -1,10 +1,6 @@
-"use client";
-
 import PostDate from "@/components/PostDate";
 import { Post } from '@/contents/cms';
-import { getAnimateTitleId } from '@/utils';
 import { Link } from '@/navigation';
-import { motion } from "framer-motion";
 
 function groupByYear(posts: Post[]): [string, Post[]][] {
   const groups = new Map<string, Post[]>();
@@ -35,13 +31,12 @@ export default function PostList({ posts }: { posts: Post[] }) {
                   className="group flex items-baseline justify-between gap-4
                     py-2.5 transition-colors duration-200"
                 >
-                  <motion.span
-                    layoutId={getAnimateTitleId(post.id)}
+                  <span
                     className="text-[15px] text-foreground/70 group-hover:text-foreground/95
                       transition-colors duration-200 font-mainpage leading-snug"
                   >
                     {post.metaData.title}
-                  </motion.span>
+                  </span>
                   <span className="shrink-0 hidden sm:block">
                     <PostDate date={post.metaData.date} compact />
                   </span>

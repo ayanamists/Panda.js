@@ -1,4 +1,4 @@
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 import ThemeSwitcher from "../ThemeSwitcher";
 import LangSwitcher from "../LangSwitcher";
 import Garden from "./Garden";
@@ -9,9 +9,9 @@ function NavSep() {
   return <span className="text-[10px] text-foreground/15 select-none" aria-hidden="true">·</span>;
 }
 
-export default function SiteNavbar() {
-  const t = useTranslations('Navbar');
-  const tf = useTranslations('Favorites');
+export default async function SiteNavbar() {
+  const t = await getTranslations('Navbar');
+  const tf = await getTranslations('Favorites');
   const favouriteData = {
     name: t("favorites"),
     item: [{
@@ -50,3 +50,4 @@ export default function SiteNavbar() {
     </nav>
   );
 }
+ 

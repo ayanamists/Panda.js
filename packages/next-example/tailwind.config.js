@@ -1,5 +1,4 @@
 /** @type {import('tailwindcss').Config} */
-import { heroui } from "@heroui/theme";
 import typo from "@tailwindcss/typography";
 
 /*
@@ -59,7 +58,6 @@ const mainFont = {
 export default {
   content: [
     "./src/**/*.{js,ts,jsx,tsx,mdx}",
-    "../../node_modules/@heroui/theme/dist/**/*.{js,mjs}"
   ],
   theme: {
     extend: {
@@ -142,29 +140,7 @@ export default {
       }),
     }
   },
-  plugins: [heroui({
-    themes: {
-      light: {
-        colors: {
-          background: manuscript.paper,
-          foreground: manuscript.ink,
-          primary: {
-            DEFAULT: color_primary,
-          },
-          lightwhite: manuscript.paperLight,
-        },
-      },
-      dark: {
-        colors: {
-          background: manuscript.slate,
-          foreground: manuscript.pearl,
-          primary: {
-            DEFAULT: color_primary_dark,
-          },
-          lightblack: '#141618'
-        },
-      }
-    }
-  }), typo()],
+  plugins: [typo],
   darkMode: 'class',
 }
+ 

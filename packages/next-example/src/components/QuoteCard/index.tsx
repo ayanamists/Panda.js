@@ -1,6 +1,3 @@
-import { Card, CardBody } from "@heroui/card";
-import { Image } from "@heroui/image";
-
 interface QuoteCardProps {
   text: string;
   author: string;
@@ -11,21 +8,16 @@ interface QuoteCardProps {
 
 export default function QuoteCard(props: QuoteCardProps) {
   return (<div className="w-full font-mainpage">
-    <Card
-      isBlurred
-      shadow="none"
-      className="border border-foreground/[0.06] bg-foreground/[0.02] font-mainpage"
-    >
-      <CardBody>
+    <div className="rounded-xl border border-foreground/[0.06] bg-foreground/[0.02] font-mainpage">
+      <div className="p-4">
         <div className="grid grid-cols-1 sm:grid-cols-3
         grid-rows-2 sm:grid-rows-1
         gap-0 sm:gap-6
         place-items-center">
-          { props.avatarURL && <Image
-            width={"200"}
-            className="max-h-200"
+          { props.avatarURL && <img
+            width={200}
+            className="max-h-52 rounded-md object-cover"
             alt={`Figure of ${props.author}`}
-            shadow="sm"
             src={props.avatarURL}
           />
           }
@@ -41,7 +33,7 @@ export default function QuoteCard(props: QuoteCardProps) {
             </p>
           </div>
         </div>
-      </CardBody>
-    </Card>
+      </div>
+    </div>
   </div>);
 }

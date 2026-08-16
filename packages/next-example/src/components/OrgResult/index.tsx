@@ -3,7 +3,6 @@
 import React, { useState } from "react";
 import './table.css';
 import { FaCaretRight } from "react-icons/fa";
-import { Button } from "@heroui/button";
 
 
 interface OrgResultProp {
@@ -16,15 +15,18 @@ const OrgResult: React.FC<OrgResultProp> = ({ children }) => {
   return (
     <div className="">
       <div className="flex items-center text-xl text-bold">
-        <Button isIconOnly variant="light"
-          onPress={() => {
+        <button
+          type="button"
+          aria-label="Toggle output"
+          className="p-2 text-foreground/50 hover:text-foreground/80 transition-colors duration-200"
+          onClick={() => {
             setIsOpen((open) => !open)
           }}
         >
           <div className={(isOpen ? "rotate-90" : "")}>
             <FaCaretRight />
           </div>
-        </Button>
+        </button>
         <span className="font-mono">Output</span>
       </div>
       {isOpen &&

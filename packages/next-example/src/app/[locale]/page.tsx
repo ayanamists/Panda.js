@@ -7,6 +7,7 @@ import { SiMeituan } from "react-icons/si";
 
 import React from 'react';
 import Link from 'next/link';
+import { setRequestLocale } from 'next-intl/server';
 import CalligraphyName from '@/components/CalligraphyName';
 
 function SocialLink({ href, icon, label }: {
@@ -52,7 +53,7 @@ function HomePage() {
         {/* ── Identity ── */}
         <header className="mb-4">
           {/* Type judgment — the polymorphic identity */}
-          <div className="animate-fade-in delay-0 mb-5 select-none" aria-hidden="true">
+          <div className="mb-5 select-none" aria-hidden="true">
             <span className="font-serif italic text-primary/20 tracking-[0.3em] text-base">
               Γ <span className="not-italic text-primary/15">⊢</span> λx.x
               <span className="not-italic text-primary/15 mx-0.5">:</span>
@@ -61,12 +62,12 @@ function HomePage() {
           </div>
 
           {/* Name — 集字 calligraphy from 魏碑 & Tang kaishu */}
-          <h1 className="animate-fade-up delay-1">
+          <h1>
             <CalligraphyName className="text-4xl md:text-5xl text-foreground" />
           </h1>
 
           {/* IPA + Romanization */}
-          <div className="animate-fade-up delay-1 mt-1.5 flex items-baseline gap-2.5">
+          <div className="mt-1.5 flex items-baseline gap-2.5">
             <span className="text-base text-foreground/50 tracking-wide font-mainpage">
               Li Chenxi
             </span>
@@ -192,10 +193,15 @@ function HomePage() {
   );
 }
 
-export default async function Index() {
+export default async function Index(props: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await props.params;
+  setRequestLocale(locale);
   return (
     <main>
       <HomePage />
     </main>
   );
 }
+ 

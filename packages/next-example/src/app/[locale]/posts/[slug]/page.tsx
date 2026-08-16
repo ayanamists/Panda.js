@@ -1,8 +1,7 @@
 import { getPostByLang, getPostById } from '@/contents/cms';
 import { setRequestLocale } from 'next-intl/server';
 import type { Metadata, ResolvingMetadata } from 'next'
-import Title from '@/components/AnimatedPostTitle';
-import AnimatedPostContent from "@/components/AnimatedPostContent";
+import PostContent from '@/contents';
 import PostDate from "@/components/PostDate";
 
 interface PageProps {
@@ -27,13 +26,15 @@ export default async function Page(props: PageProps) {
   const date = post.metaData.date;
   return (<div>
     <header className="mb-10">
-      <Title id={id} heading={heading} />
+      <h1 className="text-2xl sm:text-3xl font-heading font-bold tracking-tight text-foreground/90 leading-tight">
+        {heading}
+      </h1>
       <div className="mt-3">
         <PostDate date={date} />
       </div>
       <div className="mt-6 h-px bg-gradient-to-r from-foreground/[0.08] via-foreground/[0.06] to-transparent" />
     </header>
-    <AnimatedPostContent name={path} />
+    <PostContent name={path} />
   </div>);
 }
 
@@ -48,6 +49,7 @@ export async function generateStaticParams({ params }: {
   const locale = params.locale;
   const posts = await getPostByLang(locale);
   return posts
+    .filter(post => !post.metaData.draft)
     .map(post => ({
       slug: post.id,
     }));

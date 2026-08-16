@@ -1,4 +1,3 @@
-"use client";
 import { CiCircleInfo } from "react-icons/ci";
 import { CiWarning } from "react-icons/ci";
 import { CiSquareMore } from "react-icons/ci";

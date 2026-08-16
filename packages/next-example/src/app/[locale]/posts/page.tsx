@@ -1,7 +1,6 @@
 import { getPostByLang } from '@/contents/cms';
 import PostList from '@/components/PostList';
-import { Suspense } from 'react';
-import Loading from '@/components/Loading';
+import { setRequestLocale } from 'next-intl/server';
 
 interface BlogPageProps {
   params: Promise<{
@@ -17,6 +16,8 @@ export default async function BlogPage(props: BlogPageProps) {
     locale
   } = params;
 
+  setRequestLocale(locale);
+
   const posts = (await getPostByLang(locale))
     .filter(post => !post.metaData.draft)
     .sort((a, b) => new Date(b.metaData.date).getTime() -
@@ -30,9 +31,7 @@ export default async function BlogPage(props: BlogPageProps) {
         </h1>
         <div className="mt-4 h-px bg-gradient-to-r from-foreground/[0.08] via-foreground/[0.08] to-transparent" />
       </header>
-      <Suspense fallback={<Loading />}>
-        <PostList posts={posts} />
-      </Suspense>
+      <PostList posts={posts} />
     </main>
   );
 }
@@ -40,3 +39,4 @@ export default async function BlogPage(props: BlogPageProps) {
 export async function generateStaticParams() {
   return [{}];
 }
+ 
