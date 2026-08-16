@@ -1,7 +1,7 @@
 ---
 title: "Agent 读到的是 buffer，还是 disk？"
 date: 2026-07-13
-draft: false
+draft: true
 categories:
   - 系统
 tags:

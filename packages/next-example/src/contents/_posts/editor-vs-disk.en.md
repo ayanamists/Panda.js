@@ -1,7 +1,7 @@
 ---
 title: "When an Agent Reads a File, Is It Reading the Buffer or the Disk?"
 date: 2026-07-13
-draft: false
+draft: true
 categories:
   - Systems
 tags:

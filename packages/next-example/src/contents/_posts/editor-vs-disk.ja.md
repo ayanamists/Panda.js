@@ -1,7 +1,7 @@
 ---
 title: "Agentが読んでいるのはバッファか、ディスクか？"
 date: 2026-07-13
-draft: false
+draft: true
 categories:
   - システム
 tags:
