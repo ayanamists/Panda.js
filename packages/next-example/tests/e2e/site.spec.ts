@@ -63,17 +63,47 @@ test('article body is in the first document and not opacity 0', async ({ page })
 test('language switcher reaches the Japanese article', async ({ page }) => {
   await page.goto('/zh-cn/posts/hindley-milner');
   await page.getByLabel('Select Language', { exact: true }).click();
-  await page.getByRole('link', { name: '日本語' }).click();
+  await page.getByRole('menuitem', { name: /日本語/ }).click();
   await expect(page).toHaveURL(/\/ja\/posts\/hindley-milner\/?$/);
   await expect(page.locator('h1')).toContainText('Hindley-Milner');
   await expect(page.locator('article')).toBeVisible();
   await expectNoNextError(page);
 });
 
+test('garden sits on the same row as 主页 and 博客', async ({ page }) => {
+  await page.goto('/zh-cn');
+  const home = await page.getByRole('link', { name: '主页' }).boundingBox();
+  const blog = await page.getByRole('link', { name: '博客' }).boundingBox();
+  const garden = await page.getByRole('button', { name: '园地' }).boundingBox();
+  expect(home && blog && garden).toBeTruthy();
+  const mid = (box: { y: number; height: number }) => box.y + box.height / 2;
+  expect(Math.abs(mid(home!) - mid(garden!))).toBeLessThan(2);
+  expect(Math.abs(mid(blog!) - mid(garden!))).toBeLessThan(2);
+});
+
+test('garden menu is centered on 园地 and dismisses', async ({ page }) => {
+  await page.goto('/zh-cn');
+  const trigger = page.getByRole('button', { name: '园地' });
+  await trigger.click();
+  const menu = page.getByRole('menu');
+  await expect(menu.getByRole('menuitem', { name: '格言' })).toBeVisible();
+
+  const triggerBox = await trigger.boundingBox();
+  const menuBox = await menu.boundingBox();
+  expect(triggerBox).toBeTruthy();
+  expect(menuBox).toBeTruthy();
+  const triggerCenter = triggerBox!.x + triggerBox!.width / 2;
+  const menuCenter = menuBox!.x + menuBox!.width / 2;
+  expect(Math.abs(triggerCenter - menuCenter)).toBeLessThan(4);
+
+  await page.locator('main').click({ position: { x: 20, y: 20 } });
+  await expect(menu).toHaveCount(0);
+});
+
 test('garden menu opens mottos', async ({ page }) => {
   await page.goto('/zh-cn');
-  await page.getByText('园地', { exact: true }).click();
-  await page.getByRole('link', { name: '格言' }).click();
+  await page.getByRole('button', { name: '园地' }).click();
+  await page.getByRole('menuitem', { name: '格言' }).click();
   await expect(page).toHaveURL(/\/zh-cn\/favorites\/mottos\/?$/);
   await expect(page.locator('h1')).toContainText('格言');
   await expect(page.getByText(/Edsger W\.Dijkstra/)).toBeVisible();

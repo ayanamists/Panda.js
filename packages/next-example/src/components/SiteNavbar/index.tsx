@@ -27,7 +27,7 @@ export default async function SiteNavbar() {
         {/* Left: Monogram + navigation links */}
         <div className="flex items-center">
           <Monogram />
-          <div className="ml-5 flex items-center gap-3">
+          <div className="ml-5 flex items-center gap-3 leading-none">
             <NavbarButton name={t("main")} link="/" />
             <NavSep />
             <NavbarButton name={t("blog")} link="/posts" />
