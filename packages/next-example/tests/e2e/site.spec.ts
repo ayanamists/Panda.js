@@ -94,7 +94,9 @@ test('garden menu is centered on 园地 and dismisses', async ({ page }) => {
   expect(menuBox).toBeTruthy();
   const triggerCenter = triggerBox!.x + triggerBox!.width / 2;
   const menuCenter = menuBox!.x + menuBox!.width / 2;
-  expect(Math.abs(triggerCenter - menuCenter)).toBeLessThan(4);
+  expect(Math.abs(triggerCenter - menuCenter), 'menu should sit under 园地').toBeLessThan(4);
+  expect(menuBox!.y).toBeGreaterThan(triggerBox!.y + triggerBox!.height);
+  expect(menuBox!.y - (triggerBox!.y + triggerBox!.height)).toBeLessThan(16);
 
   await page.locator('main').click({ position: { x: 20, y: 20 } });
   await expect(menu).toHaveCount(0);

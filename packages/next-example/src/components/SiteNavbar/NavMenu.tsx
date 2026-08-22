@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useId, useRef, useState } from "react";
+import { useEffect, useId, useLayoutEffect, useRef, useState } from "react";
 
 type Align = "center" | "left" | "right";
 
@@ -16,8 +16,35 @@ export default function NavMenu({
   label: string;
 }) {
   const [open, setOpen] = useState(false);
+  const [coords, setCoords] = useState<{ top: number; left: number } | null>(null);
   const rootRef = useRef<HTMLDivElement>(null);
+  const triggerRef = useRef<HTMLButtonElement>(null);
   const menuId = useId();
+
+  useLayoutEffect(() => {
+    if (!open || !triggerRef.current) {
+      setCoords(null);
+      return;
+    }
+
+    const place = () => {
+      const box = triggerRef.current?.getBoundingClientRect();
+      if (!box) return;
+      const left =
+        align === "right" ? box.right
+        : align === "left" ? box.left
+        : box.left + box.width / 2;
+      setCoords({ top: box.bottom + 8, left });
+    };
+
+    place();
+    window.addEventListener("resize", place);
+    window.addEventListener("scroll", place, true);
+    return () => {
+      window.removeEventListener("resize", place);
+      window.removeEventListener("scroll", place, true);
+    };
+  }, [open, align]);
 
   useEffect(() => {
     if (!open) return;
@@ -39,16 +66,15 @@ export default function NavMenu({
     };
   }, [open]);
 
-  const panelAlign =
-    align === "center"
-      ? "left-1/2 -translate-x-1/2"
-      : align === "right"
-        ? "right-0"
-        : "left-0";
+  const shift =
+    align === "right" ? "translateX(-100%)"
+    : align === "left" ? "none"
+    : "translateX(-50%)";
 
   return (
     <div ref={rootRef} className="relative inline-flex items-center">
       <button
+        ref={triggerRef}
         type="button"
         className="inline-flex items-center appearance-none border-0 bg-transparent p-0 m-0 font-inherit text-[length:inherit] leading-[inherit] tracking-[inherit] cursor-pointer"
         aria-label={label}
@@ -59,11 +85,12 @@ export default function NavMenu({
       >
         {trigger}
       </button>
-      {open && (
+      {open && coords && (
         <div
           id={menuId}
           role="menu"
-          className={`absolute z-50 mt-2 min-w-full whitespace-nowrap rounded-md border border-foreground/[0.06] bg-background py-1 shadow-sm shadow-foreground/[0.04] ${panelAlign}`}
+          className="fixed z-50 min-w-max whitespace-nowrap rounded-md border border-foreground/[0.06] bg-background py-1 shadow-sm shadow-foreground/[0.04]"
+          style={{ top: coords.top, left: coords.left, transform: shift }}
           onClick={() => setOpen(false)}
         >
           {children}
