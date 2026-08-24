@@ -53,6 +53,66 @@ jobs:
           HTML
           printf '%s\n' 'User-agent: *' 'Disallow: /' > offline-site/robots.txt
           printf '%s\n' '/*    /index.html   200' > offline-site/_redirects
+          cat > offline-site/_headers <<'HEADERS'
+          /*
+            Cache-Control: no-store, no-cache, must-revalidate
+            X-Robots-Tag: noindex, nofollow
+          HEADERS
+          # Overwrite previously published HTML paths so Cloudflare
+          # treats them as changed files and drops the old 7-day cache.
+          while read -r rel; do
+            [ -z "$rel" ] && continue
+            mkdir -p "offline-site/$(dirname "$rel")"
+            cp offline-site/index.html "offline-site/$rel"
+          done <<'PATHS'
+          404.html
+          en.html
+          ja.html
+          zh-cn.html
+          en/index.html
+          ja/index.html
+          zh-cn/index.html
+          en/posts.html
+          ja/posts.html
+          zh-cn/posts.html
+          en/posts/index.html
+          ja/posts/index.html
+          zh-cn/posts/index.html
+          en/favorites/mottos.html
+          ja/favorites/mottos.html
+          zh-cn/favorites/mottos.html
+          en/posts/edsac.html
+          en/posts/emacs-line-number.html
+          en/posts/ext-gcd.html
+          en/posts/fp-lc100-001-permutation.html
+          en/posts/gmp.html
+          en/posts/godel.html
+          en/posts/hindley-milner.html
+          en/posts/lambda-the-origin.html
+          en/posts/parametric-poly.html
+          en/posts/qin-mss-bard.html
+          ja/posts/edsac.html
+          ja/posts/emacs-line-number.html
+          ja/posts/fp-lc100-001-permutation.html
+          ja/posts/gmp.html
+          ja/posts/godel.html
+          ja/posts/hindley-milner.html
+          ja/posts/lambda-the-origin.html
+          ja/posts/parametric-poly.html
+          ja/posts/qin-mss-bard.html
+          zh-cn/posts/edsac.html
+          zh-cn/posts/emacs-line-number.html
+          zh-cn/posts/ext-gcd.html
+          zh-cn/posts/fp-lc100-001-permutation.html
+          zh-cn/posts/gmp.html
+          zh-cn/posts/godel.html
+          zh-cn/posts/hindley-milner.html
+          zh-cn/posts/lambda-the-origin.html
+          zh-cn/posts/migrate.html
+          zh-cn/posts/my-network-config.html
+          zh-cn/posts/parametric-poly.html
+          zh-cn/posts/qin-mss-bard.html
+          PATHS
 
       - name: Publish offline page
         uses: cloudflare/pages-action@v1
@@ -70,4 +130,15 @@ jobs:
           curl -sS -X DELETE \
             "https://api.cloudflare.com/client/v4/accounts/${CF_ACCOUNT_ID}/pages/projects/ayayaya-home/domains/ayayaya.org" \
             -H "Authorization: Bearer ${CF_API_TOKEN}" \
-            -H "Content-Type: application/json"
+            -H "Content-Type: application/json" || true
+
+      - name: Try purging Pages cache
+        env:
+          CF_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CF_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          curl -sS -X POST \
+            "https://api.cloudflare.com/client/v4/accounts/${CF_ACCOUNT_ID}/pages/projects/ayayaya-home/purge_build_cache" \
+            -H "Authorization: Bearer ${CF_API_TOKEN}" \
+            -H "Content-Type: application/json" || true
+          echo
