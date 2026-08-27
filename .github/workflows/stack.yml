@@ -1,5 +1,7 @@
 name: Build panda binary
-on: [push]
+on:
+  push:
+  workflow_dispatch:
 permissions:
   contents: write
 jobs:
@@ -65,3 +67,14 @@ jobs:
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           projectName: ayayaya-home
           directory: packages/next-example/out # e.g. 'dist'
+
+      - name: Ensure ayayaya.org is attached
+        env:
+          CF_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CF_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          curl -sS -X POST \
+            "https://api.cloudflare.com/client/v4/accounts/${CF_ACCOUNT_ID}/pages/projects/ayayaya-home/domains" \
+            -H "Authorization: Bearer ${CF_API_TOKEN}" \
+            -H "Content-Type: application/json" \
+            --data '{"name":"ayayaya.org"}'
