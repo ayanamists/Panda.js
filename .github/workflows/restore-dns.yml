@@ -15,10 +15,13 @@ jobs:
           CF_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
         run: |
           set -euo pipefail
-          zone_id="$(curl -sS "https://api.cloudflare.com/client/v4/zones?name=ayayaya.org" \
+          zone_id="034aaebc99b2820b8ce7877bbbd00d90"
+          echo "GET zone"
+          curl -sS "https://api.cloudflare.com/client/v4/zones/${zone_id}" \
             -H "Authorization: Bearer ${CF_API_TOKEN}" \
-            -H "Content-Type: application/json" | jq -r '.result[0].id')"
-          echo "zone_id=$zone_id"
+            -H "Content-Type: application/json"
+          echo
+          echo "POST CNAME"
           curl -sS -X POST \
             "https://api.cloudflare.com/client/v4/zones/${zone_id}/dns_records" \
             -H "Authorization: Bearer ${CF_API_TOKEN}" \
