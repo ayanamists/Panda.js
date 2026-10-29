@@ -32,8 +32,8 @@ jobs:
           lfs: true
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
-        run: echo "::set-output name=dir::$(yarn cache dir)"
-      - uses: actions/cache@v3
+        run: echo "dir=$(yarn cache dir)" >> "$GITHUB_OUTPUT"
+      - uses: actions/cache@v4
         id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
         with:
           path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
@@ -61,12 +61,11 @@ jobs:
           cmd: build # will run `yarn build:prod` command
 
       - name: Publish
-        uses: cloudflare/pages-action@v1
+        uses: cloudflare/wrangler-action@v4
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          projectName: ayayaya-home
-          directory: packages/next-example/out # e.g. 'dist'
+          command: pages deploy packages/next-example/out --project-name=ayayaya-home
 
       - name: Ensure ayayaya.org is attached
         env:
