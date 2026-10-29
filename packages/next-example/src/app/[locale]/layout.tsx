@@ -46,8 +46,13 @@ export default async function RootLayout(
 
   setRequestLocale(params.locale);
   return (
-    <html lang={params.locale} suppressHydrationWarning>
-      <body className={`${crimsonPro.variable} ${jost.variable} ${jetbrainsMono.variable} text-foreground bg-background`}>
+    // fonts.css and Tailwind resolve font variables on html, before inheritance.
+    <html
+      lang={params.locale}
+      className={`${crimsonPro.variable} ${jost.variable} ${jetbrainsMono.variable}`}
+      suppressHydrationWarning
+    >
+      <body className="text-foreground bg-background">
         <Providers locale={params.locale}>
           <DynamicTopLoader />
           <SiteNavbar />
