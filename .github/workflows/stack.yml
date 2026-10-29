@@ -65,7 +65,8 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy packages/next-example/out --project-name=ayayaya-home
+          workingDirectory: packages/next-example
+          command: pages deploy out --project-name=ayayaya-home
 
       - name: Ensure ayayaya.org is attached
         env:
